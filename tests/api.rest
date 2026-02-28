@@ -1,0 +1,63 @@
+
+@contentType = application/json
+
+###
+GET {{authority}}/api/properties/sync
+Accept: application/json
+authorization: Bearer {{ token }}
+
+### User Registration
+POST {{authority}}/api/register
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "linton@scoutredeem.co",
+  "password": "password",
+  "churchName": "Church Name",
+  "churchUrl": "https://www.churchurl.com"
+}
+
+### Forgot Password
+POST {{authority}}/api/forgot-password
+Content-Type: application/json
+
+{
+  "email": "john.ddde@example.com"
+}
+
+### Reset Password (replace TOKEN with actual token from forgot password response)
+POST {{authority}}/api/reset-password
+Content-Type: application/json
+
+{
+  "token": "c10f2ddf53da7bb58f672dad04fc58e27ed3f85c588b1eb132a4328bd42ac5ac",
+  "password": "newpassword123"
+}
+
+###
+POST {{authority}}/api/settings
+Content-Type: application/json
+
+{
+  "address": "123 Main St, Melbourne",
+  "suburb": "Richmond", 
+  "radius": 5,
+  "searchType": "radius"
+}
+
+###
+PUT {{authority}}/properties/2
+Content-Type: application/json
+
+{
+  "address": "123 Main St, belbron",
+  "feedbackStatus": "visited"
+}
+
+###
+GET {{geoCodeAuthority}}/search?q=Sans Souci 2219&api_key={{geocodeApiKey}}
+Accept: application/json
+
+
+

@@ -1,0 +1,77 @@
+steps:
+  - name: gcr.io/cloud-builders/docker
+    id: Build
+    args:
+      - build
+      - '--no-cache'
+      - '-t'
+      - '$_AR_HOSTNAME/$_AR_PROJECT_ID/$_AR_REPOSITORY/$_REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
+      - .
+      - '-f'
+      - Dockerfile
+
+  - name: gcr.io/cloud-builders/docker
+    id: Push
+    args:
+      - push
+      - '$_AR_HOSTNAME/$_AR_PROJECT_ID/$_AR_REPOSITORY/$_REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
+
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+    id: Set migration job
+    entrypoint: bash
+    args:
+      - -ceu
+      - |
+        set -o pipefail
+
+        gcloud run jobs update "$_JOB_NAME" \
+          --image="$_AR_HOSTNAME/$_AR_PROJECT_ID/$_AR_REPOSITORY/$_REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA" \
+          --region="$_DEPLOY_REGION" \
+          --update-env-vars=DB_DATABASE="${_DB_NAME}" \
+          --quiet
+
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+    id: Run migrations
+    entrypoint: bash
+    args:
+      - -ceu
+      - |
+        gcloud run jobs execute "$_JOB_NAME" --region="$_DEPLOY_REGION" --wait
+
+        # verify last execution by checking succeededCount from JSON output
+        if gcloud run jobs executions list --job="$_JOB_NAME" --region="$_DEPLOY_REGION" --format=json --limit=1 | grep -q '"succeededCount": 1'; then
+          echo "Migration job succeeded"
+        else
+          echo "Migration job did not succeed"
+          exit 1
+        fi
+
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
+    id: Deploy
+    args:
+      - run
+      - services
+      - update
+      - $_SERVICE_NAME
+      - '--platform=managed'
+      - >-
+        --image=$_AR_HOSTNAME/$_AR_PROJECT_ID/$_AR_REPOSITORY/$_REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA
+      - >-
+        --labels=managed-by=gcp-cloud-build-deploy-cloud-run,commit-sha=$COMMIT_SHA,gcb-build-id=$BUILD_ID,gcb-trigger-id=$_TRIGGER_ID
+      - '--region=$_DEPLOY_REGION'
+      - '--quiet'
+    entrypoint: gcloud
+
+options:
+  substitutionOption: ALLOW_LOOSE
+  logging: CLOUD_LOGGING_ONLY
+substitutions:
+  _DEPLOY_REGION: europe-west1
+  _AR_HOSTNAME: europe-west1-docker.pkg.dev
+  _AR_REPOSITORY: cloud-run-source-deploy
+  _AR_PROJECT_ID: cmw-portal
+  _PLATFORM: managed
+  _JOB_NAME: portal-migrate
+tags:
+  - gcp-cloud-build-deploy-cloud-run
+  - gcp-cloud-build-deploy-cloud-run-managed

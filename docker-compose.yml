@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgis/postgis:15-3.3
+    container_name: welcomers-postgres
+    restart: unless-stopped
+    environment:
+      # These fall back to the values below if not provided in a host .env
+      POSTGRES_USER: ${DB_USER:-welcomers_user}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-welcomers_pass}
+      POSTGRES_DB: ${DB_DATABASE:-welcomers_dev}
+    ports:
+      # Bind container 5432 to host 5433 to avoid conflicts with local Postgres
+      - '5433:5432'
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres -h 127.0.0.1 -p 5432']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: welcomers-mailhog
+    restart: unless-stopped
+    ports:
+      - '1025:1025' # SMTP
+      - '8025:8025' # Web UI
+
+  adminer:
+    image: adminer:latest
+    container_name: welcomers-adminer
+    restart: unless-stopped
+    ports:
+      - '8080:8080'
+    depends_on:
+      - db
+
+volumes:
+  db_data:

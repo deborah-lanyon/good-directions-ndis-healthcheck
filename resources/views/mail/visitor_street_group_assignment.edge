@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>
+      You've Been Assigned to a Street Group
+    </title>
+
+    <!--[if !mso]><!-->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Karla:ital,wght@0,200..800;1,200..800&display=swap"
+      rel="stylesheet"
+    />
+    <!--<![endif]-->
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Caprasimo&family=Karla:ital,wght@0,200..800;1,200..800&display=swap');
+
+      @media only screen and (min-width: 600px) {
+        .heading {
+          font-size: 30px !important;
+        }
+
+        .button-text {
+          font-size: 30px !important;
+        }
+      }
+    </style>
+  </head>
+  <body
+    style="margin: 0; padding: 0; background-color: #f1ede0; font-family: 'Karla', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.5; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;"
+  >
+    <table
+      role="presentation"
+      cellspacing="0"
+      cellpadding="0"
+      border="0"
+      width="100%"
+      style="background-color: #f1ede0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"
+    >
+      <tr>
+        <td align="center" style="padding: 0 32px;">
+
+          <table
+            role="presentation"
+            cellspacing="0"
+            cellpadding="0"
+            border="0"
+            width="100%"
+            style="max-width: 600px; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"
+          >
+
+            <!-- Top spacing and image -->
+            <tr>
+              <td align="center" style="padding: 135px 0 0 0;">
+                <img
+                  src="https://res.cloudinary.com/redeem/image/upload/v1762483653/dev/Knock_Knock_trbiaj.png"
+                  alt="Street Group Assignment"
+                  width="300"
+                  style="display: block; border: 0; max-width: 100%; height: auto;"
+                />
+              </td>
+            </tr>
+
+            <!-- Greeting -->
+            <tr>
+              <td align="center" style="padding: 40px 0 0 0;">
+                <p
+                  style="margin: 0; font-family: 'Karla', Arial, sans-serif; font-size: 18px; font-weight: 400; color: #333; text-align: center;"
+                >
+                  Hi {{ visitor.name }},
+                </p>
+              </td>
+            </tr>
+
+            <!-- Heading text -->
+            <tr>
+              <td align="center" style="padding: 20px 0 0 0;">
+                <p
+                  class="heading"
+                  style="margin: 0; font-family: 'Karla', Arial, sans-serif; font-size: 20px; font-weight: 600; color: #0056c9; text-align: center; max-width: 465px; line-height: 1.5;"
+                >
+                  You've been assigned to {{ streetGroupName }}
+                </p>
+              </td>
+            </tr>
+
+            <!-- Streets List -->
+            @if(streets && streets.length > 0)
+              <tr>
+                <td align="center" style="padding: 30px 20px 0 20px;">
+                  <p
+                    style="margin: 0 0 12px 0; font-family: 'Karla', Arial, sans-serif; font-size: 16px; font-weight: 600; color: #333; text-align: center;"
+                  >
+                    Your assigned streets:
+                  </p>
+                  <table
+                    role="presentation"
+                    cellspacing="0"
+                    cellpadding="0"
+                    border="0"
+                    width="100%"
+                    style="max-width: 400px; border-collapse: collapse;"
+                  >
+                    @each(street in streets)
+                      <tr>
+                        <td
+                          style="padding: 8px 16px; background-color: #e8f4fc; border-radius: 6px; margin-bottom: 6px;"
+                        >
+                          <p
+                            style="margin: 0; font-family: 'Karla', Arial, sans-serif; font-size: 14px; font-weight: 500; color: #0056c9; text-align: center;"
+                          >
+                            {{ street }}
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="height: 8px;"></td>
+                      </tr>
+                    @end
+                  </table>
+                </td>
+              </tr>
+            @end
+
+            <!-- Property List -->
+            @if(properties && properties.length > 0)
+              <tr>
+                <td align="center" style="padding: 30px 20px 0 20px;">
+                  <p
+                    style="margin: 0 0 12px 0; font-family: 'Karla', Arial, sans-serif; font-size: 16px; font-weight: 600; color: #333; text-align: center;"
+                  >
+                    @if(propertyCount === 1)
+                      There is 1 property on your streets:
+                    @else
+                      There are {{ propertyCount }} properties on your streets:
+                    @end
+                  </p>
+                  <table
+                    role="presentation"
+                    cellspacing="0"
+                    cellpadding="0"
+                    border="0"
+                    width="100%"
+                    style="max-width: 500px; border-collapse: collapse;"
+                  >
+                    @each(property in properties)
+                      <tr>
+                        <td
+                          style="padding: 12px; background-color: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; margin-bottom: 8px;"
+                        >
+                          <p
+                            style="margin: 0; font-family: 'Karla', Arial, sans-serif; font-size: 15px; font-weight: 500; color: #1f2937;"
+                          >
+                            {{ property.address }}
+                          </p>
+                          <p
+                            style="margin: 8px 0 0 0; font-family: 'Karla', Arial, sans-serif; font-size: 13px; color: #6b7280;"
+                          >
+                            Sold: {{ property.dateSold }}
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="height: 12px;">
+                        </td>
+                      </tr>
+                    @end
+                  </table>
+                </td>
+              </tr>
+            @else
+              <tr>
+                <td align="center" style="padding: 30px 20px 0 20px;">
+                  <p
+                    style="margin: 0; font-family: 'Karla', Arial, sans-serif; font-size: 14px; color: #6b7280; text-align: center;"
+                  >
+                    No properties have been synced for these streets yet. You'll receive a notification when new properties appear.
+                  </p>
+                </td>
+              </tr>
+            @end
+
+            <!-- Login Button -->
+            <tr>
+              <td align="center" style="padding: 60px 0 0 0;">
+                <a
+                  href="{{ baseUrl }}/login"
+                  target="_blank"
+                  class="button-text"
+                  style="display: inline-block; padding: 12px 64px; font-family: 'Caprasimo', Georgia, 'Times New Roman', serif; font-size: 20px; line-height: 150%; color: #F1EDE0; text-align: center; text-decoration: none; background-color: #0056c9; border-radius: 9999px;"
+                >
+                  View Details
+                </a>
+              </td>
+            </tr>
+
+            <!-- Footer Wave Image -->
+            <tr>
+              <td style="padding-top: 144px;" align="center">
+                <img
+                  src="https://res.cloudinary.com/redeem/image/upload/v1762483434/dev/wave-combined_o5uxnh.png"
+                  alt=""
+                  style="display: block; border: 0; max-width: 100%; height: auto;"
+                />
+              </td>
+            </tr>
+
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

@@ -1,0 +1,46 @@
+# Dependencies and AdonisJS build
+node_modules
+build
+tmp
+
+# Secrets
+.env
+.env.local
+.env.production.local
+.env.development.local
+.env.test
+
+# Frontend assets compiled code
+public/assets
+
+# User uploaded files (logos, banners, images)
+# These should be stored in cloud storage (GCS) in production
+public/uploads/welcome-pack/logos/*
+public/uploads/welcome-pack/banners/*
+public/uploads/welcome-pack/about-us/*
+# Keep the .gitkeep files to preserve directory structure
+!public/uploads/**/.gitkeep
+
+# Build tools specific and logs
+npm-debug.log
+yarn-error.log
+*.log
+nul
+
+# Editors and IDE specific
+.fleet
+.idea
+.vscode
+.claude/settings.local.json
+
+# Platform specific
+.DS_Store
+
+# Database backups
+backups/
+scripts/backup-database.bat
+scripts/backup-database.sh
+scripts/restore-database.sh
+
+# Documentation (working alone, docs change frequently)
+docs/

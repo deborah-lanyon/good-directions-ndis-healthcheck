@@ -1,0 +1,62 @@
+options:
+  logging: CLOUD_LOGGING_ONLY
+
+steps:
+  - id: install
+    name: 'node:22'
+    entrypoint: npm
+    args: ['install']
+
+  - id: proxy-install
+    name: 'node:22'
+    entrypoint: sh
+    args:
+      - -c
+      - |
+        wget -O /workspace/cloud_sql_proxy https://dl.google.com/cloudsql/cloud_sql_proxy.linux.386
+        chmod +x /workspace/cloud_sql_proxy
+    waitFor: ['-']
+
+  - id: tests
+    name: 'node:22'
+    timeout: 600s
+    entrypoint: sh
+    args:
+      - -c
+      - |
+        /workspace/cloud_sql_proxy -term_timeout=100s -dir=/workspace -instances=$PROJECT_ID:europe-west1:cmw=tcp:5432 & sleep 2
+        npm run test
+    env:
+      - 'NODE_ENV=test'
+      - 'PORT=3333'
+      - 'HOST=0.0.0.0'
+      - 'LOG_LEVEL=info'
+      - 'SESSION_DRIVER=memory'
+      - 'DB_HOST=127.0.0.1'
+      - 'DB_PORT=5432'
+      - 'DB_USER=portal'
+      - 'DB_DATABASE=testing'
+      - 'ADMIN_EMAIL=example@example.com'
+      - 'SMTP_HOST=localhost'
+      - 'SMTP_USERNAME=null'
+      - 'SMTP_PASSWORD=null'
+      - 'SMTP_PORT=1025'
+      - 'SLACK_WEBHOOK_URL=tmp'
+      - 'API_KEY=tmp'
+      - 'FILTER_LATITUDE=tmp'
+      - 'FILTER_LONGITUDE=tmp'
+      - 'FILTER_RADIUS_KM=tmp'
+      - 'ZYLA_API_KEY=redacted'
+      - 'SEARCH_LOCATION=tmp'
+      - 'MAX_SOLD_AGE=tmp'
+      - 'GEOCODE_API_KEY=redacted'
+
+    secretEnv: ['DB_PASSWORD', 'APP_KEY']
+    waitFor: ['install', 'proxy-install']
+
+availableSecrets:
+  secretManager:
+    - env: 'DB_PASSWORD'
+      versionName: projects/$PROJECT_ID/secrets/DB_PASSWORD/versions/1
+    - env: 'APP_KEY'
+      versionName: projects/$PROJECT_ID/secrets/APP_KEY/versions/1

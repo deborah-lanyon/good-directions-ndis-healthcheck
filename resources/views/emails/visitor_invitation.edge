@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Visitor Invitation
+    </title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      
+      .header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 30px;
+        border-radius: 10px 10px 0 0;
+        text-align: center;
+      }
+      
+      .content {
+        background: #f9fafb;
+        padding: 30px;
+        border: 1px solid #e5e7eb;
+        border-top: none;
+      }
+      
+      .button {
+        display: inline-block;
+        background: #3b82f6;
+        color: white;
+        padding: 14px 28px;
+        text-decoration: none;
+        border-radius: 8px;
+        margin: 20px 0;
+        font-weight: 600;
+      }
+      
+      .info-box {
+        background: white;
+        border-left: 4px solid #3b82f6;
+        padding: 15px;
+        margin: 20px 0;
+        border-radius: 4px;
+      }
+      
+      .footer {
+        text-align: center;
+        color: #6b7280;
+        font-size: 14px;
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid #e5e7eb;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1 style="margin: 0;">
+        Welcome to the Welcomers Portal
+      </h1>
+    </div>
+
+    <div class="content">
+      <p>
+        Hi {{ visitorName }},
+      </p>
+
+      <p>
+        You've been invited to access the <strong>{{ churchName }}</strong>Welcomers Portal! You can now manage your assigned properties and track your visiting progress online.
+      </p>
+
+      <p>
+        Click the button below to set up your account:
+      </p>
+
+      <div style="text-align: center;">
+        <a href="{{ invitationUrl }}" class="button">Accept Invitation</a>
+      </div>
+
+      <p>
+        <strong>What you can do with your account:</strong>
+      </p>
+      <ul>
+        <li>
+          View all properties assigned to you
+        </li>
+        <li>
+          Update visit status and feedback
+        </li>
+        <li>
+          Add notes about each visit
+        </li>
+        <li>
+          Track your progress with real-time statistics
+        </li>
+        <li>
+          Access property details anytime, anywhere
+        </li>
+      </ul>
+
+      <p>
+        If you have any questions or need help getting started, please contact your church coordinator.
+      </p>
+
+      <p>
+        Best regards,<br />
+        {{ churchName }} Team
+      </p>
+    </div>
+
+    <div class="footer">
+      <p>
+        If you didn't expect this invitation, please ignore this email.
+      </p>
+      <p>
+        This invitation link will remain valid until you accept it.
+      </p>
+    </div>
+  </body>
+</html>

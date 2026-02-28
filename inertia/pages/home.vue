@@ -1,0 +1,180 @@
+<template>
+  <div class="bg-[#F1EDE0] min-h-screen flex flex-col">
+    <header>
+      <Navigation />
+    </header>
+    <main class="flex-1">
+      <Container class="mt-24">
+        <Title :title="siteSettings.heroTitle" styleClass="text-primary" />
+        <div class="max-w-4xl mx-auto mt-12 mb-0 text-center">
+          <p class="text-primary font-karla text-2xl leading-relaxed mb-6">
+            {{ siteSettings.heroParagraph1 }}
+          </p>
+          <p class="text-primary font-karla text-2xl leading-relaxed mb-6">
+            {{ siteSettings.heroParagraph2 }}
+          </p>
+          <p class="text-primary font-karla text-2xl leading-relaxed">
+            {{ siteSettings.heroParagraph3 }}
+          </p>
+        </div>
+      </Container>
+      <div class="-mt-32">
+        <Hero />
+      </div>
+      <section id="register" class="bg-tertiary -mt-0.5 pt-[100px]">
+        <Container>
+          <Title
+            :title="siteSettings.ctaTitle"
+            styleClass="text-secondary"
+            class="py-[100px]"
+          />
+          <form @submit.prevent="handleRegister" class="grid grid-cols-1 gap-y-6 mx-auto max-w-4xl">
+            <FormInput
+              type="text"
+              placeholder=""
+              label="Full name"
+              id="name"
+              v-model="fullName"
+              theme="tertiary"
+              required
+            />
+            <FormInput
+              type="email"
+              placeholder=""
+              label="Email"
+              id="email"
+              v-model="email"
+              theme="tertiary"
+              required
+            />
+            <FormInput
+              type="text"
+              placeholder=""
+              label="Church name"
+              id="church-name"
+              v-model="churchName"
+              theme="tertiary"
+              required
+            />
+            <FormInput
+              type="text"
+              placeholder=""
+              label="Church website"
+              id="church-website"
+              v-model="churchUrl"
+              theme="tertiary"
+              required
+            />
+            <p
+              v-if="error"
+              class="bg-white rounded-md p-3 text-red-500 text-2xl font-normal leading-[30px] text-center"
+            >
+              {{ error }}
+            </p>
+
+            <button
+              class="px-16 py-3 rounded-full max-w-max font-caprasimo text-3xl leading-[150%] mx-auto bg-primary text-secondary mt-[100px] disabled:opacity-50"
+              :disabled="isLoading"
+              type="submit"
+            >
+              {{ isLoading ? 'Submitting...' : siteSettings.ctaButtonText }}
+            </button>
+          </form>
+        </Container>
+        <div class="bg-primary">
+          <svg class="text-tertiary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+            <path
+              fill="currentColor"
+              fill-opacity="1"
+              d="M0,192L40,208C80,224,160,256,240,256C320,256,400,224,480,197.3C560,171,640,149,720,160C800,171,880,213,960,213.3C1040,213,1120,171,1200,181.3C1280,192,1360,256,1400,288L1440,320L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z"
+            ></path>
+          </svg>
+        </div>
+      </section>
+    </main>
+    <Footer />
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref, computed } from 'vue'
+import { router } from '@inertiajs/vue3'
+import Navigation from '~/app/components/shared/navigation.vue'
+import Hero from '~/app/components/hero.vue'
+import Footer from '~/app/components/footer.vue'
+import Container from '~/app/components/container.vue'
+import Title from '~/app/components/title.vue'
+import FormInput from '~/app/components/form-input.vue'
+
+interface SiteSettingsProps {
+  heroTitle: string
+  heroParagraph1: string
+  heroParagraph2: string
+  heroParagraph3: string
+  ctaTitle: string
+  ctaButtonText: string
+  heroImageUrl: string | null
+}
+
+const props = withDefaults(
+  defineProps<{
+    siteSettings?: SiteSettingsProps
+  }>(),
+  {
+    siteSettings: () => ({
+      heroTitle: 'Reach those in your community',
+      heroParagraph1:
+        'Welcome to the Community Welcome Portal—a platform designed to help churches connect with new residents in their local area. When families move into your community, they often need guidance, support, and a warm welcome as they settle in.',
+      heroParagraph2:
+        "Our portal helps you identify new properties in your neighbourhood and reach out with essential information about local services, community resources, and opportunities to connect. Whether it's helping them find the nearest school, introducing them to local groups, or simply offering a friendly face, your church can make a meaningful difference in their transition.",
+      heroParagraph3:
+        'Join us in building stronger, more connected communities—one welcome at a time.',
+      ctaTitle: 'Ready to welcome your community?',
+      ctaButtonText: 'Submit',
+      heroImageUrl: null,
+    }),
+  }
+)
+
+const siteSettings = computed(() => props.siteSettings)
+
+const fullName = ref('')
+const email = ref('')
+const churchName = ref('')
+const churchUrl = ref('')
+const isLoading = ref(false)
+const error = ref('')
+
+const handleRegister = async () => {
+  isLoading.value = true
+
+  try {
+    const response = await fetch('/api/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: fullName.value,
+        email: email.value,
+        churchName: churchName.value,
+        churchUrl: churchUrl.value,
+      }),
+    })
+
+    const data = await response.json()
+
+    if (!response.ok) {
+      error.value = data.message || 'Registration failed'
+      isLoading.value = false
+      return
+    }
+    router.visit(`/thank-you?email=${encodeURIComponent(email.value)}`)
+  } catch (error) {
+    console.error('Registration error:', error)
+    error.value = error instanceof Error ? error.message : 'Registration failed. Please try again.'
+  } finally {
+    isLoading.value = false
+  }
+}
+</script>

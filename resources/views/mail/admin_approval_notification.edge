@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>
+      New User Application
+    </title>
+
+    <!--
+      METHOD 1: <link> tag
+      Works for Apple Mail, iOS Mail, etc.
+    -->
+    <!--[if !mso]><!-->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Karla:ital,wght@0,200..800;1,200..800&display=swap"
+      rel="stylesheet"
+    />
+    <!--<![endif]-->
+
+    <style>
+      /* METHOD 2: @import
+                                This is a fallback for clients like Gmail that prefer @import.
+                              */
+      
+      @import url('https://fonts.googleapis.com/css2?family=Caprasimo&family=Karla:ital,wght@0,200..800;1,200..800&display=swap');
+      
+      /* Responsive Styles
+                                Gmail supports media queries. We set the mobile-first styles
+                                inline, and then use media queries to override them on desktop.
+                              */
+      
+      @media only screen and (min-width: 600px) {
+        .heading {
+          font-size: 30px !important;
+        }
+      
+        .subheading {
+          font-size: 25px !important;
+        }
+      
+        .button-text {
+          font-size: 30px !important;
+          /* Corresponds to md:text-3xl */
+        }
+      }
+    </style>
+  </head>
+  <body
+    style="margin: 0; padding: 0; background-color: #f1ede0; font-family: 'Karla', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.5; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;"
+  >
+    <!--
+      Outer wrapper table.
+      This centers the content and sets the main background color.
+    -->
+    <table
+      role="presentation"
+      cellspacing="0"
+      cellpadding="0"
+      border="0"
+      width="100%"
+      style="background-color: #f1ede0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"
+    >
+      <tr>
+        <td align="center" style="padding: 0;">
+
+          <!--
+            Main content table.
+            Set to 600px width for desktop.
+          -->
+          <table
+            role="presentation"
+            cellspacing="0"
+            cellpadding="0"
+            border="0"
+            width="100%"
+            style="max-width: 600px; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"
+          >
+
+            <!--
+              Row 1: Top spacing and "Knock Knock" Image.
+            -->
+            <tr>
+              <td align="center" style="padding: 135px 32px 0 32px;">
+                <img
+                  src="https://res.cloudinary.com/redeem/image/upload/v1762483653/dev/Knock_Knock_trbiaj.png"
+                  alt="Knock Knock"
+                  width="300"
+                  style="display: block; border: 0; max-width: 100%; height: auto;"
+                />
+              </td>
+            </tr>
+
+            <!--
+              Row 2: Heading text.
+            -->
+            <tr>
+              <td align="center" style="padding: 74px 32px 0 32px;">
+                <p
+                  class="heading"
+                  style="margin: 0; font-family: 'Karla', Arial, sans-serif; font-size: 20px; font-weight: 600; color: #0056c9; text-align: center; max-width: 465px; line-height: 1.5;"
+                >
+                  There is a new application to join Community Welcome.
+                </p>
+              </td>
+            </tr>
+
+            <!--
+              Row 3: User Full Name.
+              Using padding-top: 80px (from mt-20).
+            -->
+            <tr>
+              <td align="center" style="padding: 80px 32px 0 32px;">
+                <p
+                  class="subheading"
+                  style="margin: 0; font-family: 'Karla', Arial, sans-serif; font-size: 17px; color: #0056c9; text-align: center; max-width: 376px; line-height: 150%;"
+                >
+                  {{ user.fullName }}
+                </p>
+              </td>
+            </tr>
+
+            <!--
+              Row 4: User Email.
+              Using padding-top: 16px (from mt-4).
+            -->
+            <tr>
+              <td align="center" style="padding: 16px 32px 0 32px;">
+                <p
+                  class="subheading"
+                  style="margin: 0; font-family: 'Karla', Arial, sans-serif; font-size: 17px; color: #0056c9; text-align: center; max-width: 376px; line-height: 150%;"
+                >
+                  {{ user.email }}
+                </p>
+              </td>
+            </tr>
+
+            <!--
+              Row 5: Church Info Link.
+              Using padding-top: 16px (from mt-4).
+            -->
+            <tr>
+              <td align="center" style="padding: 16px 32px 0 32px;">
+                <a
+                  href="{{ churchInfo.churchUrl }}"
+                  target="_blank"
+                  class="subheading"
+                  style="font-family: 'Karla', Arial, sans-serif; font-size: 17px; color: #0056c9; text-align: center; line-height: 150%; display: block; max-width: 376px;"
+                >
+                  {{ churchInfo.churchName }}
+                </a>
+              </td>
+            </tr>
+
+            <!--
+              Row 6: Buttons Section.
+              Using padding-top: 143px (from mt-[143px]).
+              We use a nested table to hold the buttons side-by-side.
+            -->
+            <tr>
+              <td align="center" style="padding: 143px 32px 0 32px;">
+                <table
+                  role="presentation"
+                  cellspacing="0"
+                  cellpadding="0"
+                  border="0"
+                  style="border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"
+                >
+                  <tr>
+                    <!--
+                      Confirm Button Cell.
+                      We add padding-right: 17px for the gap.
+                    -->
+                    <td align="center" style="padding-right: 17px;">
+                      <a
+                        href="{{ approveUrl }}"
+                        target="_blank"
+                        class="button-text"
+                        style="display: inline-block; padding: 12px 64px; font-family: 'Caprasimo', Georgia, 'Times New Roman', serif; font-size: 20px; line-height: 150%; color: #F1EDE0; text-align: center; text-decoration: none; background-color: #0056c9; border-radius: 9999px;"
+                      >
+                        Confirm
+                      </a>
+                    </td>
+
+                    <!--
+                      Reject Button Cell.
+                    -->
+                    <td align="center">
+                      <a
+                        href="{{ rejectUrl }}"
+                        target="_blank"
+                        class="button-text"
+                        style="display: inline-block; padding: 12px 64px; font-family: 'Caprasimo', Georgia, 'Times New Roman', serif; font-size: 20px; line-height: 150%; color: #F1EDE0; text-align: center; text-decoration: none; background-color: #FF7262; border-radius: 9999px;"
+                      >
+                        Reject
+                      </a>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <!--
+              Row 7: Footer Wave Image.
+              Using padding-top: 144px (from mt-36).
+            
+              UPDATE: Added align="center" to the <td> and removed
+              width="600" and "width: 100%" from the <img>.
+              This will allow the image to render at its natural size
+              and center-align it, preventing the "squashed" look
+              that comes from stretching it to 100% width.
+            -->
+            <tr>
+              <td style="padding-top: 144px;" align="center">
+                <img
+                  src="https://res.cloudinary.com/redeem/image/upload/v1762483434/dev/wave-combined_o5uxnh.png"
+                  alt=""
+                  style="display: block; border: 0; max-width: 100%; height: auto;"
+                />
+              </td>
+            </tr>
+
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
