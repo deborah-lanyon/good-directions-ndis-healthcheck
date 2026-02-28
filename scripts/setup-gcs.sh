@@ -6,9 +6,9 @@
 set -e
 
 # Configuration
-PROJECT_ID="cmw-portal"
-BUCKET_NAME="welcomers-portal-uploads"
-REGION="europe-west1"
+PROJECT_ID="gd-ndis-healthcheck"
+BUCKET_NAME="gd-ndis-healthcheck-uploads"
+REGION="australia-southeast1"
 SERVICE_NAME="production"
 
 echo "======================================"

@@ -11,7 +11,7 @@ if (Test-Path $gcloudPath) {
     Write-Host "You can now use gcloud commands. Try:" -ForegroundColor Cyan
     Write-Host "  gcloud version" -ForegroundColor White
     Write-Host "  gcloud auth login" -ForegroundColor White
-    Write-Host "  gcloud config set project cmw-portal" -ForegroundColor White
+    Write-Host "  gcloud config set project gd-ndis-healthcheck" -ForegroundColor White
     Write-Host ""
 } else {
     Write-Host "❌ gcloud not found at: $gcloudPath" -ForegroundColor Red

@@ -32,8 +32,8 @@ steps:
       - production
       - '--platform=managed'
       - '--image=gcr.io/$PROJECT_ID/production:$COMMIT_SHA'
-      - '--region=europe-west1'
-      - '--add-cloudsql-instances=cmw-portal:europe-west1:cmw'
+      - '--region=australia-southeast1'
+      - '--add-cloudsql-instances=gd-ndis-healthcheck:australia-southeast1:gd-ndis-healthcheck'
       - '--timeout=600'
       - '--quiet'
     entrypoint: gcloud
@@ -46,7 +46,7 @@ steps:
       - update
       - portal-migrate
       - '--image=gcr.io/$PROJECT_ID/production:$COMMIT_SHA'
-      - '--region=europe-west1'
+      - '--region=australia-southeast1'
     entrypoint: gcloud
 
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
@@ -56,7 +56,7 @@ steps:
       - jobs
       - execute
       - portal-migrate
-      - '--region=europe-west1'
+      - '--region=australia-southeast1'
       - '--wait'
     entrypoint: gcloud
 

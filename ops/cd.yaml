@@ -66,10 +66,10 @@ options:
   substitutionOption: ALLOW_LOOSE
   logging: CLOUD_LOGGING_ONLY
 substitutions:
-  _DEPLOY_REGION: europe-west1
-  _AR_HOSTNAME: europe-west1-docker.pkg.dev
+  _DEPLOY_REGION: australia-southeast1
+  _AR_HOSTNAME: australia-southeast1-docker.pkg.dev
   _AR_REPOSITORY: cloud-run-source-deploy
-  _AR_PROJECT_ID: cmw-portal
+  _AR_PROJECT_ID: gd-ndis-healthcheck
   _PLATFORM: managed
   _JOB_NAME: portal-migrate
 tags:

@@ -24,7 +24,7 @@ steps:
     args:
       - -c
       - |
-        /workspace/cloud_sql_proxy -term_timeout=100s -dir=/workspace -instances=$PROJECT_ID:europe-west1:cmw=tcp:5432 & sleep 2
+        /workspace/cloud_sql_proxy -term_timeout=100s -dir=/workspace -instances=$PROJECT_ID:australia-southeast1:gd-ndis-healthcheck=tcp:5432 & sleep 2
         npm run test
     env:
       - 'NODE_ENV=test'
