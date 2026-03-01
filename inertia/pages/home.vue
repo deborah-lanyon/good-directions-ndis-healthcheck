@@ -9,7 +9,7 @@
         <Title :title="siteSettings.heroTitle" styleClass="text-primary" />
         <div class="max-w-3xl mx-auto mt-8 text-center">
           <p class="text-primary font-karla text-2xl leading-relaxed">
-            {{ siteSettings.heroParagraph1 }}
+            Get a free NDIS Healthcheck to ensure continuity of care when you relocate.
           </p>
         </div>
         <div class="flex justify-center mt-10">
@@ -17,7 +17,7 @@
             href="#register"
             class="px-12 py-4 rounded-full font-caprasimo text-3xl leading-[150%] bg-tertiary text-primary hover:brightness-105 transition"
           >
-            {{ siteSettings.ctaButtonText }}
+            Get Your Free Healthcheck
           </a>
         </div>
       </Container>
