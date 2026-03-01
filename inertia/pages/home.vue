@@ -5,7 +5,7 @@
     </header>
     <main class="flex-1">
       <!-- Section 1: Hero -->
-      <Container class="mt-24 pb-16">
+      <Container class="mt-8 pb-8">
         <Title :title="siteSettings.heroTitle" styleClass="text-primary" />
         <div class="max-w-3xl mx-auto mt-8 text-center">
           <p class="text-primary font-karla text-2xl leading-relaxed">
