@@ -5,7 +5,7 @@
       <div class="max-w-3xl mx-auto text-center px-4">
         <div class="mb-8">
           <h1 class="text-primary font-caprasimo text-4xl md:text-5xl leading-[150%] mb-4">
-            Welcome to Community Welcome
+            Welcome to Good Directions NDIS Healthcheck
           </h1>
           <p class="text-gray-600 text-lg md:text-xl">
             Your portal for managing property visits and welcome packs
@@ -66,10 +66,10 @@
                 >
                   <div class="flex items-center gap-3 mb-3">
                     <Icon name="settings" class="w-6 h-6 text-orange-600" />
-                    <h3 class="text-lg font-semibold text-gray-900">Church Profile</h3>
+                    <h3 class="text-lg font-semibold text-gray-900">Organisation Profile</h3>
                   </div>
                   <p class="text-gray-600 text-sm">
-                    Configure your church details and welcome pack template
+                    Configure your organisation details and welcome pack template
                   </p>
                 </Card>
               </a>
@@ -83,7 +83,7 @@
           </CardHeader>
           <CardContent>
             <p class="text-gray-600 mb-4">
-              Use the Street Group or Visitor filters on the Property List page to view properties
+              Use the Street Group or Delivery filters on the Property List page to view properties
             </p>
             <Button as-child class="bg-primary hover:bg-blue-700">
               <a href="/dashboard"> Go to Property List </a>

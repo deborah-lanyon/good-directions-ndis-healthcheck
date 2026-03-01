@@ -9,12 +9,12 @@
     >
       <path
         d="M0.000854492 -12H1512C1512 -12 2129 107.511 1512 169.204C895 230.897 597 137.375 0.000854492 169.204C-596.998 201.033 0.000854492 -12 0.000854492 -12Z"
-        fill="#0056C9"
+        fill="#6d3b90"
       />
     </svg>
     <div class="relative z-10 container mx-auto p-4">
       <a href="/home">
-        <img :src="logoWhite" alt="Community Welcome Logo" class="mb-4 h-20 py-3" />
+        <img :src="logoWhite" alt="Good Directions Logo" class="mb-4 h-20 py-3" />
       </a>
     </div>
   </nav>

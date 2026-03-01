@@ -6,8 +6,8 @@ import env from '#start/env'
 export class MailService {
   private getFromAddress(): { email: string; name: string } {
     return {
-      email: env.get('MAIL_FROM_ADDRESS', 'noreply@welcomers-portal.com'),
-      name: env.get('MAIL_FROM_NAME', 'Community Welcome Portal'),
+      email: env.get('MAIL_FROM_ADDRESS', 'noreply@gooddirections.com.au'),
+      name: env.get('MAIL_FROM_NAME', 'Good Directions NDIS Healthcheck'),
     }
   }
 
@@ -40,7 +40,7 @@ export class MailService {
         message
           .to(user.email)
           .from(from.email, from.name)
-          .subject('New Properties Notification - Welcomers Portal')
+          .subject('New Properties Notification - Good Directions NDIS Healthcheck')
           .htmlView('mail/property_sync_notification', { user, baseUrl })
       })
     } catch (error) {
@@ -68,7 +68,7 @@ export class MailService {
         message
           .to(user.email)
           .from(from.email, from.name)
-          .subject('Reset Password Request - Welcomers Portal')
+          .subject('Reset Password Request - Good Directions NDIS Healthcheck')
           .htmlView('mail/forgot_password_email', {
             user,
             resetPasswordUrl,
@@ -99,7 +99,7 @@ export class MailService {
         message
           .to(user.email)
           .from(from.email, from.name)
-          .subject('Registration Confirmation - Welcomers Portal')
+          .subject('Registration Confirmation - Good Directions NDIS Healthcheck')
           .htmlView('mail/user_registration_confirmation', { user })
       })
       console.log('[REGISTRATION EMAIL] Successfully sent registration confirmation to:', user.email)

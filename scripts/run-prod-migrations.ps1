@@ -28,12 +28,12 @@ ZYLA_API_KEY=10938|SC9rwpqbhFAykq8taP2r3IO03p02ZCi0DAjlQls2
 
 SMTP_HOST=smtp.mailgun.org
 SMTP_PORT=587
-SMTP_USERNAME=postmaster@mg.communitywelcome.org
+SMTP_USERNAME=postmaster@mg.gooddirections.com.au
 SMTP_PASSWORD=$((Get-Content .env.backup | Select-String "SMTP_PASSWORD" | Out-String).Split("=")[1].Trim())
 ADMIN_EMAIL=admin@example.com
 
-GCP_PROJECT_ID=cmw-portal
-GCS_BUCKET_NAME=welcomers-portal-uploads
+GCP_PROJECT_ID=gd-ndis-healthcheck
+GCS_BUCKET_NAME=gd-ndis-healthcheck-uploads
 "@
 
 Set-Content -Path .env -Value $prodEnv

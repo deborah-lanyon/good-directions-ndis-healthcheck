@@ -1,4 +1,4 @@
-# Copilot / AI Agent Instructions — Welcomers Portal
+# Copilot / AI Agent Instructions — Good Directions NDIS Healthcheck
 
 **Short, actionable guidance to help AI coding agents be productive in this repository.**
 

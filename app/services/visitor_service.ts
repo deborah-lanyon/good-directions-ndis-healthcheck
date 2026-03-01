@@ -173,11 +173,11 @@ export default class VisitorService {
       await mail.send((message) => {
         message
           .from(
-            env.get('MAIL_FROM_ADDRESS', 'noreply@welcomers-portal.com'),
-            env.get('MAIL_FROM_NAME', 'Welcomers Portal')
+            env.get('MAIL_FROM_ADDRESS', 'noreply@gooddirections.com.au'),
+            env.get('MAIL_FROM_NAME', 'Good Directions NDIS Healthcheck')
           )
           .to(visitor.email!)
-          .subject(`You've been invited to access the ${churchName} Welcomers Portal`)
+          .subject(`You've been invited to access the ${churchName} Good Directions NDIS Healthcheck`)
           .htmlView('emails/visitor_invitation', {
             visitorName: visitor.name,
             churchName,

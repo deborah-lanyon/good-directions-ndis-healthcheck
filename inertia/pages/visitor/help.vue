@@ -20,7 +20,7 @@ defineProps<{
     <div class="max-w-4xl">
       <!-- Introduction -->
       <div class="bg-white rounded-xl p-6 mb-6">
-        <h2 class="font-karla font-semibold text-xl text-gray-800 mb-4">Welcome to the Visitor Portal</h2>
+        <h2 class="font-karla font-semibold text-xl text-gray-800 mb-4">Welcome to the Delivery Portal</h2>
         <p class="font-karla text-gray-600 leading-relaxed">
           This guide will help you understand how to use the visitor portal to manage your property visits
           and record your interactions with new community members.
@@ -133,7 +133,7 @@ defineProps<{
         <ul class="list-disc list-inside space-y-2 font-karla text-white/90">
           <li>Visit during appropriate hours (typically 10am - 6pm)</li>
           <li>Bring welcome packs with you</li>
-          <li>Be friendly and introduce yourself and your church</li>
+          <li>Be friendly and introduce yourself and your organisation</li>
           <li>Don't worry if no one is home - you can always try again</li>
           <li>Update the property status as soon as possible after each visit</li>
           <li>Add notes to help remember important details about each visit</li>

@@ -53,7 +53,7 @@ function submit() {
             />
           </svg>
         </div>
-        <h1 class="text-3xl font-bold text-gray-900 mb-2">Welcome to Welcomers Portal</h1>
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">Welcome to Good Directions NDIS Healthcheck</h1>
         <p class="text-gray-600">{{ churchName }}</p>
       </div>
 
@@ -224,7 +224,7 @@ function submit() {
 
       <!-- Footer -->
       <div class="text-center mt-6">
-        <p class="text-sm text-gray-600">Need help? Contact your church coordinator</p>
+        <p class="text-sm text-gray-600">Need help? Contact your coordinator</p>
       </div>
     </div>
   </div>

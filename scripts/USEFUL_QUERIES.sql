@@ -1,4 +1,4 @@
--- Useful SQL Queries for Welcomers Portal Development
+-- Useful SQL Queries for Good Directions NDIS Healthcheck Development
 -- Keep commonly-used queries here for quick reference
 
 -- ============================================

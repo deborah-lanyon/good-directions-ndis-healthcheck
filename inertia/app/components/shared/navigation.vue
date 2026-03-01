@@ -19,7 +19,7 @@
   <nav class="bg-primary">
     <Container class="py-[30px] flex justify-between items-center">
       <a href="/">
-        <img class="w-auto h-16" :src="logo" alt="Community Welcome Logo" />
+        <img class="w-auto h-16" :src="logo" alt="Good Directions Logo" />
       </a>
       <div class="flex items-center" style="gap: calc(var(--spacing) * 10)">
         <!-- Navigation for Super Admins (always show admin navigation) -->
@@ -32,9 +32,9 @@
               'font-karla text-xl hidden sm:inline-block',
               isActive('/admin/churches') ? 'text-tertiary' : 'text-white hover:text-tertiary',
             ]"
-            aria-label="All Church Profiles"
+            aria-label="All Organisation Profiles"
           >
-            All Church Profiles
+            All Organisation Profiles
           </a>
           <a
             href="/admin/users"
@@ -152,7 +152,7 @@
           </a>
           <a
             href="/home#register"
-            class="font-karla text-xl hidden sm:inline-block bg-tertiary text-white px-8 py-2 rounded-full hover:bg-[#e55d4d] transition-colors -mr-4"
+            class="font-karla text-xl hidden sm:inline-block bg-tertiary text-white px-8 py-2 rounded-full hover:bg-[#e59a00] transition-colors -mr-4"
             aria-label="Register"
           >
             Register

@@ -199,7 +199,7 @@
                     v-model="form.howToUseIntro"
                     rows="3"
                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="Getting started with the Community Welcome Portal..."
+                    placeholder="Getting started with the Good Directions NDIS Healthcheck..."
                   ></textarea>
                 </div>
               </CardContent>
@@ -254,7 +254,7 @@
                     v-model="form.aboutUsParagraph1"
                     rows="3"
                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="The Community Welcome Portal was created..."
+                    placeholder="The Good Directions NDIS Healthcheck was created..."
                   ></textarea>
                 </div>
 
@@ -293,7 +293,7 @@
             <button
               type="submit"
               :disabled="isSaving"
-              class="px-4 py-2 bg-tertiary hover:bg-[#e55d4d] text-white font-medium rounded-lg transition-colors disabled:opacity-50"
+              class="px-4 py-2 bg-tertiary hover:bg-[#e59a00] text-white font-medium rounded-lg transition-colors disabled:opacity-50"
             >
               {{ isSaving ? 'Saving...' : 'Save Changes' }}
             </button>

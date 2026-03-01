@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-[#F1EDE0] min-h-screen flex flex-col">
+  <div class="bg-[#ffffff] min-h-screen flex flex-col">
     <header>
       <Navbar />
     </header>
@@ -39,8 +39,8 @@
               @click="handleConfirm"
               :disabled="submitting"
               :class="[
-                'inline-block px-16 py-3 font-semibold text-[#F1EDE0] text-xl rounded-full transition-opacity',
-                action === 'approve' ? 'bg-[#0056c9] hover:opacity-90' : 'bg-[#FF7262] hover:opacity-90',
+                'inline-block px-16 py-3 font-semibold text-[#ffffff] text-xl rounded-full transition-opacity',
+                action === 'approve' ? 'bg-[#6d3b90] hover:opacity-90' : 'bg-[#FDAF18] hover:opacity-90',
                 submitting ? 'opacity-50 cursor-not-allowed' : '',
               ]"
             >

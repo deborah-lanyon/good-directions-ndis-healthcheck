@@ -94,9 +94,9 @@ export default class SiteSettings extends BaseModel {
   static readonly DEFAULTS = {
     heroTitle: 'Reach those in your community',
     heroParagraph1:
-      'Welcome to the Community Welcome Portal—a platform designed to help churches connect with new residents in their local area. When families move into your community, they often need guidance, support, and a warm welcome as they settle in.',
+      'Welcome to the Good Directions NDIS Healthcheck—a platform designed to help organisations connect with new residents in their local area. When families move into your community, they often need guidance, support, and a warm welcome as they settle in.',
     heroParagraph2:
-      "Our portal helps you identify new properties in your neighbourhood and reach out with essential information about local services, community resources, and opportunities to connect. Whether it's helping them find the nearest school, introducing them to local groups, or simply offering a friendly face, your church can make a meaningful difference in their transition.",
+      "Our portal helps you identify new properties in your neighbourhood and reach out with essential information about local services, community resources, and opportunities to connect. Whether it's helping them find the nearest school, introducing them to local groups, or simply offering a friendly face, your organisation can make a meaningful difference in their transition.",
     heroParagraph3:
       'Join us in building stronger, more connected communities—one welcome at a time.',
     ctaTitle: 'Ready to welcome your community?',
@@ -104,31 +104,31 @@ export default class SiteSettings extends BaseModel {
     // How To Use defaults
     howToUseTitle: 'How To Use',
     howToUseIntro:
-      'Getting started with the Community Welcome Portal is easy. Follow these simple steps to begin welcoming new residents in your community.',
-    howToUseStep1Title: 'Register Your Church',
+      'Getting started with the Good Directions NDIS Healthcheck is easy. Follow these simple steps to begin welcoming new residents in your community.',
+    howToUseStep1Title: 'Register Your Organisation',
     howToUseStep1Content:
-      "Sign up for an account and provide your church details. Once approved, you'll have access to all the portal features.",
+      "Sign up for an account and provide your organisation details. Once approved, you'll have access to all the portal features.",
     howToUseStep2Title: 'Set Up Your Profile',
     howToUseStep2Content:
-      'Complete your church profile with your location, contact information, and customize your welcome pack template.',
+      'Complete your organisation profile with your location, contact information, and customize your welcome pack template.',
     howToUseStep3Title: 'Find New Properties',
     howToUseStep3Content:
-      'Use the property dashboard to discover new residents in your area. The system automatically identifies recently sold properties near your church.',
+      'Use the property dashboard to discover new residents in your area. The system automatically identifies recently sold properties near your organisation.',
     howToUseStep4Title: 'Welcome Your Neighbours',
     howToUseStep4Content:
       'Generate personalized welcome packs and reach out to new residents with helpful information about your community.',
     // About Us defaults
     aboutUsTitle: 'About Us',
     aboutUsIntro:
-      'The Community Welcome Portal was created to help churches connect with new residents in their local communities.',
+      'The Good Directions NDIS Healthcheck was created to help organisations connect with new residents in their local communities.',
     aboutUsMission:
-      'Our mission is to empower churches to be a welcoming presence for families moving into new neighbourhoods, providing them with valuable local information and a friendly connection.',
+      'Our mission is to empower organisations to be a welcoming presence for families moving into new neighbourhoods, providing them with valuable local information and a friendly connection.',
     aboutUsVision:
-      'We envision communities where every new resident feels welcomed and supported, with local churches serving as a bridge to community resources and connections.',
+      'We envision communities where every new resident feels welcomed and supported, with local organisations serving as a bridge to community resources and connections.',
     aboutUsContact:
-      'For questions or support, please contact us through the registration form or reach out to your local church administrator.',
+      'For questions or support, please contact us through the registration form or reach out to your local organisation administrator.',
     aboutUsParagraph1:
-      'The Community Welcome Portal was created to help churches connect with new residents in their local communities.',
+      'The Good Directions NDIS Healthcheck was created to help organisations connect with new residents in their local communities.',
     aboutUsParagraph2: '',
     aboutUsParagraph3: '',
   }

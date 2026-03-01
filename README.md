@@ -1,13 +1,13 @@
-# Welcomers Portal
+# Good Directions NDIS Healthcheck
 
-A web application that helps churches track nearby property sales and coordinate welcome visits. The backend is built with AdonisJS 6 and PostgreSQL, and the frontend uses Inertia.js with Vue 3.
+A web application that helps organisations track nearby properties and coordinate welcome pack deliveries. The backend is built with AdonisJS 6 and PostgreSQL, and the frontend uses Inertia.js with Vue 3.
 
 ## Features
 
-- Church self-service onboarding with admin approval
+- Organisation self-service onboarding with admin approval
 - Property ingestion via the Zyla CoreLogic aggregation API
-- Radius based filtering using stored church profile settings
-- Manual property status updates and visit tracking
+- Radius based filtering using stored organisation profile settings
+- Manual property status updates and delivery tracking
 - Geocoding assistance for church profile configuration
 - Email notifications for approvals, password resets, and property syncs
 

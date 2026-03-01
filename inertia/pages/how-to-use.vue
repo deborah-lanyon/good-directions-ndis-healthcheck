@@ -1,12 +1,12 @@
 <template>
-  <SidebarLayout pageTitle="User Guide" pageSubtitle="Learn how to use the Community Welcome Portal">
+  <SidebarLayout pageTitle="User Guide" pageSubtitle="Learn how to use the Good Directions NDIS Healthcheck">
     <div class="max-w-4xl">
       <!-- Table of Contents -->
       <div class="bg-white rounded-xl p-6 shadow-sm mb-8">
         <h2 class="font-karla font-semibold text-lg text-gray-800 mb-4">Contents</h2>
         <nav class="space-y-2">
           <a href="#getting-started" class="block text-primary hover:underline font-karla">1. Getting Started</a>
-          <a href="#church-profile" class="block text-primary hover:underline font-karla">2. Setting Up Your Church Profile</a>
+          <a href="#church-profile" class="block text-primary hover:underline font-karla">2. Setting Up Your Organisation Profile</a>
           <a href="#properties" class="block text-primary hover:underline font-karla">3. Understanding Your Properties Dashboard</a>
           <a href="#street-groups" class="block text-primary hover:underline font-karla">4. Managing Street Groups</a>
           <a href="#visitors" class="block text-primary hover:underline font-karla">5. Adding and Managing Team Members</a>
@@ -27,13 +27,13 @@
               <h3 class="font-karla font-semibold text-xl text-gray-800 mb-4">Getting Started</h3>
               <div class="space-y-4 text-gray-600 font-karla leading-relaxed">
                 <p>
-                  Welcome to the Community Welcome Portal! This platform helps your church welcome new residents
+                  Welcome to the Good Directions NDIS Healthcheck! This platform helps your organisation welcome new residents
                   to your community by tracking recently sold and rented properties in your area.
                 </p>
                 <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
                   <h4 class="font-semibold text-blue-800 mb-2">How it works:</h4>
                   <ol class="list-decimal list-inside space-y-2 text-blue-700">
-                    <li>Set up your church profile with your location</li>
+                    <li>Set up your organisation profile with your location</li>
                     <li>Properties in your postcode are automatically synced when you log in</li>
                     <li>Create street groups to organise your visiting areas</li>
                     <li>Add team members (visitors) who will welcome new residents</li>
@@ -55,21 +55,21 @@
               2
             </div>
             <div class="flex-1">
-              <h3 class="font-karla font-semibold text-xl text-gray-800 mb-4">Setting Up Your Church Profile</h3>
+              <h3 class="font-karla font-semibold text-xl text-gray-800 mb-4">Setting Up Your Organisation Profile</h3>
               <div class="space-y-4 text-gray-600 font-karla leading-relaxed">
                 <p>
-                  Your church profile determines the area where properties will be tracked.
-                  Properties within your church's postcode will be monitored.
+                  Your organisation profile determines the area where properties will be tracked.
+                  Properties within your organisation's postcode will be monitored.
                 </p>
 
                 <h4 class="font-semibold text-gray-800 mt-6">To set up your profile:</h4>
                 <ol class="list-decimal list-inside space-y-3">
-                  <li>Navigate to <strong>Church Profile</strong> in the sidebar</li>
+                  <li>Navigate to <strong>Organisation Profile</strong> in the sidebar</li>
                   <li>Click the <strong>Update</strong> button to enable editing</li>
-                  <li>Enter your church details:
+                  <li>Enter your organisation details:
                     <ul class="list-disc list-inside ml-6 mt-2 space-y-1">
-                      <li>Church Name</li>
-                      <li>Church Website (optional)</li>
+                      <li>Organisation Name</li>
+                      <li>Organisation Website (optional)</li>
                       <li>Address, Suburb, and Postcode</li>
                     </ul>
                   </li>
@@ -80,7 +80,7 @@
                 <div class="bg-amber-50 border border-amber-200 rounded-lg p-4 mt-4">
                   <h4 class="font-semibold text-amber-800 mb-2">Important:</h4>
                   <p class="text-amber-700">
-                    When you save your church profile with a new location, properties will automatically
+                    When you save your organisation profile with a new location, properties will automatically
                     sync. You don't need to click "Look up" for the sync to work - it's just for visual
                     confirmation of the location.
                   </p>
@@ -102,7 +102,7 @@
               <h3 class="font-karla font-semibold text-xl text-gray-800 mb-4">Understanding Your Properties Dashboard</h3>
               <div class="space-y-4 text-gray-600 font-karla leading-relaxed">
                 <p>
-                  The Properties page shows all recently sold and rented properties within your church's area.
+                  The Properties page shows all recently sold and rented properties within your organisation's area.
                 </p>
 
                 <h4 class="font-semibold text-gray-800 mt-6">Property Information:</h4>
@@ -138,7 +138,7 @@
                 </p>
                 <ul class="list-disc list-inside space-y-1 mt-2">
                   <li>Once per day when you log in to the portal</li>
-                  <li>When you update your church profile location</li>
+                  <li>When you update your organisation profile location</li>
                 </ul>
               </div>
             </div>
@@ -203,7 +203,7 @@
               <h3 class="font-karla font-semibold text-xl text-gray-800 mb-4">Adding and Managing Team Members</h3>
               <div class="space-y-4 text-gray-600 font-karla leading-relaxed">
                 <p>
-                  Team members are the people from your church who will visit new residents.
+                  Team members are the people from your organisation who will visit new residents.
                   They can receive email notifications when new properties appear on their assigned streets.
                 </p>
 
@@ -287,9 +287,9 @@
                 <h4 class="font-semibold text-gray-800 mt-6">Notification Types:</h4>
                 <div class="space-y-4 mt-4">
                   <div class="border border-gray-200 rounded-lg p-4">
-                    <h5 class="font-semibold text-gray-800">New Property Notification (Church Admin)</h5>
+                    <h5 class="font-semibold text-gray-800">New Property Notification (Operations Manager)</h5>
                     <p class="text-gray-600 text-sm mt-1">
-                      Sent to you when new properties are synced for your church.
+                      Sent to you when new properties are synced for your organisation.
                     </p>
                   </div>
                   <div class="border border-gray-200 rounded-lg p-4">
@@ -305,7 +305,7 @@
                   <h4 class="font-semibold text-blue-800 mb-2">When are notifications sent?</h4>
                   <ul class="list-disc list-inside text-blue-700 space-y-1">
                     <li>After your first login of the day (when properties sync)</li>
-                    <li>After you update your church location</li>
+                    <li>After you update your organisation location</li>
                   </ul>
                 </div>
               </div>

@@ -18,10 +18,10 @@ SYNC_WINDOW_DAYS=14
 # Email Configuration
 ADMIN_EMAIL=deborah@gooddirections.com.au
 MAIL_FROM_ADDRESS=deborah@gooddirections.com.au
-MAIL_FROM_NAME=Community Welcome Portal
+MAIL_FROM_NAME=Good Directions NDIS Healthcheck
 SMTP_HOST=smtp.mailgun.org
 SMTP_PORT=587
-SMTP_USERNAME=postmaster@mg.communitywelcome.org.au
+SMTP_USERNAME=postmaster@mg.gooddirections.com.au
 
 # Geocoding
 GEOCODE_API_KEY=68dfb0b059b1a855333485zed61bfc6
@@ -69,7 +69,7 @@ REGION="europe-west1"
 # Update environment variables
 gcloud run services update $SERVICE_NAME \
   --region=$REGION \
-  --set-env-vars="NODE_ENV=production,HOST=0.0.0.0,PORT=8080,LOG_LEVEL=info,SESSION_DRIVER=cookie,SYNC_WINDOW_DAYS=14,ADMIN_EMAIL=deborah@gooddirections.com.au,MAIL_FROM_ADDRESS=deborah@gooddirections.com.au,MAIL_FROM_NAME=Community Welcome Portal,SMTP_HOST=smtp.mailgun.org,SMTP_PORT=587,SMTP_USERNAME=postmaster@mg.communitywelcome.org.au,GEOCODE_API_KEY=68dfb0b059b1a855333485zed61bfc6"
+  --set-env-vars="NODE_ENV=production,HOST=0.0.0.0,PORT=8080,LOG_LEVEL=info,SESSION_DRIVER=cookie,SYNC_WINDOW_DAYS=14,ADMIN_EMAIL=deborah@gooddirections.com.au,MAIL_FROM_ADDRESS=deborah@gooddirections.com.au,MAIL_FROM_NAME=Good Directions NDIS Healthcheck,SMTP_HOST=smtp.mailgun.org,SMTP_PORT=587,SMTP_USERNAME=postmaster@mg.gooddirections.com.au,GEOCODE_API_KEY=68dfb0b059b1a855333485zed61bfc6"
 ```
 
 ## Important Notes

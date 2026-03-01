@@ -3,8 +3,8 @@
     <CardHeader>
       <div class="flex justify-between items-center w-full">
         <div>
-          <CardTitle class="text-2xl">Church Profile</CardTitle>
-          <CardDescription>Church location details</CardDescription>
+          <CardTitle class="text-2xl">Organisation Profile</CardTitle>
+          <CardDescription>Organisation location details</CardDescription>
         </div>
         <button
           :class="[
@@ -22,7 +22,7 @@
       <div class="mt-4">
         <div class="grid grid-cols-[3fr_7fr] gap-1 py-3 border-b border-[#fcfbf8]">
           <label for="church-name" class="text-sm leading-5 font-medium text-gray-500"
-            >Church Name</label
+            >Organisation Name</label
           >
           <div class="flex flex-col">
             <input
@@ -35,7 +35,7 @@
                 errors?.churchName ? 'border-red-500 border' : '',
                 isEditing ? 'border-gray-200 border p-2 rounded-lg' : '',
               ]"
-              placeholder="Church Name"
+              placeholder="Organisation Name"
               :disabled="!isEditing"
             />
             <p v-if="errors?.churchName" class="text-red-500 text-xs mt-1">
@@ -45,7 +45,7 @@
         </div>
         <div class="grid grid-cols-[3fr_7fr] gap-1 py-3 border-b border-[#fcfbf8]">
           <label for="church-website" class="text-sm leading-5 font-medium text-gray-500"
-            >Church Website</label
+            >Organisation Website</label
           >
           <div class="flex flex-col">
             <input
@@ -58,7 +58,7 @@
                 errors?.url ? 'border-red-500 border' : '',
                 isEditing ? 'border-gray-200 border p-2 rounded-lg' : '',
               ]"
-              placeholder="https://www.church.com"
+              placeholder="https://www.example.com"
               :disabled="!isEditing"
             />
             <p v-if="errors?.url" class="text-red-500 text-xs mt-1">
@@ -68,7 +68,7 @@
         </div>
         <div class="grid grid-cols-[3fr_7fr] gap-1 py-3 border-b border-[#fcfbf8]">
           <label for="church-address" class="text-sm leading-5 font-medium text-gray-500"
-            >Church Address</label
+            >Organisation Address</label
           >
           <div class="flex flex-col gap-4">
             <div v-if="!isEditing" class="text-gray-900 text-sm leading-5 font-normal">
@@ -138,7 +138,7 @@
             <button
               v-if="isEditing"
               type="button"
-              class="cursor-pointer px-12 py-2 rounded-full text-sm leading-5 font-medium text-[#0056C9]"
+              class="cursor-pointer px-12 py-2 rounded-full text-sm leading-5 font-medium text-[#6d3b90]"
               :disabled="isGeocodeDisabled"
               @click="handleGeocodeAddress"
               data-testid="button-geocode"
@@ -293,7 +293,7 @@ const updateMapWithCoordinates = (lat: number, lng: number) => {
   const icon = L.divIcon({
     className: 'custom-marker',
     html: `<div style="
-      background-color: #0056c9;
+      background-color: #6d3b90;
       width: 24px;
       height: 24px;
       border-radius: 50%;
@@ -310,7 +310,7 @@ const updateMapWithCoordinates = (lat: number, lng: number) => {
     marker.setLatLng([lat, lng])
     marker.setPopupContent(
       `<div style="min-width: 200px;">
-        <strong>${props.church?.churchName || 'Church Location'}</strong><br/>
+        <strong>${props.church?.churchName || 'Organisation Location'}</strong><br/>
         ${addressDisplay ? `<small>${addressDisplay}</small>` : ''}
       </div>`
     )
@@ -319,7 +319,7 @@ const updateMapWithCoordinates = (lat: number, lng: number) => {
       .addTo(map)
       .bindPopup(
         `<div style="min-width: 200px;">
-          <strong>${props.church?.churchName || 'Church Location'}</strong><br/>
+          <strong>${props.church?.churchName || 'Organisation Location'}</strong><br/>
           ${addressDisplay ? `<small>${addressDisplay}</small>` : ''}
         </div>`
       )
@@ -365,8 +365,8 @@ const updateRadiusCircle = (lat: number, lng: number) => {
   // Create circle with fixed radius
   radiusCircle = L.circle([lat, lng], {
     radius: fixedRadius * 1000, // Convert km to meters
-    color: '#0056c9',
-    fillColor: '#0056c9',
+    color: '#6d3b90',
+    fillColor: '#6d3b90',
     fillOpacity: 0.1,
     weight: 2,
     dashArray: '5, 10',
@@ -576,7 +576,7 @@ watch(
         const icon = L.divIcon({
           className: 'custom-marker',
           html: `<div style="
-            background-color: #0056c9;
+            background-color: #6d3b90;
             width: 24px;
             height: 24px;
             border-radius: 50%;
@@ -593,7 +593,7 @@ watch(
           .addTo(map)
           .bindPopup(
             `<div style="min-width: 200px;">
-              <strong>${props.church?.churchName || 'Church Location'}</strong><br/>
+              <strong>${props.church?.churchName || 'Organisation Location'}</strong><br/>
               ${addressDisplay ? `<small>${addressDisplay}</small>` : ''}
             </div>`
           )

@@ -1,4 +1,4 @@
--- Complete database schema for Welcomers Portal
+-- Complete database schema for Good Directions NDIS Healthcheck
 -- Run this in Cloud SQL Studio against the 'production' database
 
 -- Enable PostGIS (already done, but just in case)

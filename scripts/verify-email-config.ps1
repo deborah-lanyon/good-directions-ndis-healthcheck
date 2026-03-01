@@ -81,8 +81,8 @@ Write-Host "`nEmail Sender Configuration:" -ForegroundColor Cyan
 Write-Host "----------------------------" -ForegroundColor Gray
 
 # Optional variables with defaults
-Test-EnvVar "MAIL_FROM_ADDRESS" $false "Defaults to: noreply@welcomers-portal.com"
-Test-EnvVar "MAIL_FROM_NAME" $false "Defaults to: Community Welcome Portal"
+Test-EnvVar "MAIL_FROM_ADDRESS" $false "Defaults to: noreply@gooddirections.com.au"
+Test-EnvVar "MAIL_FROM_NAME" $false "Defaults to: Good Directions NDIS Healthcheck"
 
 Write-Host "`n=== Summary ===" -ForegroundColor Cyan
 

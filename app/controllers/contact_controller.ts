@@ -38,9 +38,9 @@ export default class ContactController {
       // Format inquiry types for the email
       const inquiryTypeLabels: Record<string, string> = {
         registration_info:
-          'Further information about registering your Church for the Community Welcome Program',
-        help_using: 'Help in using the Community Welcome program',
-        book_visit: 'Book a visit to your Church to introduce the Community Welcome Program',
+          'Further information about registering your organisation for the Good Directions NDIS Healthcheck',
+        help_using: 'Help in using the Good Directions NDIS Healthcheck',
+        book_visit: 'Book a visit to your organisation to introduce the Good Directions NDIS Healthcheck',
         ask_question: 'Ask a Question',
       }
 
@@ -50,14 +50,14 @@ export default class ContactController {
 
       // Send email notification to all admin emails (comma-separated)
       const adminEmails = env
-        .get('ADMIN_EMAIL', 'admin@communitywelcome.com')
+        .get('ADMIN_EMAIL', 'peter@gooddirections.com.au')
         .split(',')
         .map((e: string) => e.trim())
         .filter((e: string) => e.length > 0)
 
       await mail.send((message) => {
         const msg = message
-          .from(env.get('MAIL_FROM_ADDRESS', 'noreply@communitywelcome.com'))
+          .from(env.get('MAIL_FROM_ADDRESS', 'noreply@gooddirections.com.au'))
           .replyTo(data.email)
           .subject(`New Contact Form Submission from ${data.firstName} ${data.lastName}`)
         for (const email of adminEmails) {

@@ -1,6 +1,6 @@
 # Manual Testing Checklist
 
-This document provides a comprehensive checklist for manually testing the Welcomers Portal application before deployment.
+This document provides a comprehensive checklist for manually testing the Good Directions NDIS Healthcheck application before deployment.
 
 ## Pre-Deployment Testing
 

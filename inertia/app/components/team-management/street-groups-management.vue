@@ -5,7 +5,7 @@
         <div>
           <h3 class="text-2xl font-semibold text-gray-900">Street Groups Management</h3>
           <p class="text-sm text-gray-600 mt-1">
-            Manage your street groups, assign visitors, and organize your outreach by postcode
+            Manage your street groups, assign deliveries, and organize your outreach by postcode
           </p>
         </div>
         <button
@@ -436,7 +436,7 @@
                   type="button"
                   @click="openMapOverlay"
                   variant="outline"
-                  class="w-full bg-tertiary hover:bg-[#e55d4d] text-white hover:text-white border-tertiary"
+                  class="w-full bg-tertiary hover:bg-[#e59a00] text-white hover:text-white border-tertiary"
                 >
                   <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
@@ -582,7 +582,7 @@
             <Button
               type="submit"
               :disabled="isSaving"
-              class="flex-1 bg-tertiary hover:bg-[#e55d4d] disabled:opacity-50 disabled:cursor-not-allowed"
+              class="flex-1 bg-tertiary hover:bg-[#e59a00] disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <span v-if="isSaving" class="flex items-center gap-2">
                 <svg
@@ -998,7 +998,7 @@ async function initializeMap() {
   L.marker([lat, lng], {
     icon: L.divIcon({
       className: 'church-marker',
-      html: '<div style="background: #ff7262; width: 16px; height: 16px; border-radius: 50%; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"></div>',
+      html: '<div style="background: #FDAF18; width: 16px; height: 16px; border-radius: 50%; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"></div>',
       iconSize: [16, 16],
       iconAnchor: [8, 8],
     }),

@@ -21,7 +21,7 @@
     </div>
 
     <!-- Top Menu Bar -->
-    <header class="h-[72px] bg-[#e8f0fa] flex items-center justify-between px-4 flex-shrink-0">
+    <header class="h-[72px] bg-[#ece3f3] flex items-center justify-between px-4 flex-shrink-0">
       <!-- Left: Hamburger + Logo + Church Name -->
       <div class="flex items-center gap-3 ml-2 md:ml-4">
         <!-- Mobile hamburger -->
@@ -36,7 +36,7 @@
           </svg>
         </button>
         <a href="/visitor/dashboard" class="flex items-center">
-          <img :src="logoDark" alt="Community Welcome Logo" class="h-10 w-auto" />
+          <img :src="logoDark" alt="Good Directions Logo" class="h-10 w-auto" />
         </a>
         <div v-if="churchName" class="hidden sm:flex items-center">
           <div class="w-px h-8 bg-gray-300 mr-4"></div>
@@ -222,7 +222,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { Head, router, usePage } from '@inertiajs/vue3'
-import logoDark from '@/app/images/logo-blue.png'
+import logoDark from '@/app/images/logo-purple.png'
 import {
   Menubar,
   MenubarMenu,

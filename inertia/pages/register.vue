@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-[#F1EDE0] min-h-screen flex flex-col">
+  <div class="bg-[#ffffff] min-h-screen flex flex-col">
     <header>
       <Navigation />
     </header>
@@ -37,7 +37,7 @@
             <FormInput
               type="text"
               placeholder=""
-              label="Church name"
+              label="Organisation name"
               id="church-name"
               v-model="churchName"
               theme="tertiary"
@@ -46,7 +46,7 @@
             <FormInput
               type="text"
               placeholder=""
-              label="Church website"
+              label="Organisation website"
               id="church-website"
               v-model="churchUrl"
               theme="tertiary"

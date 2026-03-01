@@ -5,7 +5,7 @@
         <div class="flex justify-end mb-4">
           <button
             @click="showCreateModal = true"
-            class="px-4 py-2 bg-tertiary hover:bg-[#e55d4d] text-white rounded-lg font-medium transition-colors"
+            class="px-4 py-2 bg-tertiary hover:bg-[#e59a00] text-white rounded-lg font-medium transition-colors"
           >
             Create User
           </button>
@@ -29,7 +29,7 @@
           </Card>
           <Card>
             <CardContent class="p-4">
-              <div class="text-sm text-gray-600">Church Admins</div>
+              <div class="text-sm text-gray-600">Operations Managers</div>
               <div class="text-2xl font-bold text-blue-600">
                 {{ stats.byRole?.church_admin || 0 }}
               </div>
@@ -37,7 +37,7 @@
           </Card>
           <Card>
             <CardContent class="p-4">
-              <div class="text-sm text-gray-600">Visitors</div>
+              <div class="text-sm text-gray-600">Deliveries</div>
               <div class="text-2xl font-bold text-green-600">{{ stats.byRole?.visitor || 0 }}</div>
             </CardContent>
           </Card>
@@ -78,8 +78,8 @@
             >
               <option value="">All Roles</option>
               <option value="super_admin">Super Admin</option>
-              <option value="church_admin">Church Admin</option>
-              <option value="visitor">Visitor</option>
+              <option value="church_admin">Operations Manager</option>
+              <option value="visitor">Delivery</option>
             </select>
 
             <!-- Status Filter -->
@@ -166,11 +166,11 @@
                   <td class="px-6 py-4">
                     <div v-if="user.church" class="text-sm text-gray-900">
                       {{ user.church.churchName }}
-                      <span class="text-gray-500">(Church)</span>
+                      <span class="text-gray-500">(Organisation)</span>
                     </div>
                     <div v-else-if="user.visitor" class="text-sm text-gray-900">
                       {{ user.visitor.name }}
-                      <span class="text-gray-500">(Visitor)</span>
+                      <span class="text-gray-500">(Delivery)</span>
                     </div>
                     <div v-else class="text-sm text-gray-400">No assignment</div>
                   </td>
@@ -264,8 +264,8 @@
                 v-model="createForm.role"
                 class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
               >
-                <option value="church_admin">Church Admin</option>
-                <option value="visitor">Visitor</option>
+                <option value="church_admin">Operations Manager</option>
+                <option value="visitor">Delivery</option>
               </select>
             </div>
           </div>
@@ -287,7 +287,7 @@
             <button
               type="submit"
               :disabled="creating"
-              class="px-4 py-2 bg-tertiary hover:bg-[#e55d4d] text-white rounded-lg font-medium disabled:opacity-50"
+              class="px-4 py-2 bg-tertiary hover:bg-[#e59a00] text-white rounded-lg font-medium disabled:opacity-50"
             >
               {{ creating ? 'Creating...' : 'Create User' }}
             </button>
@@ -351,7 +351,7 @@
             <button
               type="submit"
               :disabled="updating"
-              class="px-4 py-2 bg-tertiary hover:bg-[#e55d4d] text-white rounded-lg font-medium disabled:opacity-50"
+              class="px-4 py-2 bg-tertiary hover:bg-[#e59a00] text-white rounded-lg font-medium disabled:opacity-50"
             >
               {{ updating ? 'Saving...' : 'Save Changes' }}
             </button>
@@ -378,8 +378,8 @@
               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
             >
               <option value="super_admin">Super Admin</option>
-              <option value="church_admin">Church Admin</option>
-              <option value="visitor">Visitor</option>
+              <option value="church_admin">Operations Manager</option>
+              <option value="visitor">Delivery</option>
             </select>
           </div>
 
@@ -401,7 +401,7 @@
             <button
               type="submit"
               :disabled="updating"
-              class="px-4 py-2 bg-tertiary hover:bg-[#e55d4d] text-white rounded-lg font-medium disabled:opacity-50"
+              class="px-4 py-2 bg-tertiary hover:bg-[#e59a00] text-white rounded-lg font-medium disabled:opacity-50"
             >
               {{ updating ? 'Changing...' : 'Change Role' }}
             </button>
@@ -554,8 +554,8 @@ function getStatusBadgeClass(status: string) {
 function formatRole(role: string) {
   const labels = {
     super_admin: 'Super Admin',
-    church_admin: 'Church Admin',
-    visitor: 'Visitor',
+    church_admin: 'Operations Manager',
+    visitor: 'Delivery',
   }
   return labels[role as keyof typeof labels] || role
 }

@@ -1,6 +1,6 @@
 {
-  "name": "MyWebSite",
-  "short_name": "MySite",
+  "name": "Good Directions NDIS Healthcheck",
+  "short_name": "GD Healthcheck",
   "icons": [
     {
       "src": "/favicon/web-app-manifest-192x192.png",

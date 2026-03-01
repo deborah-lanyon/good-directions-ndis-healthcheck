@@ -3,9 +3,9 @@
     <div class="bg-white rounded-lg p-6 min-w-0">
       <div class="flex justify-between items-center mb-6">
         <div>
-          <h3 class="text-2xl font-semibold text-gray-900">Visitor Management</h3>
+          <h3 class="text-2xl font-semibold text-gray-900">Delivery Management</h3>
           <p class="text-sm text-gray-600 mt-1">
-            Manage church visitors and assign them to street groups
+            Manage deliveries and assign them to street groups
           </p>
         </div>
         <button
@@ -13,13 +13,13 @@
           class="inline-flex items-center rounded-md bg-primary hover:bg-primary/90 px-4 py-2 text-sm font-semibold text-white shadow-sm"
         >
           <span class="mr-2">+</span>
-          Create Visitor
+          Create Delivery
         </button>
       </div>
 
       <!-- Visitors List -->
       <div v-if="visitors.length === 0" class="text-center py-12">
-        <p class="text-gray-500 text-lg">No visitors yet. Create your first one to get started!</p>
+        <p class="text-gray-500 text-lg">No deliveries yet. Create your first one to get started!</p>
       </div>
 
       <div v-else class="bg-white rounded-lg shadow overflow-x-auto border border-gray-200">
@@ -104,7 +104,7 @@
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                 <div v-if="visitor.isAdminVisitor" class="text-xs text-gray-400 italic">
-                  Managed via Church Profile
+                  Managed via Organisation Profile
                 </div>
                 <div v-else class="flex justify-end items-center gap-2">
                   <button
@@ -175,7 +175,7 @@
       <DialogContent class="max-w-md">
         <DialogHeader>
           <DialogTitle class="text-2xl">
-            {{ selectedVisitor ? 'Edit Visitor' : 'Create Visitor' }}
+            {{ selectedVisitor ? 'Edit Delivery' : 'Create Delivery' }}
           </DialogTitle>
         </DialogHeader>
 
@@ -216,7 +216,7 @@
             <Button
               type="submit"
               :disabled="isSaving"
-              class="bg-tertiary hover:bg-[#e55d4d] disabled:opacity-50 disabled:cursor-not-allowed"
+              class="bg-tertiary hover:bg-[#e59a00] disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <span v-if="isSaving" class="flex items-center gap-2">
                 <svg
@@ -241,7 +241,7 @@
                 </svg>
                 Saving...
               </span>
-              <span v-else>{{ selectedVisitor ? 'Update Visitor' : 'Create Visitor' }}</span>
+              <span v-else>{{ selectedVisitor ? 'Update Delivery' : 'Create Delivery' }}</span>
             </Button>
           </div>
         </form>

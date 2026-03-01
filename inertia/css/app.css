@@ -7,9 +7,10 @@
 
 @theme {
   /* Colors */
-  --color-primary: #0056c9;
-  --color-secondary: #f1ede0;
-  --color-tertiary: #ff7262;
+  --color-primary: #6d3b90;
+  --color-secondary: #ffffff;
+  --color-tertiary: #FDAF18;
+  --color-accent-blue: #072d5b;
   --color-quaternary: #d9d9d9;
   --color-quinary: #62748e;
   --color-senary: #020618;
@@ -69,7 +70,7 @@
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: #0056c9;
+  --primary: #6d3b90;
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);

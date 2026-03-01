@@ -16,7 +16,7 @@
 
       <!-- Add Visitor Button -->
       <div class="mb-6">
-        <Button @click="showAddDialog = true" class="bg-tertiary hover:bg-[#e55d4d]">
+        <Button @click="showAddDialog = true" class="bg-tertiary hover:bg-[#e59a00]">
           + Add Visitor
         </Button>
       </div>
@@ -128,7 +128,7 @@
 
           <div class="flex justify-end gap-3 pt-4">
             <Button type="button" variant="outline" @click="closeDialog()"> Cancel </Button>
-            <Button type="submit" class="bg-tertiary hover:bg-[#e55d4d]">
+            <Button type="submit" class="bg-tertiary hover:bg-[#e59a00]">
               {{ selectedVisitor ? 'Update' : 'Add' }} Visitor
             </Button>
           </div>

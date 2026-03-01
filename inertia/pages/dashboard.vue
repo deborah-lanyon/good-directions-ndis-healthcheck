@@ -65,7 +65,7 @@
           </div>
         </div>
         <p class="font-karla font-bold text-3xl text-gray-800">{{ stats.teamMembers }}</p>
-        <p class="font-karla text-xs text-gray-400 mt-1">Active visitors</p>
+        <p class="font-karla text-xs text-gray-400 mt-1">Active deliveries</p>
       </div>
 
       <!-- Street Groups Card -->
@@ -136,7 +136,7 @@
             </div>
             <div class="flex-1">
               <p class="font-karla font-medium text-gray-800">Invite Team Member</p>
-              <p class="font-karla text-sm text-gray-500">Add visitors to help with outreach</p>
+              <p class="font-karla text-sm text-gray-500">Add deliveries to help with outreach</p>
             </div>
             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
@@ -154,8 +154,8 @@
               <span class="font-karla font-bold text-white text-sm">1</span>
             </div>
             <div>
-              <p class="font-karla font-medium text-gray-800">Complete your church profile</p>
-              <p class="font-karla text-sm text-gray-500">Add your church details, location, and contact information.</p>
+              <p class="font-karla font-medium text-gray-800">Complete your organisation profile</p>
+              <p class="font-karla text-sm text-gray-500">Add your organisation details, location, and contact information.</p>
             </div>
           </div>
 

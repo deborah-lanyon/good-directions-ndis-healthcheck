@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-[#F1EDE0] min-h-screen flex flex-col">
+  <div class="bg-[#ffffff] min-h-screen flex flex-col">
     <header>
       <Navigation />
     </header>
@@ -55,7 +55,7 @@ const props = withDefaults(
     content: () => ({
       title: 'About Us',
       paragraph1:
-        'The Community Welcome Portal was created to help churches connect with new residents in their local communities.',
+        'The Good Directions NDIS Healthcheck was created to help churches connect with new residents in their local communities.',
       paragraph2: '',
       paragraph3: '',
     }),

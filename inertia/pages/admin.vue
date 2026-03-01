@@ -7,9 +7,9 @@
           <div class="mb-8">
             <Icon name="hero" class="w-20 h-20 mx-auto text-primary" />
           </div>
-          <h1 class="text-4xl font-bold text-gray-900 mb-4">Welcome to Welcomers Portal</h1>
+          <h1 class="text-4xl font-bold text-gray-900 mb-4">Welcome to Good Directions NDIS Healthcheck</h1>
           <p class="text-lg text-gray-600 mb-6">
-            Manage your church profile, search for nearby properties, and keep your volunteers in
+            Manage your organisation profile, search for nearby properties, and keep your volunteers in
             the loop.
           </p>
           <div class="flex items-center justify-center gap-4">

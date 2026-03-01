@@ -62,7 +62,7 @@ export default class SetupDemo extends BaseCommand {
       // Create demo church admin user
       this.logger.info('Creating demo church admin user...')
       const demoAdmin = await User.create({
-        email: 'demo-admin@communitywelcome.org.au',
+        email: 'demo-admin@gooddirections.com.au',
         fullName: 'Demo Church Admin',
         password: 'demo123!',
         role: 'church_admin',
@@ -74,7 +74,7 @@ export default class SetupDemo extends BaseCommand {
       demoChurch = await Church.create({
         userId: demoAdmin.id,
         churchName: 'Demo Community Church',
-        url: 'demo.communitywelcome.org.au',
+        url: 'demo.gooddirections.com.au',
         address: '123 Demo Street, Sydney NSW 2000',
         suburb: 'Sydney',
         postcode: '2000',
@@ -104,7 +104,7 @@ export default class SetupDemo extends BaseCommand {
       const demoVisitor = await Visitor.create({
         churchId: demoChurch.id,
         name: 'Demo Visitor',
-        email: 'demo-visitor@communitywelcome.org.au',
+        email: 'demo-visitor@gooddirections.com.au',
         invitationAcceptedAt: DateTime.now(),
       })
 
@@ -243,7 +243,7 @@ export default class SetupDemo extends BaseCommand {
       this.logger.info('')
       this.logger.info('Demo Church Details:')
       this.logger.info(`  Church: ${demoChurch.churchName}`)
-      this.logger.info(`  Admin Email: demo-admin@communitywelcome.org.au`)
+      this.logger.info(`  Admin Email: demo-admin@gooddirections.com.au`)
       this.logger.info(`  Admin Password: demo123!`)
       this.logger.info('')
       this.logger.info(`  Visitor: Demo Visitor`)

@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-[#F1EDE0] min-h-screen flex flex-col">
+  <div class="bg-[#ffffff] min-h-screen flex flex-col">
     <header>
       <Navigation />
     </header>
@@ -95,8 +95,8 @@
                     class="mt-1 w-5 h-5 text-primary border-gray-300 rounded focus:ring-primary cursor-pointer"
                   />
                   <span class="text-primary font-karla">
-                    Further information about registering your Church for the Community Welcome
-                    Program
+                    Further information about registering your organisation for Good Directions
+                    NDIS Healthcheck
                   </span>
                 </label>
 
@@ -109,7 +109,7 @@
                     class="mt-1 w-5 h-5 text-primary border-gray-300 rounded focus:ring-primary cursor-pointer"
                   />
                   <span class="text-primary font-karla">
-                    Help in using the Community Welcome program
+                    Help in using Good Directions NDIS Healthcheck
                   </span>
                 </label>
 
@@ -122,7 +122,7 @@
                     class="mt-1 w-5 h-5 text-primary border-gray-300 rounded focus:ring-primary cursor-pointer"
                   />
                   <span class="text-primary font-karla">
-                    Book a visit to your Church to introduce the Community Welcome Program
+                    Book a visit to your organisation to introduce Good Directions NDIS Healthcheck
                   </span>
                 </label>
 

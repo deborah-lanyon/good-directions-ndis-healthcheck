@@ -9,7 +9,7 @@ export default class GcsStorageService {
   constructor() {
     // Initialize Google Cloud Storage client
     const projectId = env.get('GCP_PROJECT_ID', '')
-    this.bucketName = env.get('GCS_BUCKET_NAME', 'welcomers-portal-uploads')
+    this.bucketName = env.get('GCS_BUCKET_NAME', 'gd-ndis-healthcheck-uploads')
 
     // Use Application Default Credentials (works with GCP service account)
     this.storage = new Storage({

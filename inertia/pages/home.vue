@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-[#F1EDE0] min-h-screen flex flex-col">
+  <div class="bg-[#ffffff] min-h-screen flex flex-col">
     <header>
       <Navigation />
     </header>
@@ -50,7 +50,7 @@
             <FormInput
               type="text"
               placeholder=""
-              label="Church name"
+              label="Organisation name"
               id="church-name"
               v-model="churchName"
               theme="tertiary"
@@ -59,7 +59,7 @@
             <FormInput
               type="text"
               placeholder=""
-              label="Church website"
+              label="Organisation website"
               id="church-website"
               v-model="churchUrl"
               theme="tertiary"
@@ -124,9 +124,9 @@ const props = withDefaults(
     siteSettings: () => ({
       heroTitle: 'Reach those in your community',
       heroParagraph1:
-        'Welcome to the Community Welcome Portal—a platform designed to help churches connect with new residents in their local area. When families move into your community, they often need guidance, support, and a warm welcome as they settle in.',
+        'Welcome to Good Directions NDIS Healthcheck—a platform designed to help organisations connect with new residents in their local area. When families move into your community, they often need guidance, support, and a warm welcome as they settle in.',
       heroParagraph2:
-        "Our portal helps you identify new properties in your neighbourhood and reach out with essential information about local services, community resources, and opportunities to connect. Whether it's helping them find the nearest school, introducing them to local groups, or simply offering a friendly face, your church can make a meaningful difference in their transition.",
+        "Our portal helps you identify new properties in your neighbourhood and reach out with essential information about local services, community resources, and opportunities to connect. Whether it's helping them find the nearest school, introducing them to local groups, or simply offering a friendly face, your organisation can make a meaningful difference in their transition.",
       heroParagraph3:
         'Join us in building stronger, more connected communities—one welcome at a time.',
       ctaTitle: 'Ready to welcome your community?',

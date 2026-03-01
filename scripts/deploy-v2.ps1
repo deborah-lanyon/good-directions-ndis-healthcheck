@@ -1,7 +1,7 @@
-# Deploy Welcomers Portal V2 to Google Cloud Run
+# Deploy Good Directions NDIS Healthcheck V2 to Google Cloud Run
 # This script deploys a new version alongside the existing production app
 
-Write-Host "🚀 Welcomers Portal V2 Deployment Script" -ForegroundColor Cyan
+Write-Host "🚀 Good Directions NDIS Healthcheck V2 Deployment Script" -ForegroundColor Cyan
 Write-Host "=========================================" -ForegroundColor Cyan
 Write-Host ""
 

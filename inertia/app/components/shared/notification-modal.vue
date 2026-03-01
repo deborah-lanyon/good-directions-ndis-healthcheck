@@ -130,7 +130,7 @@
                     ? 'bg-green-600 hover:bg-green-700'
                     : type === 'error'
                       ? 'bg-red-600 hover:bg-red-700'
-                      : 'bg-tertiary hover:bg-[#e55d4d]',
+                      : 'bg-tertiary hover:bg-[#e59a00]',
                 ]"
               >
                 {{ confirmText }}

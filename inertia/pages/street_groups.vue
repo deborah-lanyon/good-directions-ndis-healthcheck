@@ -2,7 +2,7 @@
   <SidebarLayout pageTitle="Street Groups" pageSubtitle="Manage your street groups, assign visitors, and organise your outreach">
     <!-- Create Button -->
     <div class="mb-6">
-      <Button @click="showCreateDialog = true" class="bg-tertiary hover:bg-[#e55d4d]">
+      <Button @click="showCreateDialog = true" class="bg-tertiary hover:bg-[#e59a00]">
         + Create Street Group
       </Button>
     </div>
@@ -413,7 +413,7 @@
                   type="button"
                   @click="showMapOverlay = true"
                   variant="outline"
-                  class="w-full bg-tertiary hover:bg-[#e55d4d] text-white hover:text-white border-tertiary"
+                  class="w-full bg-tertiary hover:bg-[#e59a00] text-white hover:text-white border-tertiary"
                 >
                   <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
@@ -464,7 +464,7 @@
                         <Button
                           type="button"
                           @click="addStreet"
-                          class="bg-tertiary hover:bg-[#e55d4d] text-white px-4"
+                          class="bg-tertiary hover:bg-[#e59a00] text-white px-4"
                         >
                           Add
                         </Button>
@@ -516,7 +516,7 @@
             <Button
               type="submit"
               :disabled="isSaving"
-              class="flex-1 bg-tertiary hover:bg-[#e55d4d] disabled:opacity-50 disabled:cursor-not-allowed"
+              class="flex-1 bg-tertiary hover:bg-[#e59a00] disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <span v-if="isSaving" class="flex items-center gap-2">
                 <svg
@@ -581,7 +581,7 @@
               type="button"
               @click.stop="closeMapOverlay"
               @mousedown.stop
-              class="px-4 py-2 bg-tertiary hover:bg-[#e55d4d] text-white rounded-lg text-sm font-medium transition-colors"
+              class="px-4 py-2 bg-tertiary hover:bg-[#e59a00] text-white rounded-lg text-sm font-medium transition-colors"
             >
               Done
             </button>
@@ -799,7 +799,7 @@ async function initializeMap() {
   L.marker([lat, lng], {
     icon: L.divIcon({
       className: 'church-marker',
-      html: '<div style="background: #ff7262; width: 16px; height: 16px; border-radius: 50%; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"></div>',
+      html: '<div style="background: #FDAF18; width: 16px; height: 16px; border-radius: 50%; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"></div>',
       iconSize: [16, 16],
       iconAnchor: [8, 8],
     }),

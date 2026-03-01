@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-[#F1EDE0] min-h-screen flex flex-col">
+  <div class="bg-[#ffffff] min-h-screen flex flex-col">
     <header>
       <Navigation />
     </header>
@@ -10,7 +10,7 @@
         <div class="max-w-4xl mx-auto mt-12">
           <!-- Introduction -->
           <p class="text-primary font-karla text-2xl leading-relaxed mb-12 text-center">
-            The Community Welcome Portal makes it easy for your church to welcome new residents
+            Good Directions NDIS Healthcheck makes it easy for your organisation to welcome new residents
             to your neighbourhood. Here's how it works.
           </p>
 
@@ -25,9 +25,9 @@
                   1
                 </div>
                 <div>
-                  <h3 class="font-caprasimo text-2xl text-primary mb-3">Register Your Church</h3>
+                  <h3 class="font-caprasimo text-2xl text-primary mb-3">Register Your Organisation</h3>
                   <p class="text-primary font-karla text-lg leading-relaxed">
-                    Sign up for a free account and set up your church profile with your location.
+                    Sign up for a free account and set up your organisation profile with your location.
                     Once approved, the portal will automatically track properties in your area
                     that have recently been sold or rented.
                   </p>
@@ -66,7 +66,7 @@
                   <h3 class="font-caprasimo text-2xl text-primary mb-3">Organise Your Team</h3>
                   <p class="text-primary font-karla text-lg leading-relaxed">
                     Create street groups to divide your area into manageable visiting zones.
-                    Add team members from your church and assign them to specific street groups.
+                    Add team members from your organisation and assign them to specific street groups.
                     Each team member gets their own login to see their assigned properties.
                   </p>
                 </div>
@@ -178,7 +178,7 @@
               Get Started Free
             </a>
             <p class="text-primary/60 font-karla text-sm mt-4">
-              No credit card required. Free for churches.
+              No credit card required. Free for organisations.
             </p>
           </div>
         </div>

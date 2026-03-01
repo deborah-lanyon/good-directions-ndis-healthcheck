@@ -25,12 +25,12 @@ export default class TestEmail extends BaseCommand {
         message
           .to(email)
           .from(
-            env.get('MAIL_FROM_ADDRESS', 'noreply@welcomers-portal.com'),
-            env.get('MAIL_FROM_NAME', 'Community Welcome Portal')
+            env.get('MAIL_FROM_ADDRESS', 'noreply@gooddirections.com.au'),
+            env.get('MAIL_FROM_NAME', 'Good Directions NDIS Healthcheck')
           )
-          .subject('Test Email from Welcomers Portal').html(`
+          .subject('Test Email from Good Directions NDIS Healthcheck').html(`
             <h1>Test Email</h1>
-            <p>This is a test email from the Welcomers Portal.</p>
+            <p>This is a test email from the Good Directions NDIS Healthcheck.</p>
             <p>If you're seeing this, your email configuration is working correctly!</p>
             <p>Timestamp: ${new Date().toISOString()}</p>
           `)

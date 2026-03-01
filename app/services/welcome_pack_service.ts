@@ -1313,7 +1313,7 @@ export default class WelcomePackService {
       amenityCount: Object.values(data.amenities).flat().length,
     })
 
-    const primaryColor = data.primaryColor || '#0056c9'
+    const primaryColor = data.primaryColor || '#6d3b90'
     const secondaryColor = data.secondaryColor || '#059669'
     const lightBg = '#f8f9fa'
     const borderColor = '#e0e0e0'
@@ -1753,7 +1753,7 @@ export default class WelcomePackService {
         customContent: '',
         logoUrl: null,
         bannerUrl: null,
-        primaryColor: '#0056c9',
+        primaryColor: '#6d3b90',
         secondaryColor: '#059669',
         templateDesign: 'default',
         includeAmenities: true,

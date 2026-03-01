@@ -2,7 +2,7 @@
   <SidebarLayout pageTitle="Team Members" pageSubtitle="Manage church visitors and assign them to street groups">
     <!-- Create Button -->
     <div class="mb-6">
-      <Button @click="showCreateDialog = true" class="bg-tertiary hover:bg-[#e55d4d]">
+      <Button @click="showCreateDialog = true" class="bg-tertiary hover:bg-[#e59a00]">
         + Create Team Member
       </Button>
     </div>
@@ -206,7 +206,7 @@
             <Button
               type="submit"
               :disabled="isSaving"
-              class="bg-tertiary hover:bg-[#e55d4d] disabled:opacity-50 disabled:cursor-not-allowed"
+              class="bg-tertiary hover:bg-[#e59a00] disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <span v-if="isSaving" class="flex items-center gap-2">
                 <svg

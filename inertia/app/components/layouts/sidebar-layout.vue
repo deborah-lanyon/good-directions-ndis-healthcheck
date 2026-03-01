@@ -21,7 +21,7 @@
     </div>
 
     <!-- Top Menu Bar -->
-    <header class="h-[72px] bg-[#e8f0fa] flex items-center justify-between px-4 flex-shrink-0">
+    <header class="h-[72px] bg-[#ece3f3] flex items-center justify-between px-4 flex-shrink-0">
       <!-- Left: Hamburger + Logo + Church Name -->
       <div class="flex items-center gap-3 ml-2 md:ml-4">
         <!-- Mobile hamburger -->
@@ -36,7 +36,7 @@
           </svg>
         </button>
         <a href="/" class="flex items-center">
-          <img :src="logoDark" alt="Community Welcome Logo" class="h-10 w-auto" />
+          <img :src="logoDark" alt="Good Directions Logo" class="h-10 w-auto" />
         </a>
         <div v-if="churchName" class="hidden sm:flex items-center">
           <div class="w-px h-8 bg-gray-300 mr-4"></div>
@@ -46,7 +46,7 @@
 
       <!-- Right: Icon Links and User -->
       <div class="flex items-center gap-1 md:gap-2 mr-2 md:mr-4">
-        <!-- Desktop: Sync + View as Visitor (hidden on mobile, shown in submenu below) -->
+        <!-- Desktop: Sync + View as Delivery (hidden on mobile, shown in submenu below) -->
         <div class="hidden md:flex items-center gap-2">
         <!-- Sync Status Indicator -->
         <div v-if="syncStatus === 'syncing'" class="flex items-center gap-2 px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg">
@@ -81,7 +81,7 @@
                   <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                   <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                 </svg>
-                View as Visitor
+                View as Delivery
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
                 </svg>
@@ -90,7 +90,7 @@
             <MenubarContent class="bg-white min-w-[200px]">
               <template v-if="visitors.length > 0">
                 <MenubarItem disabled class="text-gray-400 text-xs px-2 py-1.5 uppercase tracking-wider">
-                  Switch to visitor
+                  Switch to delivery
                 </MenubarItem>
                 <MenubarSeparator />
                 <MenubarItem
@@ -111,12 +111,12 @@
               </template>
               <template v-else>
                 <MenubarItem disabled class="text-gray-500 text-sm px-2 py-2">
-                  No visitors yet
+                  No deliveries yet
                 </MenubarItem>
                 <MenubarSeparator />
                 <MenubarItem as-child>
                   <a href="/team-management" class="w-full text-left cursor-pointer text-teal-700 hover:bg-teal-50 focus:bg-teal-50 px-2 py-2 rounded text-sm">
-                    Add visitors in Team Management
+                    Add deliveries in Team Management
                   </a>
                 </MenubarItem>
               </template>
@@ -170,8 +170,8 @@
       </div>
     </header>
 
-    <!-- Mobile: Sync + View as Visitor submenu -->
-    <div class="md:hidden bg-[#e8f0fa] border-t border-gray-200/50 px-4 py-2 flex items-center justify-between flex-shrink-0">
+    <!-- Mobile: Sync + View as Delivery submenu -->
+    <div class="md:hidden bg-[#ece3f3] border-t border-gray-200/50 px-4 py-2 flex items-center justify-between flex-shrink-0">
       <!-- Sync Status -->
       <div v-if="syncStatus === 'syncing'" class="flex items-center gap-1.5 px-2 py-1 bg-blue-50 text-blue-700 rounded-md">
         <svg class="w-3.5 h-3.5 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -194,7 +194,7 @@
       </div>
       <div v-else></div>
 
-      <!-- View as Visitor -->
+      <!-- View as Delivery -->
       <Menubar v-if="!shouldHideChurchSetup" class="border-none bg-transparent p-0 h-auto shadow-none">
         <MenubarMenu>
           <MenubarTrigger
@@ -205,7 +205,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
               </svg>
-              View as Visitor
+              View as Delivery
               <svg xmlns="http://www.w3.org/2000/svg" class="w-2.5 h-2.5 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
               </svg>
@@ -214,7 +214,7 @@
           <MenubarContent class="bg-white min-w-[200px]">
             <template v-if="visitors.length > 0">
               <MenubarItem disabled class="text-gray-400 text-xs px-2 py-1.5 uppercase tracking-wider">
-                Switch to visitor
+                Switch to delivery
               </MenubarItem>
               <MenubarSeparator />
               <MenubarItem
@@ -235,12 +235,12 @@
             </template>
             <template v-else>
               <MenubarItem disabled class="text-gray-500 text-sm px-2 py-2">
-                No visitors yet
+                No deliveries yet
               </MenubarItem>
               <MenubarSeparator />
               <MenubarItem as-child>
                 <a href="/team-management" class="w-full text-left cursor-pointer text-teal-700 hover:bg-teal-50 focus:bg-teal-50 px-2 py-2 rounded text-sm">
-                  Add visitors in Team Management
+                  Add deliveries in Team Management
                 </a>
               </MenubarItem>
             </template>
@@ -323,10 +323,10 @@
             </a>
           </div>
 
-          <!-- Church Setup Section (hidden for Super Admins in admin view - visible when impersonating a church) -->
+          <!-- Organisation Setup Section (hidden for Super Admins in admin view - visible when impersonating a church) -->
           <div v-if="!shouldHideChurchSetup" class="mt-6 pt-6 border-t border-white/20">
             <p class="px-4 text-sm font-karla font-semibold text-white uppercase tracking-wider mb-2">
-              Church Setup
+              Organisation Setup
             </p>
             <div class="space-y-1">
               <a
@@ -339,7 +339,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z" />
                 </svg>
-                <span class="font-karla">Church Profile</span>
+                <span class="font-karla">Organisation Profile</span>
               </a>
 
               <a
@@ -477,7 +477,7 @@
 <script setup lang="ts">
 import { computed, ref, onMounted, watch } from 'vue'
 import { router, usePage } from '@inertiajs/vue3'
-import logoDark from '@/app/images/logo-blue.png'
+import logoDark from '@/app/images/logo-purple.png'
 import {
   Menubar,
   MenubarMenu,
@@ -552,7 +552,7 @@ const stopImpersonating = async () => {
   }
 }
 
-// Hide Church Setup only when Super Admin is in their own admin view (not impersonating or in demo mode)
+// Hide Organisation Setup only when Super Admin is in their own admin view (not impersonating or in demo mode)
 const shouldHideChurchSetup = computed(() => isSuperAdmin.value && !isImpersonating.value && !demoMode.value && viewMode.value !== 'church')
 
 const userName = computed(() => user?.name || 'User')
@@ -590,7 +590,7 @@ const logout = () => {
   router.post('/logout')
 }
 
-// Role switcher - fetch visitors with street groups for "View as Visitor" dropdown
+// Role switcher - fetch visitors with street groups for "View as Delivery" dropdown
 interface VisitorOption {
   id: number
   name: string

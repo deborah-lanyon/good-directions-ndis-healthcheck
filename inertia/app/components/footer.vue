@@ -5,12 +5,12 @@
         class="flex flex-col items-center justify-center gap-y-11 lg:flex-row lg:justify-between lg:gap-y-0"
       >
         <div class="flex max-w-max flex-col items-center gap-y-9 md:items-start">
-          <img :src="logo" alt="Community Welcome Logo" class="h-16 max-w-max md:h-[102px]" />
+          <img :src="logo" alt="Good Directions Logo" class="h-16 max-w-max md:h-[102px]" />
           <a
-            href="mailto:peter@communitywelcome.org.au"
+            href="mailto:peter@gooddirections.com.au"
             class="text-quaternary font-karla text-center text-lg font-semibold md:text-left md:text-2xl"
           >
-            peter@communitywelcome.org.au
+            peter@gooddirections.com.au
           </a>
         </div>
         <div

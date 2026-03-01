@@ -73,7 +73,7 @@ export default class SetupDemoClone extends BaseCommand {
       this.logger.info('Creating demo admin user...')
       const slug = sourceChurch.churchName.replace(/[^a-z0-9]/gi, '-').toLowerCase()
       const demoAdmin = await User.create({
-        email: `demo-clone-${slug}@communitywelcome.org.au`,
+        email: `demo-clone-${slug}@gooddirections.com.au`,
         fullName: `Demo Admin (${sourceChurch.churchName})`,
         password: 'demo123!',
         role: 'church_admin',
@@ -85,7 +85,7 @@ export default class SetupDemoClone extends BaseCommand {
       const demoChurch = await Church.create({
         userId: demoAdmin.id,
         churchName: demoName,
-        url: `demo-${slug}.communitywelcome.org.au`,
+        url: `demo-${slug}.gooddirections.com.au`,
         address: sourceChurch.address,
         addressLine1: sourceChurch.addressLine1,
         addressLine2: sourceChurch.addressLine2,
