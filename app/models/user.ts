@@ -8,7 +8,7 @@ import type { HasOne } from '@adonisjs/lucid/types/relations'
 import Church from '#models/church'
 import Visitor from '#models/visitor'
 
-export type UserRole = 'super_admin' | 'church_admin' | 'visitor'
+export type UserRole = 'admin'
 
 const AuthFinder = withAuthFinder(() => hash.use('scrypt'), {
   uids: ['email'],
@@ -55,9 +55,6 @@ export default class User extends compose(BaseModel, AuthFinder) {
 
   @column.dateTime()
   declare adminApprovalTokenExpiresAt: DateTime | null
-
-  @column()
-  declare isSuperAdmin: boolean
 
   @column()
   declare role: UserRole
@@ -121,21 +118,21 @@ export default class User extends compose(BaseModel, AuthFinder) {
   }
 
   /**
-   * Role helper methods
+   * Role helper methods — simplified to single admin role
    */
   isSuperAdminRole(): boolean {
-    return this.role === 'super_admin' || this.isSuperAdmin
+    return true
   }
 
   isChurchAdmin(): boolean {
-    return this.role === 'church_admin'
+    return true
   }
 
   isVisitorRole(): boolean {
-    return this.role === 'visitor'
+    return false
   }
 
   canManageChurch(): boolean {
-    return this.isSuperAdminRole() || this.isChurchAdmin()
+    return true
   }
 }

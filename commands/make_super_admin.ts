@@ -27,11 +27,10 @@ export default class MakeSuperAdmin extends BaseCommand {
         return
       }
 
-      user.role = 'super_admin'
-      user.isSuperAdmin = true
+      user.role = 'admin'
       await user.save()
 
-      this.logger.success(`Successfully made ${user.fullName} (${user.email}) a super admin!`)
+      this.logger.success(`Successfully made ${user.fullName} (${user.email}) an admin!`)
     } catch (error) {
       this.logger.error(`Failed to update user: ${error.message}`)
     }

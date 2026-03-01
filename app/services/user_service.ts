@@ -182,7 +182,7 @@ export class UserService {
       fullName: data.fullName,
       email: data.email,
       password,
-      role: data.role || 'church_admin',
+      role: 'admin',
       adminApprovalStatus: 'approved',
     })
 
@@ -284,21 +284,11 @@ export class UserService {
   }
 
   /**
-   * Change user role (super admin only)
+   * Change user role — single admin role, no-op
    */
-  async changeUserRole(userId: number, newRole: UserRole): Promise<User> {
+  async changeUserRole(userId: number, _newRole: UserRole): Promise<User> {
     const user = await User.findOrFail(userId)
-
-    // Prevent changing the last super admin
-    if (user.role === 'super_admin' && newRole !== 'super_admin') {
-      const superAdminCount = await User.query().where('role', 'super_admin').count('* as total')
-
-      if (Number(superAdminCount[0].$extras.total) <= 1) {
-        throw new Error('Cannot change role of the last super admin')
-      }
-    }
-
-    user.role = newRole
+    user.role = 'admin'
     await user.save()
     return user
   }
@@ -334,13 +324,10 @@ export class UserService {
       throw new Error('User not found')
     }
 
-    // Prevent deleting the last super admin
-    if (user.role === 'super_admin') {
-      const superAdminCount = await User.query().where('role', 'super_admin').count('* as total')
-
-      if (Number(superAdminCount[0].$extras.total) <= 1) {
-        throw new Error('Cannot delete the last super admin')
-      }
+    // Prevent deleting the last admin
+    const adminCount = await User.query().count('* as total')
+    if (Number(adminCount[0].$extras.total) <= 1) {
+      throw new Error('Cannot delete the last admin account')
     }
 
     // Delete related records

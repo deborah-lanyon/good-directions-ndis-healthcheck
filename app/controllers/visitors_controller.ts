@@ -316,8 +316,8 @@ export default class VisitorsController {
       return response.forbidden({ message: 'You must be logged in' })
     }
 
-    const isDemoMode = user.isSuperAdminRole() && session.get('demo_mode') === 'church_admin'
-    if (user.role !== 'church_admin' && !isDemoMode) {
+    const isDemoMode = user.isSuperAdminRole() && !!session.get('demo_mode')
+    if (user.role !== 'admin' && !isDemoMode) {
       return response.forbidden({ message: 'Only church admins can use this feature' })
     }
 

@@ -12,7 +12,7 @@
         </div>
 
         <!-- Stats Cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
           <Card>
             <CardContent class="p-4">
               <div class="text-sm text-gray-600">Total Users</div>
@@ -21,24 +21,14 @@
           </Card>
           <Card>
             <CardContent class="p-4">
-              <div class="text-sm text-gray-600">Super Admins</div>
-              <div class="text-2xl font-bold text-purple-600">
-                {{ stats.byRole?.super_admin || 0 }}
-              </div>
+              <div class="text-sm text-gray-600">Approved</div>
+              <div class="text-2xl font-bold text-green-600">{{ stats.byStatus?.approved || 0 }}</div>
             </CardContent>
           </Card>
           <Card>
             <CardContent class="p-4">
-              <div class="text-sm text-gray-600">Operations Managers</div>
-              <div class="text-2xl font-bold text-blue-600">
-                {{ stats.byRole?.church_admin || 0 }}
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent class="p-4">
-              <div class="text-sm text-gray-600">Deliveries</div>
-              <div class="text-2xl font-bold text-green-600">{{ stats.byRole?.visitor || 0 }}</div>
+              <div class="text-sm text-gray-600">Pending</div>
+              <div class="text-2xl font-bold text-yellow-600">{{ stats.byStatus?.pending || 0 }}</div>
             </CardContent>
           </Card>
         </div>
@@ -71,17 +61,6 @@
               </svg>
             </div>
 
-            <!-- Role Filter -->
-            <select
-              v-model="roleFilter"
-              class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white"
-            >
-              <option value="">All Roles</option>
-              <option value="super_admin">Super Admin</option>
-              <option value="church_admin">Operations Manager</option>
-              <option value="visitor">Delivery</option>
-            </select>
-
             <!-- Status Filter -->
             <select
               v-model="statusFilter"
@@ -107,11 +86,6 @@
                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
                     User
-                  </th>
-                  <th
-                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                  >
-                    Role
                   </th>
                   <th
                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
@@ -150,14 +124,6 @@
                   <td class="px-6 py-4 whitespace-nowrap">
                     <span
                       class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full"
-                      :class="getRoleBadgeClass(user.role)"
-                    >
-                      {{ formatRole(user.role) }}
-                    </span>
-                  </td>
-                  <td class="px-6 py-4 whitespace-nowrap">
-                    <span
-                      class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full"
                       :class="getStatusBadgeClass(user.adminApprovalStatus)"
                     >
                       {{ user.adminApprovalStatus }}
@@ -180,12 +146,6 @@
                   <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                     <button @click="editUser(user)" class="text-blue-600 hover:text-blue-900 mr-3">
                       Edit
-                    </button>
-                    <button
-                      @click="changeRole(user)"
-                      class="text-purple-600 hover:text-purple-900 mr-3"
-                    >
-                      Role
                     </button>
                     <button
                       @click="resetPassword(user.id)"
@@ -258,16 +218,6 @@
               />
             </div>
 
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">Role</label>
-              <select
-                v-model="createForm.role"
-                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
-              >
-                <option value="church_admin">Operations Manager</option>
-                <option value="visitor">Delivery</option>
-              </select>
-            </div>
           </div>
 
           <div class="bg-blue-50 border-l-4 border-blue-400 p-3 mt-4">
@@ -360,56 +310,6 @@
       </div>
     </div>
 
-    <!-- Change Role Modal -->
-    <div
-      v-if="showRoleModal"
-      class="fixed inset-0 overflow-y-auto flex items-center justify-center p-4"
-      style="z-index: 9999; background-color: rgba(0, 0, 0, 0.5)"
-      @click.self="showRoleModal = false"
-    >
-      <div class="bg-white rounded-lg max-w-md w-full p-6">
-        <h3 class="text-lg font-bold text-gray-900 mb-4">Change User Role</h3>
-
-        <form @submit.prevent="updateRole">
-          <div class="mb-4">
-            <label class="block text-sm font-medium text-gray-700 mb-2">Select New Role</label>
-            <select
-              v-model="roleForm.role"
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
-            >
-              <option value="super_admin">Super Admin</option>
-              <option value="church_admin">Operations Manager</option>
-              <option value="visitor">Delivery</option>
-            </select>
-          </div>
-
-          <div class="bg-yellow-50 border-l-4 border-yellow-400 p-3 mb-4">
-            <p class="text-sm text-yellow-700">
-              Changing roles may affect user permissions and access. This action cannot be undone
-              automatically.
-            </p>
-          </div>
-
-          <div class="flex justify-end space-x-3">
-            <button
-              type="button"
-              @click="showRoleModal = false"
-              class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              :disabled="updating"
-              class="px-4 py-2 bg-tertiary hover:bg-[#e59a00] text-white rounded-lg font-medium disabled:opacity-50"
-            >
-              {{ updating ? 'Changing...' : 'Change Role' }}
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-
     <!-- Confirmation Modal -->
     <ConfirmationModal
       :show="confirmation.show"
@@ -441,7 +341,7 @@ interface User {
   id: number
   fullName: string | null
   email: string
-  role: 'super_admin' | 'church_admin' | 'visitor'
+  role: string
   adminApprovalStatus: 'pending' | 'approved' | 'rejected'
   createdAt: string
   church?: {
@@ -476,18 +376,15 @@ const page = usePage()
 const currentUserId = computed(() => (page.props.user as any)?.id)
 
 const searchQuery = ref('')
-const roleFilter = ref('')
 const statusFilter = ref('')
 const showCreateModal = ref(false)
 const showEditModal = ref(false)
-const showRoleModal = ref(false)
 const updating = ref(false)
 const creating = ref(false)
 
 const createForm = ref({
   fullName: '',
   email: '',
-  role: 'church_admin' as 'church_admin' | 'visitor',
 })
 
 const editForm = ref({
@@ -495,11 +392,6 @@ const editForm = ref({
   fullName: '',
   email: '',
   adminApprovalStatus: 'pending' as 'pending' | 'approved' | 'rejected',
-})
-
-const roleForm = ref({
-  id: 0,
-  role: 'church_admin' as 'super_admin' | 'church_admin' | 'visitor',
 })
 
 const toast = ref({
@@ -526,21 +418,11 @@ const filteredUsers = computed(() => {
       user.fullName?.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
       user.email.toLowerCase().includes(searchQuery.value.toLowerCase())
 
-    const matchesRole = !roleFilter.value || user.role === roleFilter.value
     const matchesStatus = !statusFilter.value || user.adminApprovalStatus === statusFilter.value
 
-    return matchesSearch && matchesRole && matchesStatus
+    return matchesSearch && matchesStatus
   })
 })
-
-function getRoleBadgeClass(role: string) {
-  const classes = {
-    super_admin: 'bg-purple-100 text-purple-800',
-    church_admin: 'bg-blue-100 text-blue-800',
-    visitor: 'bg-green-100 text-green-800',
-  }
-  return classes[role as keyof typeof classes] || 'bg-gray-100 text-gray-800'
-}
 
 function getStatusBadgeClass(status: string) {
   const classes = {
@@ -549,15 +431,6 @@ function getStatusBadgeClass(status: string) {
     rejected: 'bg-red-100 text-red-800',
   }
   return classes[status as keyof typeof classes] || 'bg-gray-100 text-gray-800'
-}
-
-function formatRole(role: string) {
-  const labels = {
-    super_admin: 'Super Admin',
-    church_admin: 'Operations Manager',
-    visitor: 'Delivery',
-  }
-  return labels[role as keyof typeof labels] || role
 }
 
 function formatDate(dateString: string) {
@@ -574,26 +447,17 @@ function editUser(user: User) {
   showEditModal.value = true
 }
 
-function changeRole(user: User) {
-  roleForm.value = {
-    id: user.id,
-    role: user.role,
-  }
-  showRoleModal.value = true
-}
-
 async function createUser() {
   creating.value = true
   try {
     const response = await axios.post('/api/admin/users', {
       fullName: createForm.value.fullName,
       email: createForm.value.email,
-      role: createForm.value.role,
     })
 
     showToast('success', response.data.message || 'User created successfully')
     showCreateModal.value = false
-    createForm.value = { fullName: '', email: '', role: 'church_admin' }
+    createForm.value = { fullName: '', email: '' }
     router.reload()
   } catch (error: any) {
     showToast('error', error.response?.data?.error || 'Failed to create user')
@@ -616,23 +480,6 @@ async function updateUser() {
     router.reload()
   } catch (error: any) {
     showToast('error', error.response?.data?.error || 'Failed to update user')
-  } finally {
-    updating.value = false
-  }
-}
-
-async function updateRole() {
-  updating.value = true
-  try {
-    const response = await axios.put(`/api/admin/users/${roleForm.value.id}/role`, {
-      role: roleForm.value.role,
-    })
-
-    showToast('success', response.data.message || 'Role changed successfully')
-    showRoleModal.value = false
-    router.reload()
-  } catch (error: any) {
-    showToast('error', error.response?.data?.error || 'Failed to change role')
   } finally {
     updating.value = false
   }

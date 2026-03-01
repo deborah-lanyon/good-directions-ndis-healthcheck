@@ -76,7 +76,7 @@ export default class SetupDemoClone extends BaseCommand {
         email: `demo-clone-${slug}@gooddirections.com.au`,
         fullName: `Demo Admin (${sourceChurch.churchName})`,
         password: 'demo123!',
-        role: 'church_admin',
+        role: 'admin',
         adminApprovalStatus: 'approved',
       })
 

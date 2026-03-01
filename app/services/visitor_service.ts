@@ -227,7 +227,7 @@ export default class VisitorService {
       fullName: visitor.name,
       email: visitor.email,
       password: password,
-      role: 'visitor',
+      role: 'admin',
       adminApprovalStatus: 'approved', // Visitors don't need admin approval
     })
 

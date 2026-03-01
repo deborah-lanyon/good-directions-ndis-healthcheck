@@ -275,7 +275,6 @@ export default class AdminController {
           password: Math.random().toString(36).substring(2, 15), // Random password
           fullName: `Temp User for ${data.churchName}`,
           adminApprovalStatus: 'approved',
-          isSuperAdmin: false,
         })
         ownerUserId = tempUser.id
       }

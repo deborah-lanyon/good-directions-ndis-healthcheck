@@ -26,13 +26,12 @@ export default class extends BaseSeeder {
         email,
         fullName,
         password,
-        role: 'super_admin',
-        isSuperAdmin: true,
+        role: 'admin',
         adminApprovalStatus: 'approved',
       }
     )
 
-    console.log('✅ Created development super admin user:')
+    console.log('✅ Created development admin user:')
     console.log(`   Email: ${email}`)
     console.log(`   Password: ${password}`)
     console.log('⚠️  WARNING: This seeder only runs in development mode')

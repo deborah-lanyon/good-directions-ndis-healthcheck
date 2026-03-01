@@ -25,11 +25,11 @@ export default class RestoreAdmin extends BaseCommand {
         email,
         password,
         fullName,
-        isSuperAdmin: true,
+        role: 'admin',
         adminApprovalStatus: 'approved',
       })
 
-      this.logger.success('✅ Super admin account restored!')
+      this.logger.success('✅ Admin account restored!')
       this.logger.info(`Email: ${email}`)
       this.logger.info(`Temporary Password: ${password}`)
       this.logger.info(`User ID: ${user.id}`)

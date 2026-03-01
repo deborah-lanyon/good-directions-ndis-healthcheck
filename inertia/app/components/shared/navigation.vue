@@ -22,19 +22,27 @@
         <img class="w-auto h-16" :src="logo" alt="Good Directions Logo" />
       </a>
       <div class="flex items-center" style="gap: calc(var(--spacing) * 10)">
-        <!-- Navigation for Super Admins (always show admin navigation) -->
-        <template
-          v-if="user && (user.role === 'super_admin' || user.isSuperAdmin)"
-        >
+        <!-- Navigation for logged-in admins -->
+        <template v-if="user">
+          <a
+            href="/dashboard"
+            :class="[
+              'font-karla text-xl hidden sm:inline-block',
+              isActive('/dashboard') ? 'text-tertiary' : 'text-white hover:text-tertiary',
+            ]"
+            aria-label="Dashboard"
+          >
+            Dashboard
+          </a>
           <a
             href="/admin/churches"
             :class="[
               'font-karla text-xl hidden sm:inline-block',
               isActive('/admin/churches') ? 'text-tertiary' : 'text-white hover:text-tertiary',
             ]"
-            aria-label="All Organisation Profiles"
+            aria-label="Organisations"
           >
-            All Organisation Profiles
+            Organisations
           </a>
           <a
             href="/admin/users"
@@ -42,9 +50,9 @@
               'font-karla text-xl hidden sm:inline-block',
               isActive('/admin/users') ? 'text-tertiary' : 'text-white hover:text-tertiary',
             ]"
-            aria-label="User Profiles"
+            aria-label="Users"
           >
-            User Profiles
+            Users
           </a>
           <a
             href="/admin/site-settings"
@@ -52,59 +60,9 @@
               'font-karla text-xl hidden sm:inline-block',
               isActive('/admin/site-settings') ? 'text-tertiary' : 'text-white hover:text-tertiary',
             ]"
-            aria-label="Site Settings"
+            aria-label="Settings"
           >
-            Site Settings
-          </a>
-          <a
-            href="/admin/analytics"
-            :class="[
-              'font-karla text-xl hidden sm:inline-block',
-              isActive('/admin/analytics') ? 'text-tertiary' : 'text-white hover:text-tertiary',
-            ]"
-            aria-label="Analytics"
-          >
-            Analytics
-          </a>
-          <a
-            href="/admin/records"
-            :class="[
-              'font-karla text-xl hidden sm:inline-block',
-              isActive('/admin/records') ? 'text-tertiary' : 'text-white hover:text-tertiary',
-            ]"
-            aria-label="All Records"
-          >
-            All Records
-          </a>
-          <DemoModeToggle class="hidden sm:block" />
-        </template>
-
-        <!-- Navigation for Church Admins and Visitors -->
-        <template
-          v-else-if="user && user.role !== 'super_admin' && !user.isSuperAdmin"
-        >
-          <!-- Management Dashboard Link -->
-          <a
-            href="/dashboard"
-            :class="[
-              'font-karla text-xl hidden sm:inline-block',
-              isActive('/dashboard') ? 'text-tertiary' : 'text-white hover:text-tertiary',
-            ]"
-            aria-label="Management Dashboard"
-          >
-            Management Dashboard
-          </a>
-
-          <!-- Get in Touch Link -->
-          <a
-            href="/get-in-touch"
-            :class="[
-              'font-karla text-xl hidden sm:inline-block',
-              isActive('/get-in-touch') ? 'text-tertiary' : 'text-white hover:text-tertiary',
-            ]"
-            aria-label="Get in Touch"
-          >
-            Get in Touch
+            Settings
           </a>
         </template>
 

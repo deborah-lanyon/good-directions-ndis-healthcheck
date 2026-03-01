@@ -63,7 +63,7 @@ export default class VisitorMiddleware {
     }
 
     // Check for church admin acting as a visitor
-    if (user.role === 'church_admin') {
+    if (user.role === 'admin') {
       const actingAsVisitorId = session.get('acting_as_visitor_id')
       if (actingAsVisitorId) {
         const actingVisitor = await Visitor.query()

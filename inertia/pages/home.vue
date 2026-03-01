@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-[#ffffff] min-h-screen flex flex-col">
+  <div class="bg-[#f1ede0] min-h-screen flex flex-col">
     <header>
       <Navigation />
     </header>
@@ -44,24 +44,6 @@
               label="Email"
               id="email"
               v-model="email"
-              theme="tertiary"
-              required
-            />
-            <FormInput
-              type="text"
-              placeholder=""
-              label="Organisation name"
-              id="church-name"
-              v-model="churchName"
-              theme="tertiary"
-              required
-            />
-            <FormInput
-              type="text"
-              placeholder=""
-              label="Organisation website"
-              id="church-website"
-              v-model="churchUrl"
               theme="tertiary"
               required
             />
@@ -129,7 +111,7 @@ const props = withDefaults(
         "We help families navigate the details that matter most: continuity of therapies, handover between providers, updated service agreements, and ensuring nothing falls through the cracks during the move. Because when care is this important, there's no room for disruption.",
       heroParagraph3:
         'Get a free NDIS Healthcheck and take the uncertainty out of your next move.',
-      ctaTitle: 'Request your free NDIS Healthcheck',
+      ctaTitle: 'Request Your NDIS Healthcheck Now',
       ctaButtonText: 'Get Started',
       heroImageUrl: null,
     }),
@@ -140,8 +122,6 @@ const siteSettings = computed(() => props.siteSettings)
 
 const fullName = ref('')
 const email = ref('')
-const churchName = ref('')
-const churchUrl = ref('')
 const isLoading = ref(false)
 const error = ref('')
 
@@ -157,8 +137,6 @@ const handleRegister = async () => {
       body: JSON.stringify({
         name: fullName.value,
         email: email.value,
-        churchName: churchName.value,
-        churchUrl: churchUrl.value,
       }),
     })
 

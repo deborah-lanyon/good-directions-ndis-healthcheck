@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-[#ffffff] min-h-screen flex flex-col">
+  <div class="bg-[#f1ede0] min-h-screen flex flex-col">
     <header>
       <Navigation />
       <Navbar />
@@ -107,14 +107,8 @@ const handleLogin = async () => {
       return
     }
 
-    // Redirect based on user role
-    if (data.user?.isSuperAdmin || data.user?.role === 'super_admin') {
-      router.visit('/admin/churches')
-    } else if (data.user?.role === 'visitor') {
-      router.visit('/visitor/dashboard')
-    } else {
-      router.visit('/dashboard')
-    }
+    // All admins go to dashboard
+    router.visit('/dashboard')
   } catch (error) {
     console.error('Login error:', error)
     error.value = error instanceof Error ? error.message : 'Login failed. Please try again.'

@@ -41,7 +41,6 @@ export default class UsersController {
           fullName: user.fullName,
           email: user.email,
           role: user.role,
-          isSuperAdmin: user.isSuperAdmin,
         },
       })
     } catch (error) {

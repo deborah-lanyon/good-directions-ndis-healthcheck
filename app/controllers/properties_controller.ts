@@ -18,8 +18,8 @@ export default class PropertiesController {
       const isImpersonating = session.get('impersonating_from') !== undefined
       const demoMode = session.get('demo_mode')
 
-      // Super admins in admin view (not impersonating and not in demo mode) see home page
-      if (auth.user!.role === 'super_admin' && !isImpersonating && !demoMode) {
+      // Admins not impersonating and not in demo mode see home page
+      if (!isImpersonating && !demoMode) {
         return response.redirect('/')
       }
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-[#ffffff] min-h-screen flex flex-col">
+  <div class="bg-[#f1ede0] min-h-screen flex flex-col">
     <header>
       <Navigation />
     </header>

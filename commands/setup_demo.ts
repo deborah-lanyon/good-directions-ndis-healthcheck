@@ -65,7 +65,7 @@ export default class SetupDemo extends BaseCommand {
         email: 'demo-admin@gooddirections.com.au',
         fullName: 'Demo Church Admin',
         password: 'demo123!',
-        role: 'church_admin',
+        role: 'admin',
         adminApprovalStatus: 'approved',
       })
 

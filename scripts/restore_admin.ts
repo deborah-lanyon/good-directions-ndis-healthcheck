@@ -18,7 +18,6 @@ async function restoreAdmin() {
       email,
       password,
       fullName,
-      isSuperAdmin: true,
       adminApprovalStatus: 'approved',
     })
 

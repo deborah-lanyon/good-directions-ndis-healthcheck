@@ -99,7 +99,7 @@ export default class SiteSettings extends BaseModel {
       "We help families navigate the details that matter most: continuity of therapies, handover between providers, updated service agreements, and ensuring nothing falls through the cracks during the move. Because when care is this important, there's no room for disruption.",
     heroParagraph3:
       'Get a free NDIS Healthcheck and take the uncertainty out of your next move.',
-    ctaTitle: 'Request your free NDIS Healthcheck',
+    ctaTitle: 'Request Your NDIS Healthcheck Now',
     ctaButtonText: 'Get Started',
     // How To Use defaults
     howToUseTitle: 'How To Use',

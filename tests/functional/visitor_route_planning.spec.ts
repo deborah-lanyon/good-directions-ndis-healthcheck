@@ -22,7 +22,7 @@ test.group('Visitor Route Planning', (group) => {
 
     // Create visitor user
     const visitorUser = await UserFactory.merge({
-      role: 'visitor',
+      role: 'admin',
       adminApprovalStatus: 'approved',
     }).create()
 
@@ -80,7 +80,7 @@ test.group('Visitor Route Planning', (group) => {
 
     // Create visitor for church 1
     const visitorUser = await UserFactory.merge({
-      role: 'visitor',
+      role: 'admin',
       adminApprovalStatus: 'approved',
     }).create()
 
@@ -116,7 +116,7 @@ test.group('Visitor Route Planning', (group) => {
     }).create()
 
     const visitorUser = await UserFactory.merge({
-      role: 'visitor',
+      role: 'admin',
       adminApprovalStatus: 'approved',
     }).create()
 
@@ -174,7 +174,7 @@ test.group('Visitor Route Planning', (group) => {
   test('route planning requires at least one property', async ({ client }) => {
     const church = await ChurchFactory.create()
     const visitorUser = await UserFactory.merge({
-      role: 'visitor',
+      role: 'admin',
       adminApprovalStatus: 'approved',
     }).create()
 

@@ -70,60 +70,6 @@
           <span v-if="syncErrorMessage" class="font-karla text-xs text-red-500 hidden md:inline truncate max-w-[200px]">– {{ syncErrorMessage }}</span>
         </div>
 
-        <!-- Role Switcher -->
-        <Menubar v-if="!shouldHideChurchSetup" class="border-none bg-transparent p-0 h-auto shadow-none">
-          <MenubarMenu>
-            <MenubarTrigger
-              class="font-karla text-sm transition-colors font-medium cursor-pointer px-3 py-1.5 h-auto rounded-md bg-teal-50 text-teal-700 border-2 border-teal-500 hover:bg-teal-100 focus:bg-teal-100 data-[state=open]:bg-teal-100 shadow-none"
-            >
-              <div class="flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                </svg>
-                View as Delivery
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                </svg>
-              </div>
-            </MenubarTrigger>
-            <MenubarContent class="bg-white min-w-[200px]">
-              <template v-if="visitors.length > 0">
-                <MenubarItem disabled class="text-gray-400 text-xs px-2 py-1.5 uppercase tracking-wider">
-                  Switch to delivery
-                </MenubarItem>
-                <MenubarSeparator />
-                <MenubarItem
-                  v-for="visitor in visitors"
-                  :key="visitor.id"
-                  as-child
-                >
-                  <button
-                    @click="switchToVisitor(visitor.id)"
-                    class="w-full text-left cursor-pointer text-gray-900 hover:bg-teal-50 focus:bg-teal-50 px-2 py-2 rounded flex items-center gap-2"
-                  >
-                    <div class="w-6 h-6 rounded-full bg-teal-100 text-teal-700 flex items-center justify-center text-xs font-medium flex-shrink-0">
-                      {{ visitor.name.charAt(0).toUpperCase() }}
-                    </div>
-                    <span class="text-sm truncate">{{ visitor.name }}</span>
-                  </button>
-                </MenubarItem>
-              </template>
-              <template v-else>
-                <MenubarItem disabled class="text-gray-500 text-sm px-2 py-2">
-                  No deliveries yet
-                </MenubarItem>
-                <MenubarSeparator />
-                <MenubarItem as-child>
-                  <a href="/team-management" class="w-full text-left cursor-pointer text-teal-700 hover:bg-teal-50 focus:bg-teal-50 px-2 py-2 rounded text-sm">
-                    Add deliveries in Team Management
-                  </a>
-                </MenubarItem>
-              </template>
-            </MenubarContent>
-          </MenubarMenu>
-        </Menubar>
-
         <!-- Divider -->
         <div class="w-px h-6 bg-gray-200 mx-2"></div>
         </div>

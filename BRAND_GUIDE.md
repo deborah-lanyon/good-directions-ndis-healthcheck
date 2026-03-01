@@ -37,7 +37,7 @@
 | Purple | `#6d3b90` | `--color-primary` | Primary brand color, backgrounds, CTAs |
 | Accent Yellow | `#FDAF18` | `--color-tertiary` | Accent color, highlights, active states |
 | Accent Blue | `#072d5b` | `--color-accent-blue` | Dark navy accent |
-| White | `#ffffff` | `--color-secondary` | Light backgrounds, cards |
+| Cream | `#f1ede0` | `--color-secondary` | Page backgrounds, light surfaces |
 | Black | `#000000` | - | Text, icons |
 
 ### Secondary Colors
@@ -84,7 +84,7 @@
 ```css
 @theme {
   --color-primary: #6d3b90;      /* Purple */
-  --color-secondary: #ffffff;    /* White */
+  --color-secondary: #f1ede0;    /* Cream */
   --color-tertiary: #FDAF18;     /* Accent Yellow */
   --color-accent-blue: #072d5b;  /* Accent Blue */
 }

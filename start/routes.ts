@@ -221,18 +221,18 @@ router
 router.get('/visitor/accept-invitation/:token', [VisitorPortalController, 'showAcceptInvitation'])
 router.post('/visitor/accept-invitation/:token', [VisitorPortalController, 'acceptInvitation'])
 
-// Visitor Portal Routes (protected by visitor middleware)
-router
-  .group(() => {
-    router.get('dashboard', [VisitorPortalController, 'dashboard'])
-    router.get('properties', [VisitorPortalController, 'properties'])
-    router.get('properties/:id', [VisitorPortalController, 'showProperty'])
-    router.put('properties/:id', [VisitorPortalController, 'updateProperty'])
-    router.get('stats', [VisitorPortalController, 'stats'])
-    router.get('help', [VisitorPortalController, 'help'])
-  })
-  .prefix('/visitor')
-  .use([middleware.auth(), middleware.visitor()])
+// Visitor Portal Routes — disabled (single admin role, no visitor user type)
+// router
+//   .group(() => {
+//     router.get('dashboard', [VisitorPortalController, 'dashboard'])
+//     router.get('properties', [VisitorPortalController, 'properties'])
+//     router.get('properties/:id', [VisitorPortalController, 'showProperty'])
+//     router.put('properties/:id', [VisitorPortalController, 'updateProperty'])
+//     router.get('stats', [VisitorPortalController, 'stats'])
+//     router.get('help', [VisitorPortalController, 'help'])
+//   })
+//   .prefix('/visitor')
+//   .use([middleware.auth(), middleware.visitor()])
 
 // Run migrations endpoint (protected by APP_KEY)
 router

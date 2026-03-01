@@ -18,10 +18,10 @@ const inertiaConfig = defineConfig({
 
       const Church = (await import('#models/church')).default
 
-      // For super admins in demo mode, resolve the demo church
+      // Resolve church — check demo mode first, then user's own church
       let church = null
       const demoChurchId = ctx.session?.get('demo_church_id')
-      if (user.isSuperAdmin && demoChurchId) {
+      if (demoChurchId) {
         church = await Church.find(demoChurchId)
       }
       if (!church) {
@@ -33,7 +33,6 @@ const inertiaConfig = defineConfig({
         email: user.email,
         fullName: user.fullName,
         role: user.role,
-        isSuperAdmin: user.isSuperAdmin,
         adminApprovalStatus: user.adminApprovalStatus,
         hasChurch: !!church,
         churchName: church?.churchName || null,

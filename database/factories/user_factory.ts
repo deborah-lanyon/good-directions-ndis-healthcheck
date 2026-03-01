@@ -9,7 +9,7 @@ export const UserFactory = factory
       email: faker.internet.email(),
       password: await hash.use('scrypt').make('password123'),
       adminApprovalStatus: 'approved' as const,
-      role: 'church_admin' as const,
+      role: 'admin' as const,
     }
   })
   .build()
