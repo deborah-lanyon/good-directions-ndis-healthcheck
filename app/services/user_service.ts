@@ -1,6 +1,5 @@
 import User from '#models/user'
 import type { UserRole } from '#models/user'
-import Church from '#models/church'
 import { MailService } from '#services/mail_service'
 import { randomBytes } from 'node:crypto'
 
@@ -11,12 +10,7 @@ export class UserService {
     this.mailService = mailService ?? new MailService()
   }
 
-  async register(data: {
-    name: string
-    email: string
-    churchName: string
-    churchUrl: string
-  }): Promise<{ user: User; church: Church }> {
+  async register(data: { name: string; email: string }): Promise<{ user: User }> {
     if (!data.email.includes('@')) {
       throw new Error('Please provide a valid email address')
     }
@@ -25,34 +19,19 @@ export class UserService {
     const user = await User.create({ fullName: data.name, email: data.email, password })
     await user.generateAdminApprovalToken()
 
-    const church = await Church.create({
-      userId: user.id,
-      churchName: data.churchName,
-      url: data.churchUrl,
-    })
-
     // Send emails asynchronously without blocking registration
-    // This prevents timeouts from delaying the registration response
-    this.sendRegistrationEmails(user, data.churchName, data.churchUrl).catch((error) => {
+    this.sendRegistrationEmails(user).catch((error) => {
       console.error('Failed to send registration emails:', error)
     })
 
-    return { user, church }
+    return { user }
   }
 
-  private async sendRegistrationEmails(
-    user: User,
-    churchName: string,
-    churchUrl: string
-  ): Promise<void> {
+  private async sendRegistrationEmails(user: User): Promise<void> {
     try {
-      // Send both emails in parallel for faster delivery
       await Promise.all([
         this.mailService.sendUserRegistrationConfirmation(user),
-        this.mailService.sendAdminApprovalNotification(user, {
-          churchName,
-          churchUrl,
-        }),
+        this.mailService.sendAdminApprovalNotification(user),
       ])
     } catch (error) {
       console.error('Email sending error:', error)

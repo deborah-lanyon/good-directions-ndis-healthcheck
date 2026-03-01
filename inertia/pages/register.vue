@@ -5,13 +5,13 @@
     </header>
     <main class="flex-1">
       <Container class="mt-24">
-        <Title title="Reach those in your community" styleClass="text-primary" />
+        <Title title="Get started with your NDIS Healthcheck" styleClass="text-primary" />
       </Container>
       <Hero />
       <section class="bg-tertiary -mt-0.5 pt-[100px]">
         <Container>
           <Title
-            title="Ready to welcome your community?"
+            title="Request Your NDIS Healthcheck Now"
             styleClass="text-secondary"
             class="py-[100px]"
           />
@@ -34,24 +34,6 @@
               theme="tertiary"
               required
             />
-            <FormInput
-              type="text"
-              placeholder=""
-              label="Organisation name"
-              id="church-name"
-              v-model="churchName"
-              theme="tertiary"
-              required
-            />
-            <FormInput
-              type="text"
-              placeholder=""
-              label="Organisation website"
-              id="church-website"
-              v-model="churchUrl"
-              theme="tertiary"
-              required
-            />
             <p
               v-if="error"
               class="bg-white rounded-md p-3 text-red-500 text-2xl font-normal leading-[30px] text-center"
@@ -64,7 +46,7 @@
               :disabled="isLoading"
               type="submit"
             >
-              {{ isLoading ? 'Submitting...' : 'Submit' }}
+              {{ isLoading ? 'Submitting...' : 'Get Started' }}
             </button>
           </form>
         </Container>
@@ -95,8 +77,6 @@ import FormInput from '~/app/components/form-input.vue'
 
 const fullName = ref('')
 const email = ref('')
-const churchName = ref('')
-const churchUrl = ref('')
 const isLoading = ref(false)
 const error = ref('')
 
@@ -112,8 +92,6 @@ const handleRegister = async () => {
       body: JSON.stringify({
         name: fullName.value,
         email: email.value,
-        churchName: churchName.value,
-        churchUrl: churchUrl.value,
       }),
     })
 

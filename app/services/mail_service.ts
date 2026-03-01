@@ -111,10 +111,7 @@ export class MailService {
     }
   }
 
-  async sendAdminApprovalNotification(
-    user: User,
-    churchInfo?: { churchName: string; churchUrl: string }
-  ): Promise<void> {
+  async sendAdminApprovalNotification(user: User): Promise<void> {
     console.log('[ADMIN APPROVAL EMAIL] Starting sendAdminApprovalNotification for:', user.email)
 
     const baseUrl = env.get('APP_URL', 'http://localhost:3333')
@@ -146,7 +143,6 @@ export class MailService {
             user,
             approveUrl,
             rejectUrl,
-            churchInfo,
           })
         for (const email of adminEmails) {
           msg.to(email)

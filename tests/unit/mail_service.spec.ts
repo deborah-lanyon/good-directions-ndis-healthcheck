@@ -136,10 +136,7 @@ test.group('MailService', (group) => {
       return { messageId: 'test-message-id', response: 'OK' } as any
     }
 
-    await mailService.sendAdminApprovalNotification(user, {
-      churchName: 'Test Church',
-      churchUrl: 'https://test.com',
-    })
+    await mailService.sendAdminApprovalNotification(user)
 
     assert.isTrue(mailSendSpy.called)
 

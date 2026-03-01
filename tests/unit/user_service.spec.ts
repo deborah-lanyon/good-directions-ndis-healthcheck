@@ -28,14 +28,10 @@ test.group('UserService', (group) => {
     const result = await userService.register({
       name: 'Test User',
       email: 'test@example.com',
-      churchName: 'Test Church',
-      churchUrl: 'https://test.com',
     })
 
     assert.exists(result.user)
-    assert.exists(result.church)
     assert.equal(result.user.email, 'test@example.com')
-    assert.equal(result.church.churchName, 'Test Church')
   })
 
   test('should throw error when email is invalid', async ({ assert }) => {
@@ -45,8 +41,6 @@ test.group('UserService', (group) => {
         userService.register({
           name: 'Test User',
           email: 'invalid-email',
-          churchName: 'Test Church',
-          churchUrl: 'https://test.com',
         }),
       'Please provide a valid email address'
     )

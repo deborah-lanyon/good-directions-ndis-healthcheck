@@ -88,22 +88,17 @@ export default class UsersController {
   }
 
   async store({ request, response }: HttpContext) {
-    const { name, email, churchName, churchUrl } = request.only([
-      'name',
-      'email',
-      'churchName',
-      'churchUrl',
-    ])
+    const { name, email } = request.only(['name', 'email'])
 
-    if (!name || !email || !churchName || !churchUrl) {
+    if (!name || !email) {
       return response.status(400).json({
-        message: 'Name, email, church name, and church URL are required',
+        message: 'Name and email are required',
       })
     }
 
     try {
       const userService = new UserService()
-      await userService.register({ name, email, churchName, churchUrl })
+      await userService.register({ name, email })
       return response.json({ message: 'Registration successful' })
     } catch (error) {
       console.error('Registration error:', error)
