@@ -92,15 +92,15 @@ export default class SiteSettings extends BaseModel {
    * Default content values for the home page
    */
   static readonly DEFAULTS = {
-    heroTitle: 'Reach those in your community',
+    heroTitle: 'Moving home? Your NDIS plan moves with you.',
     heroParagraph1:
-      'Welcome to the Good Directions NDIS Healthcheck—a platform designed to help organisations connect with new residents in their local area. When families move into your community, they often need guidance, support, and a warm welcome as they settle in.',
+      'Relocating with a high-level NDIS plan can feel overwhelming—especially when your family depends on 24/7 in-home care for complex disabilities. The NDIS Healthcheck gives you confidence that your supports, funding, and care team will transition smoothly to your new location.',
     heroParagraph2:
-      "Our portal helps you identify new properties in your neighbourhood and reach out with essential information about local services, community resources, and opportunities to connect. Whether it's helping them find the nearest school, introducing them to local groups, or simply offering a friendly face, your organisation can make a meaningful difference in their transition.",
+      "We help families navigate the details that matter most: continuity of therapies, handover between providers, updated service agreements, and ensuring nothing falls through the cracks during the move. Because when care is this important, there's no room for disruption.",
     heroParagraph3:
-      'Join us in building stronger, more connected communities—one welcome at a time.',
-    ctaTitle: 'Ready to welcome your community?',
-    ctaButtonText: 'Submit',
+      'Get a free NDIS Healthcheck and take the uncertainty out of your next move.',
+    ctaTitle: 'Request your free NDIS Healthcheck',
+    ctaButtonText: 'Get Started',
     // How To Use defaults
     howToUseTitle: 'How To Use',
     howToUseIntro:
