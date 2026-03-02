@@ -25,6 +25,7 @@ const HomeController = () => import('#controllers/home_controller')
 const ContactController = () => import('#controllers/contact_controller')
 const AnalyticsController = () => import('#controllers/analytics_controller')
 const RespondentController = () => import('#controllers/respondent_controller')
+const MailCampaignController = () => import('#controllers/mail_campaign_controller')
 
 router.get('/', [HomeController, 'index'])
 router.get('/home', [HomeController, 'index'])
@@ -80,6 +81,10 @@ router
 
     // All Records page (church admins)
     router.get('records', [PropertiesController, 'records'])
+
+    // Mail Campaigns & Respondents pages
+    router.get('campaigns', [MailCampaignController, 'index'])
+    router.get('respondents', [RespondentController, 'page'])
 
     // Admin pages
     router.get('admin/dashboard', [AdminController, 'dashboard'])
@@ -193,6 +198,13 @@ router
 
     // Diagnostic: test Zyla API for a specific suburb
     router.get('admin/test-zyla/:suburb', [AdminController, 'testZylaApi'])
+
+    // Mail Campaigns
+    router.post('campaigns', [MailCampaignController, 'store'])
+    router.get('campaigns/properties', [MailCampaignController, 'properties'])
+    router.get('campaigns/:id/labels', [MailCampaignController, 'labels'])
+    router.post('campaigns/:id/posted', [MailCampaignController, 'markPosted'])
+    router.delete('campaigns/:id', [MailCampaignController, 'destroy'])
 
     // Respondents
     router.get('respondents', [RespondentController, 'index'])

@@ -62,6 +62,36 @@ export default class RespondentController {
   }
 
   /**
+   * Render respondents management page
+   * GET /respondents
+   */
+  async page({ inertia, auth, session }: HttpContext) {
+    const church = await resolveChurchForUser({ auth, session })
+
+    let respondents: any[] = []
+    if (church) {
+      const respondentService = new RespondentService()
+      const results = await respondentService.getRespondentsForChurch(church.id)
+      respondents = results.map((r) => ({
+        id: r.id,
+        name: r.name,
+        email: r.email,
+        phone: r.phone,
+        trackingCode: r.trackingCode,
+        status: r.status,
+        propertyAddress: r.property?.address || null,
+        notes: r.notes,
+        createdAt: r.createdAt?.toISO() || null,
+      }))
+    }
+
+    return inertia.render('respondents', {
+      respondents,
+      churchId: church?.id || null,
+    })
+  }
+
+  /**
    * List respondents for authenticated admin
    * GET /api/respondents
    */
