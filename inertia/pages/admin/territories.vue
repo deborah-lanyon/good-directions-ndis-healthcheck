@@ -42,7 +42,7 @@
           <input
             v-model="searchQuery"
             type="text"
-            placeholder="Search by territory name or postcode..."
+            placeholder="Search by territory name or state..."
             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
         </div>
@@ -54,7 +54,7 @@
             <SelectContent>
               <SelectItem value="name">Sort by Name</SelectItem>
               <SelectItem value="date">Sort by Date</SelectItem>
-              <SelectItem value="suburb">Sort by Suburb</SelectItem>
+              <SelectItem value="state">Sort by State</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -95,46 +95,34 @@
 
                   <!-- Compact Summary Info -->
                   <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-gray-600">
-                    <!-- Location -->
-                    <span
-                      v-if="church.address || church.suburb || church.postcode"
-                      class="flex items-center gap-1.5"
-                    >
-                      <svg
-                        class="w-4 h-4 text-gray-400"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                        ></path>
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                        ></path>
+                    <!-- States -->
+                    <span v-if="church.states && church.states.length > 0" class="flex items-center gap-1.5">
+                      <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                       </svg>
-                      <span>
-                        <span v-if="church.address">{{ church.address }}</span
-                        ><span v-if="church.address && (church.suburb || church.postcode)">, </span
-                        ><span v-if="church.suburb">{{ church.suburb }}</span
-                        ><span v-if="church.suburb && church.postcode">, </span
-                        ><span v-if="church.postcode">{{ church.postcode }}</span>
+                      <span class="flex gap-1">
+                        <span
+                          v-for="state in church.states"
+                          :key="state"
+                          class="px-1.5 py-0.5 text-xs font-medium rounded bg-primary/10 text-primary"
+                        >{{ state }}</span>
                       </span>
                     </span>
 
-                    <span v-if="church.url">
-                      <a
-                        :href="church.url"
-                        target="_blank"
-                        class="text-blue-600 hover:underline text-sm"
-                        >View Website</a
-                      >
+                    <!-- Legacy location display -->
+                    <span
+                      v-else-if="church.address || church.suburb || church.postcode"
+                      class="flex items-center gap-1.5"
+                    >
+                      <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                      </svg>
+                      <span>
+                        <span v-if="church.suburb">{{ church.suburb }}</span>
+                        <span v-if="church.suburb && church.postcode">, </span>
+                        <span v-if="church.postcode">{{ church.postcode }}</span>
+                      </span>
                     </span>
                   </div>
                 </div>
@@ -155,47 +143,8 @@
                     </svg>
                     {{ formatDate(church.createdAt) }}
                   </span>
-                  <!-- Sync Status -->
-                  <span
-                    v-if="church.syncStatus === 'syncing'"
-                    class="flex items-center gap-1 text-blue-600"
-                    title="Sync in progress"
-                  >
-                    <svg class="w-3 h-3 animate-spin" fill="none" viewBox="0 0 24 24">
-                      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    Syncing
-                  </span>
-                  <span
-                    v-else-if="church.syncStatus === 'failed'"
-                    class="flex items-center gap-1 text-red-600"
-                    :title="church.syncErrorMessage || 'Sync failed'"
-                  >
-                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                    Sync failed
-                  </span>
-                  <span
-                    v-else-if="church.lastSyncAt"
-                    class="flex items-center gap-1 text-green-600"
-                    :title="'Last synced: ' + formatDateTime(church.lastSyncAt)"
-                  >
-                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-                    </svg>
-                    {{ formatRelativeTime(church.lastSyncAt) }}
-                  </span>
-                  <span
-                    v-else
-                    class="flex items-center gap-1 text-gray-400"
-                    title="Never synced"
-                  >
-                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-                    </svg>
-                    Never synced
+                  <span class="flex items-center gap-1">
+                    {{ church.propertyCount }} properties
                   </span>
                 </div>
                 <div class="flex items-center gap-1.5">
@@ -272,25 +221,35 @@
               type="text"
               required
               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              placeholder="e.g. Sans Souci"
+              placeholder="e.g. NSW Operations"
             />
           </div>
 
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">Postcode *</label>
-            <input
-              v-model="newChurch.postcode"
-              type="text"
-              required
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              placeholder="2000"
-            />
+            <label class="block text-sm font-medium text-gray-700 mb-2">States * ({{ newChurch.states.length }} selected)</label>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              <label
+                v-for="state in australianStates"
+                :key="state"
+                class="flex items-center gap-2 px-3 py-2 border rounded-lg cursor-pointer transition-colors"
+                :class="newChurch.states.includes(state) ? 'border-primary bg-primary/5 text-primary' : 'border-gray-300 hover:bg-gray-50'"
+              >
+                <input
+                  type="checkbox"
+                  :value="state"
+                  v-model="newChurch.states"
+                  class="w-4 h-4 text-primary rounded border-gray-300"
+                />
+                <span class="text-sm font-medium">{{ state }}</span>
+              </label>
+            </div>
           </div>
 
           <div class="flex gap-3 pt-4">
             <button
               type="submit"
-              class="flex-1 px-4 py-2 bg-tertiary hover:bg-[#e59a00] text-white font-medium rounded-lg transition-colors"
+              :disabled="!newChurch.churchName || newChurch.states.length === 0"
+              class="flex-1 px-4 py-2 bg-tertiary hover:bg-[#e59a00] text-white font-medium rounded-lg transition-colors disabled:opacity-50"
             >
               Create Territory
             </button>
@@ -309,7 +268,7 @@
 </template>
 
 <script setup lang="ts">
-import { onErrorCaptured, onMounted, onUnmounted, ref, computed, watch } from 'vue'
+import { onErrorCaptured, ref, computed } from 'vue'
 import AdminSidebarLayout from '~/app/components/layouts/admin-sidebar-layout.vue'
 import NotificationModal from '~/app/components/shared/notification-modal.vue'
 import { Card, CardHeader, CardTitle, CardFooter } from '~/app/components/ui/card'
@@ -334,6 +293,7 @@ interface Church {
   address: string | null
   suburb: string | null
   postcode: string | null
+  states: string[] | null
   url: string
   latitude: number | null
   longitude: number | null
@@ -349,70 +309,14 @@ interface Church {
   syncErrorMessage: string | null
 }
 
+const australianStates = ['NSW', 'VIC', 'QLD', 'SA', 'WA', 'TAS', 'NT', 'ACT']
+
 const props = defineProps<{
   churches: Church[]
 }>()
 
 // Reactive churches list (updated by sync status polling)
 const churches = ref<Church[]>([...props.churches])
-
-// Poll sync status while any church is syncing
-let syncPollTimer: ReturnType<typeof setInterval> | null = null
-
-const hasSyncingChurch = computed(() =>
-  churches.value.some((c) => c.syncStatus === 'syncing')
-)
-
-const pollSyncStatus = async () => {
-  try {
-    const response = await fetch('/api/admin/territories/sync-status', {
-      credentials: 'same-origin',
-    })
-    if (!response.ok) return
-    const statuses: Array<{ id: number; syncStatus: string | null; lastSyncAt: string | null; syncErrorMessage: string | null }> = await response.json()
-    for (const status of statuses) {
-      const church = churches.value.find((c) => c.id === status.id)
-      if (church) {
-        church.syncStatus = status.syncStatus as Church['syncStatus']
-        church.lastSyncAt = status.lastSyncAt
-        church.syncErrorMessage = status.syncErrorMessage
-      }
-    }
-  } catch {
-    // Silently fail
-  }
-}
-
-const startSyncPolling = () => {
-  if (syncPollTimer) return
-  syncPollTimer = setInterval(pollSyncStatus, 5000)
-}
-
-const stopSyncPolling = () => {
-  if (syncPollTimer) {
-    clearInterval(syncPollTimer)
-    syncPollTimer = null
-  }
-}
-
-onMounted(() => {
-  if (hasSyncingChurch.value) {
-    startSyncPolling()
-  }
-})
-
-onUnmounted(() => {
-  stopSyncPolling()
-})
-
-// Watch for changes - start/stop polling as needed
-watch(hasSyncingChurch, (isSyncing) => {
-  if (isSyncing) {
-    startSyncPolling()
-  } else {
-    stopSyncPolling()
-  }
-})
 
 // View toggle
 const viewMode = ref<'list' | 'map'>('list')
@@ -421,7 +325,7 @@ const viewMode = ref<'list' | 'map'>('list')
 const showCreateChurchDialog = ref(false)
 const newChurch = ref({
   churchName: '',
-  postcode: '',
+  states: [] as string[],
 })
 
 // Notification modal
@@ -575,7 +479,7 @@ const createChurch = async () => {
         // Reset form
         newChurch.value = {
           churchName: '',
-          postcode: '',
+          states: [],
         }
         window.location.reload()
       })
@@ -608,7 +512,8 @@ const filteredChurches = computed(() => {
       (church) =>
         church.churchName.toLowerCase().includes(query) ||
         church.postcode?.toLowerCase().includes(query) ||
-        church.suburb?.toLowerCase().includes(query)
+        church.suburb?.toLowerCase().includes(query) ||
+        church.states?.some((s) => s.toLowerCase().includes(query))
     )
   }
 
@@ -619,8 +524,8 @@ const filteredChurches = computed(() => {
         return a.churchName.localeCompare(b.churchName)
       case 'date':
         return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-      case 'suburb':
-        return (a.suburb || '').localeCompare(b.suburb || '')
+      case 'state':
+        return (a.states?.[0] || '').localeCompare(b.states?.[0] || '')
       default:
         return 0
     }

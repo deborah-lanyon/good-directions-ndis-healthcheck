@@ -201,7 +201,8 @@ router
 
     // Mail Campaigns
     router.post('campaigns', [MailCampaignController, 'store'])
-    router.get('campaigns/properties', [MailCampaignController, 'properties'])
+    router.get('campaigns/:id/sync-status', [MailCampaignController, 'syncStatus'])
+    router.post('campaigns/:id/retry-sync', [MailCampaignController, 'retrySync'])
     router.get('campaigns/:id/labels', [MailCampaignController, 'labels'])
     router.post('campaigns/:id/posted', [MailCampaignController, 'markPosted'])
     router.delete('campaigns/:id', [MailCampaignController, 'destroy'])

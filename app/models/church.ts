@@ -66,6 +66,9 @@ export default class Church extends BaseModel {
   declare syncErrorMessage: string | null
 
   @column()
+  declare states: string[] | null
+
+  @column()
   declare isDemo: boolean
 
   @column.dateTime({ autoCreate: true })

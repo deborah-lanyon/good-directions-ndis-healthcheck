@@ -79,6 +79,7 @@ export default class AdminController {
             address: church.address,
             suburb: church.suburb,
             postcode: church.postcode,
+            states: church.states,
             url: church.url,
             latitude: church.latitude,
             longitude: church.longitude,
@@ -176,43 +177,30 @@ export default class AdminController {
     }
 
     try {
-      const data = request.only(['churchName', 'postcode'])
+      const data = request.only(['churchName', 'states'])
 
-      // Geocode the postcode if provided
-      let latitude: number | undefined
-      let longitude: number | undefined
-      if (data.postcode) {
-        try {
-          const { GeocodingService } = await import('#services/geocoding_service')
-          const geocodingService = new GeocodingService()
-          const addressParts = [data.postcode, 'Australia'].filter(Boolean).join(', ')
-          const geo = await geocodingService.geocodeAddress(addressParts)
-          latitude = geo.lat
-          longitude = geo.lon
-          console.log(`[CREATE TERRITORY] Geocoded "${addressParts}" to ${latitude}, ${longitude}`)
-        } catch (err) {
-          console.error('[CREATE TERRITORY] Geocoding failed (continuing without coordinates):', err)
-        }
+      if (!data.churchName) {
+        return response.badRequest({ error: 'Territory name is required' })
+      }
+
+      if (!data.states || !Array.isArray(data.states) || data.states.length === 0) {
+        return response.badRequest({ error: 'At least one state must be selected' })
+      }
+
+      // Validate state codes
+      const { PostcodeService } = await import('#services/postcode_service')
+      const validStates = PostcodeService.AUSTRALIAN_STATES
+      const invalidStates = data.states.filter((s: string) => !validStates.includes(s))
+      if (invalidStates.length > 0) {
+        return response.badRequest({ error: `Invalid state(s): ${invalidStates.join(', ')}` })
       }
 
       const church = await Church.create({
         churchName: data.churchName,
-        postcode: data.postcode,
-        latitude: latitude ?? null,
-        longitude: longitude ?? null,
+        states: data.states,
         userId: null,
         url: '',
       })
-
-      // Trigger initial property sync after a delay to avoid API rate limits
-      const { PropertySyncOnLoginService } = await import('#services/property_sync_on_login_service')
-      const createSyncService = new PropertySyncOnLoginService()
-      console.log(`[CREATE TERRITORY] Scheduling initial sync for territory ${church.id} (${church.churchName}) in 30s`)
-      setTimeout(() => {
-        createSyncService.triggerSyncForChurch(church.id).catch((error) => {
-          console.error(`[CREATE TERRITORY] Failed to trigger sync for territory ${church.id}:`, error)
-        })
-      }, 30000)
 
       return response.created({
         message: 'Territory created successfully',

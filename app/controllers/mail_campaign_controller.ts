@@ -32,6 +32,7 @@ export default class MailCampaignController {
       campaigns,
       stats,
       churchId: church?.id || null,
+      territoryStates: church?.states || [],
     })
   }
 
@@ -45,54 +46,53 @@ export default class MailCampaignController {
       return response.badRequest({ error: 'No territory selected' })
     }
 
-    const { name, propertyIds } = request.only(['name', 'propertyIds'])
+    const { name, postcodes } = request.only(['name', 'postcodes'])
 
     if (!name) {
       return response.badRequest({ error: 'Campaign name is required' })
     }
 
-    if (!propertyIds || !Array.isArray(propertyIds) || propertyIds.length === 0) {
-      return response.badRequest({ error: 'At least one property must be selected' })
+    if (!postcodes || !Array.isArray(postcodes) || postcodes.length === 0) {
+      return response.badRequest({ error: 'At least one postcode must be entered' })
+    }
+
+    // Validate postcode format
+    const invalidFormat = postcodes.filter((p: string) => !/^\d{3,4}$/.test(p))
+    if (invalidFormat.length > 0) {
+      return response.badRequest({ error: `Invalid postcode format: ${invalidFormat.join(', ')}` })
     }
 
     try {
       const service = new MailCampaignService()
-      const campaign = await service.createCampaign(church.id, name, propertyIds)
+      const campaign = await service.createCampaign(church.id, name, postcodes)
       return response.created({
-        message: 'Campaign created successfully',
-        campaign: { id: campaign.id, name: campaign.name, propertyCount: campaign.propertyCount },
+        message: 'Campaign created. Property sync in progress.',
+        campaign: {
+          id: campaign.id,
+          name: campaign.name,
+          postcodes: campaign.postcodes,
+          syncStatus: campaign.syncStatus,
+        },
       })
     } catch (error) {
       console.error('Error creating campaign:', error)
-      return response.internalServerError({ error: 'Failed to create campaign' })
+      const message = error instanceof Error ? error.message : 'Failed to create campaign'
+      return response.badRequest({ error: message })
     }
   }
 
   /**
-   * Get available properties for campaign creation
-   * GET /api/campaigns/properties
+   * Get sync status for a campaign
+   * GET /api/campaigns/:id/sync-status
    */
-  async properties({ response, auth, session }: HttpContext) {
-    const church = await resolveChurchForUser({ auth, session })
-    if (!church) {
-      return response.ok({ properties: [] })
-    }
-
+  async syncStatus({ params, response }: HttpContext) {
     try {
       const service = new MailCampaignService()
-      const properties = await service.getAvailableProperties(church.id)
-      return response.ok({
-        properties: properties.map((p) => ({
-          id: p.id,
-          address: p.address,
-          trackingCode: p.trackingCode,
-          postcode: p.postcode,
-          streetName: p.streetName,
-        })),
-      })
+      const status = await service.getSyncStatus(params.id)
+      return response.ok(status)
     } catch (error) {
-      console.error('Error fetching properties:', error)
-      return response.internalServerError({ error: 'Failed to fetch properties' })
+      console.error('Error fetching sync status:', error)
+      return response.internalServerError({ error: 'Failed to fetch sync status' })
     }
   }
 
@@ -135,6 +135,21 @@ export default class MailCampaignController {
     } catch (error) {
       console.error('Error marking campaign as posted:', error)
       return response.internalServerError({ error: 'Failed to mark campaign as posted' })
+    }
+  }
+
+  /**
+   * Retry sync for a failed campaign
+   * POST /api/campaigns/:id/retry-sync
+   */
+  async retrySync({ params, response }: HttpContext) {
+    try {
+      const service = new MailCampaignService()
+      await service.triggerSync(params.id)
+      return response.ok({ message: 'Sync restarted' })
+    } catch (error) {
+      console.error('Error retrying sync:', error)
+      return response.internalServerError({ error: 'Failed to retry sync' })
     }
   }
 

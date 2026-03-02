@@ -17,6 +17,15 @@ export default class MailCampaign extends BaseModel {
   @column()
   declare propertyCount: number
 
+  @column()
+  declare postcodes: string[]
+
+  @column()
+  declare syncStatus: 'pending' | 'syncing' | 'completed' | 'failed' | null
+
+  @column()
+  declare syncErrorMessage: string | null
+
   @column.dateTime()
   declare postedAt: DateTime | null
 

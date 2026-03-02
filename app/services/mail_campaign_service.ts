@@ -1,37 +1,72 @@
 import MailCampaign from '#models/mail_campaign'
-import Property from '#models/property'
+import Church from '#models/church'
 import Respondent from '#models/respondent'
-import { TrackingCodeService } from '#services/tracking_code_service'
+import { PostcodeService } from '#services/postcode_service'
+import { CampaignSyncService } from '#services/campaign_sync_service'
 import { DateTime } from 'luxon'
 
 export class MailCampaignService {
-  private trackingCodeService: TrackingCodeService
+  private postcodeService: PostcodeService
 
   constructor() {
-    this.trackingCodeService = new TrackingCodeService()
+    this.postcodeService = new PostcodeService()
   }
 
   /**
-   * Create a new mail campaign and assign tracking codes to properties
+   * Create a new postcode-driven mail campaign.
+   * Validates postcodes against the territory's states, then triggers async sync.
    */
   async createCampaign(
     churchId: number,
     name: string,
-    propertyIds: number[]
+    postcodes: string[]
   ): Promise<MailCampaign> {
-    // Assign tracking codes to any properties that don't have them
-    await this.trackingCodeService.assignTrackingCodes(propertyIds)
+    // Load territory to validate postcodes against its states
+    const church = await Church.findOrFail(churchId)
+
+    if (church.states && church.states.length > 0) {
+      const { invalid } = this.postcodeService.validatePostcodesForStates(postcodes, church.states)
+      if (invalid.length > 0) {
+        throw new Error(
+          `Postcodes not within territory states: ${invalid.join(', ')}`
+        )
+      }
+    }
 
     const campaign = await MailCampaign.create({
       churchId,
       name,
-      propertyCount: propertyIds.length,
+      postcodes,
+      propertyCount: 0,
+      syncStatus: 'pending',
     })
 
-    // Attach properties to campaign via pivot table
-    await campaign.related('properties').attach(propertyIds)
+    // Trigger async sync (non-blocking)
+    this.triggerSync(campaign.id).catch((error) => {
+      console.error(`[CAMPAIGN] Failed to trigger sync for campaign ${campaign.id}:`, error)
+    })
 
     return campaign
+  }
+
+  /**
+   * Trigger property sync for a campaign (async)
+   */
+  async triggerSync(campaignId: number): Promise<void> {
+    const syncService = new CampaignSyncService()
+    await syncService.syncCampaign(campaignId)
+  }
+
+  /**
+   * Get sync status for a campaign
+   */
+  async getSyncStatus(campaignId: number) {
+    const campaign = await MailCampaign.findOrFail(campaignId)
+    return {
+      syncStatus: campaign.syncStatus,
+      propertyCount: campaign.propertyCount,
+      errorMessage: campaign.syncErrorMessage,
+    }
   }
 
   /**
@@ -58,7 +93,10 @@ export class MailCampaignService {
       result.push({
         id: campaign.id,
         name: campaign.name,
+        postcodes: campaign.postcodes || [],
         propertyCount: campaign.propertyCount,
+        syncStatus: campaign.syncStatus,
+        syncErrorMessage: campaign.syncErrorMessage,
         postedAt: campaign.postedAt?.toISO() || null,
         responseCount,
         createdAt: campaign.createdAt?.toISO() || null,
@@ -128,14 +166,5 @@ export class MailCampaignService {
   async deleteCampaign(campaignId: number): Promise<void> {
     const campaign = await MailCampaign.findOrFail(campaignId)
     await campaign.delete()
-  }
-
-  /**
-   * Get available properties for a church (for creating campaigns)
-   */
-  async getAvailableProperties(churchId: number): Promise<Property[]> {
-    return Property.query()
-      .where('church_id', churchId)
-      .orderBy('address', 'asc')
   }
 }
