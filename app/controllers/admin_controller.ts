@@ -1,13 +1,11 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import Church from '#models/church'
 import Property from '#models/property'
-import StreetGroup from '#models/street_group'
 import WelcomePackTemplate from '#models/welcome_pack_template'
 import User from '#models/user'
 import type { UserRole } from '#models/user'
 import { UserService } from '#services/user_service'
 import { SiteSettingsService } from '#services/site_settings_service'
-import { MailService } from '#services/mail_service'
 import { AnalyticsService } from '#services/analytics_service'
 
 export default class AdminController {
@@ -61,24 +59,21 @@ export default class AdminController {
     }
 
     try {
-      // Get all churches with their users (exclude demo churches)
+      // Get all territories (exclude demo)
       const churches = await Church.query()
         .where((q) => {
           q.where('is_demo', false).orWhereNull('is_demo')
         })
-        .preload('user')
         .orderBy('church_name', 'asc')
 
-      // Get counts for each church
       const churchesData = await Promise.all(
         churches.map(async (church) => {
-          const [propertyCount, streetGroupCount, welcomePackTemplate] = await Promise.all([
+          const [propertyCount, welcomePackTemplate] = await Promise.all([
             Property.query().where('church_id', church.id).count('* as total'),
-            StreetGroup.query().where('church_id', church.id).count('* as total'),
             WelcomePackTemplate.query().where('church_id', church.id).first(),
           ])
 
-          const data = {
+          return {
             id: church.id,
             churchName: church.churchName,
             address: church.address,
@@ -90,20 +85,10 @@ export default class AdminController {
             radius: church.radius,
             logoUrl: welcomePackTemplate?.logoUrl || null,
             bannerUrl: welcomePackTemplate?.bannerUrl || null,
-            user: church.user
-              ? {
-                  id: church.user.id,
-                  fullName: church.user.fullName,
-                  email: church.user.email,
-                  adminApprovalStatus: church.user.adminApprovalStatus,
-                }
-              : null,
             propertyCount: Number(propertyCount[0].$extras.total),
-            streetGroupCount: Number(streetGroupCount[0].$extras.total),
             hasWelcomePack: !!welcomePackTemplate && welcomePackTemplate.enabled,
             createdAt: church.createdAt?.toISO(),
             updatedAt: church.updatedAt?.toISO(),
-            // If sync has been 'syncing' for more than 10 minutes, treat as stale
             syncStatus: church.syncStatus === 'syncing' &&
               church.updatedAt &&
               church.updatedAt.diffNow().as('minutes') < -10
@@ -112,7 +97,6 @@ export default class AdminController {
             lastSyncAt: church.lastSyncAt?.toISO() || null,
             syncErrorMessage: church.syncErrorMessage,
           }
-          return data
         })
       )
 
@@ -160,82 +144,24 @@ export default class AdminController {
   }
 
   /**
-   * Bulk approve churches
+   * Select a territory for the current session
    */
-  async bulkApprove({ request, response, auth }: HttpContext) {
-    // Check if user is super admin
+  async selectTerritory({ params, response, auth, session }: HttpContext) {
     const user = auth.user
     if (!user?.isSuperAdminRole()) {
       return response.forbidden('Access denied. Super admin privileges required.')
     }
 
     try {
-      const { churchIds } = request.only(['churchIds'])
+      const { churchId } = params
+      const church = await Church.findOrFail(churchId)
 
-      if (!Array.isArray(churchIds) || churchIds.length === 0) {
-        return response.badRequest({ error: 'Invalid church IDs' })
-      }
+      session.put('selected_church_id', church.id)
 
-      // Get all churches and their users
-      const churches = await Church.query().whereIn('id', churchIds).preload('user')
-
-      // Update each user's approval status and send setup emails
-      const mailService = new MailService()
-      await Promise.all(
-        churches.map(async (church) => {
-          const wasNotApproved = church.user.adminApprovalStatus !== 'approved'
-          church.user.adminApprovalStatus = 'approved'
-          await church.user.save()
-
-          // Send password setup email for newly approved users
-          if (wasNotApproved) {
-            await church.user.generateForgotPasswordToken()
-            mailService.sendUserApprovedNotification(church.user).catch((error) => {
-              console.error(`Failed to send approval email to ${church.user.email}:`, error)
-            })
-          }
-        })
-      )
-
-      return response.ok({ message: 'Churches approved successfully', count: churches.length })
+      return response.ok({ message: 'Territory selected', churchId: church.id })
     } catch (error) {
-      console.error('Error bulk approving churches:', error)
-      return response.internalServerError({ error: 'Failed to approve churches' })
-    }
-  }
-
-  /**
-   * Bulk reject churches
-   */
-  async bulkReject({ request, response, auth }: HttpContext) {
-    // Check if user is super admin
-    const user = auth.user
-    if (!user?.isSuperAdminRole()) {
-      return response.forbidden('Access denied. Super admin privileges required.')
-    }
-
-    try {
-      const { churchIds } = request.only(['churchIds'])
-
-      if (!Array.isArray(churchIds) || churchIds.length === 0) {
-        return response.badRequest({ error: 'Invalid church IDs' })
-      }
-
-      // Get all churches and their users
-      const churches = await Church.query().whereIn('id', churchIds).preload('user')
-
-      // Update each user's approval status
-      await Promise.all(
-        churches.map(async (church) => {
-          church.user.adminApprovalStatus = 'rejected'
-          await church.user.save()
-        })
-      )
-
-      return response.ok({ message: 'Churches rejected successfully', count: churches.length })
-    } catch (error) {
-      console.error('Error bulk rejecting churches:', error)
-      return response.internalServerError({ error: 'Failed to reject churches' })
+      console.error('Error selecting territory:', error)
+      return response.internalServerError({ error: 'Failed to select territory' })
     }
   }
 
@@ -250,83 +176,50 @@ export default class AdminController {
     }
 
     try {
-      const data = request.only(['churchName', 'address', 'suburb', 'postcode', 'url', 'assignToSelf'])
+      const data = request.only(['churchName', 'postcode'])
 
-      let ownerUserId: number
-
-      if (data.assignToSelf) {
-        // Check if superadmin already owns a church
-        const existingChurch = await Church.query().where('user_id', user.id).first()
-        if (existingChurch) {
-          return response.conflict({
-            error: `You already manage "${existingChurch.churchName}". Unassign yourself first, or create without "Manage this church myself".`,
-          })
-        }
-        ownerUserId = user.id
-      } else {
-        // Generate a temporary user for this church
-        const urlSlug = data.url
-          ? data.url.replace(/[^a-z0-9]/gi, '-').toLowerCase()
-          : data.churchName.replace(/[^a-z0-9]/gi, '-').toLowerCase()
-        const tempEmail = `temp-${Date.now()}@${urlSlug}.temp`
-        const User = (await import('#models/user')).default
-        const tempUser = await User.create({
-          email: tempEmail,
-          password: Math.random().toString(36).substring(2, 15), // Random password
-          fullName: `Temp User for ${data.churchName}`,
-          adminApprovalStatus: 'approved',
-        })
-        ownerUserId = tempUser.id
-      }
-
-      // Geocode the address if suburb/address provided but no coordinates
+      // Geocode the postcode if provided
       let latitude: number | undefined
       let longitude: number | undefined
-      if (data.suburb || data.address) {
+      if (data.postcode) {
         try {
           const { GeocodingService } = await import('#services/geocoding_service')
           const geocodingService = new GeocodingService()
-          const addressParts = [data.address, data.suburb, data.postcode, 'Australia']
-            .filter(Boolean)
-            .join(', ')
+          const addressParts = [data.postcode, 'Australia'].filter(Boolean).join(', ')
           const geo = await geocodingService.geocodeAddress(addressParts)
           latitude = geo.lat
           longitude = geo.lon
-          console.log(`[CREATE CHURCH] Geocoded "${addressParts}" to ${latitude}, ${longitude}`)
+          console.log(`[CREATE TERRITORY] Geocoded "${addressParts}" to ${latitude}, ${longitude}`)
         } catch (err) {
-          console.error('[CREATE CHURCH] Geocoding failed (continuing without coordinates):', err)
+          console.error('[CREATE TERRITORY] Geocoding failed (continuing without coordinates):', err)
         }
       }
 
       const church = await Church.create({
         churchName: data.churchName,
-        address: data.address,
-        suburb: data.suburb,
         postcode: data.postcode,
         latitude: latitude ?? null,
         longitude: longitude ?? null,
-        url: data.url || `church-${Date.now()}.example.com`,
-        userId: ownerUserId,
+        userId: null,
       })
 
       // Trigger initial property sync after a delay to avoid API rate limits
-      // 30s delay gives time for any other in-progress syncs to finish
       const { PropertySyncOnLoginService } = await import('#services/property_sync_on_login_service')
       const createSyncService = new PropertySyncOnLoginService()
-      console.log(`[CREATE CHURCH] Scheduling initial sync for church ${church.id} (${church.churchName}) in 30s`)
+      console.log(`[CREATE TERRITORY] Scheduling initial sync for territory ${church.id} (${church.churchName}) in 30s`)
       setTimeout(() => {
         createSyncService.triggerSyncForChurch(church.id).catch((error) => {
-          console.error(`[CREATE CHURCH] Failed to trigger sync for church ${church.id}:`, error)
+          console.error(`[CREATE TERRITORY] Failed to trigger sync for territory ${church.id}:`, error)
         })
       }, 30000)
 
       return response.created({
-        message: 'Church created successfully',
+        message: 'Territory created successfully',
         church: church.serialize(),
       })
     } catch (error) {
-      console.error('Error creating church:', error)
-      return response.internalServerError({ error: 'Failed to create church' })
+      console.error('Error creating territory:', error)
+      return response.internalServerError({ error: 'Failed to create territory' })
     }
   }
 
@@ -479,7 +372,7 @@ export default class AdminController {
   }
 
   /**
-   * Delete a church and its associated user account
+   * Delete a territory
    */
   async deleteChurch({ params, response, auth }: HttpContext) {
     const user = auth.user
@@ -489,25 +382,15 @@ export default class AdminController {
 
     try {
       const { churchId } = params
-      const church = await Church.query().where('id', churchId).preload('user').firstOrFail()
+      const church = await Church.findOrFail(churchId)
 
-      // Prevent deletion if the associated user is a super admin
-      if (church.user && church.user.isSuperAdminRole()) {
-        return response.badRequest({ error: 'Cannot delete a church owned by a super admin' })
-      }
-
-      // Delete the church (this will cascade delete related data)
+      // Delete the territory (this will cascade delete related data)
       await church.delete()
 
-      // Delete the associated user if it exists
-      if (church.user) {
-        await church.user.delete()
-      }
-
-      return response.ok({ message: 'Church and associated account deleted successfully' })
+      return response.ok({ message: 'Territory deleted successfully' })
     } catch (error) {
-      console.error('Error deleting church:', error)
-      return response.internalServerError({ error: 'Failed to delete church' })
+      console.error('Error deleting territory:', error)
+      return response.internalServerError({ error: 'Failed to delete territory' })
     }
   }
 

@@ -30,7 +30,7 @@ export default class ChurchProfilesController {
     try {
       const payload = await ctx.request.validateUsing(updateChurchProfileValidator)
       const churchService = new ChurchService()
-      const result = await churchService.updateProfile(church.userId!, payload)
+      const result = await churchService.updateProfile(church.id, payload)
 
       return ctx.inertia.render('territory-detail', {
         church: result.church,

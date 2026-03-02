@@ -13,8 +13,8 @@ export class ChurchService {
     this.mailService = mailService ?? new MailService()
   }
 
-  async getChurchByUserId(userId: number): Promise<Church | null> {
-    return await Church.query().where('user_id', userId).first()
+  async getChurchById(churchId: number): Promise<Church | null> {
+    return await Church.find(churchId)
   }
 
   detectLocationChanges(
@@ -48,7 +48,7 @@ export class ChurchService {
   }
 
   async updateProfile(
-    userId: number,
+    churchId: number,
     data: {
       churchName?: string
       url?: string
@@ -65,7 +65,7 @@ export class ChurchService {
       mapZoom?: number
     }
   ): Promise<{ church: Church; syncResult?: any }> {
-    const church = await this.getChurchByUserId(userId)
+    const church = await this.getChurchById(churchId)
     if (!church) {
       throw new Error('Territory not found')
     }
@@ -94,8 +94,8 @@ export class ChurchService {
     let syncResult = null
     if (locationFieldsChanged) {
       try {
-        syncResult = await this.propertyService.syncPropertiesForChurch(
-          userId,
+        syncResult = await this.propertyService.syncPropertiesForChurchById(
+          churchId,
           DateTime.now().minus({ months: 1 })
         )
 

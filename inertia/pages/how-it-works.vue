@@ -178,7 +178,7 @@
               Get Started Free
             </a>
             <p class="text-primary/60 font-karla text-sm mt-4">
-              No credit card required. Free for territorys.
+              No credit card required. Free for territories.
             </p>
           </div>
         </div>

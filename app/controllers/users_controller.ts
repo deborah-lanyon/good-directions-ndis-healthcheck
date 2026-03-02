@@ -15,20 +15,19 @@ export default class UsersController {
       const authService = new AuthService()
       const user = await authService.login(email, password)
 
-      // Clear any stale session keys from previous impersonation/demo sessions
+      // Clear any stale session keys from previous sessions
       session.forget('impersonating_from')
       session.forget('acting_as_visitor_id')
-      session.forget('demo_mode')
-      session.forget('demo_church_id')
-      session.forget('demo_visitor_id')
+      session.forget('selected_church_id')
 
       await auth.use('web').login(user)
 
-      // Trigger property sync on login for any user who owns a church
+      // Auto-select a territory and trigger sync
       const syncService = new PropertySyncOnLoginService()
-      const church = await Church.query().where('user_id', user.id).first()
+      const church = await Church.query().orderBy('church_name', 'asc').first()
       if (church) {
-        console.log(`[LOGIN] Found church ${church.id} (${church.churchName}) for user ${user.id}, triggering sync`)
+        session.put('selected_church_id', church.id)
+        console.log(`[LOGIN] Auto-selected territory ${church.id} (${church.churchName}), triggering sync`)
         syncService.triggerSyncForChurch(church.id).catch((error) => {
           console.error('[LOGIN] Failed to trigger sync:', error)
         })

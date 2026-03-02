@@ -153,11 +153,9 @@ router
     router.get('export/visitor/:visitorId', [ExportsController, 'exportVisitor'])
     router.post('export/property-list', [ExportsController, 'exportPropertyList'])
 
-    // Admin bulk actions
-    router.post('admin/churches/bulk-approve', [AdminController, 'bulkApprove'])
-    router.post('admin/churches/bulk-reject', [AdminController, 'bulkReject'])
+    // Admin territory actions
     router.post('admin/churches', [AdminController, 'createChurch'])
-    router.put('admin/churches/:churchId/assign', [AdminController, 'assignChurch'])
+    router.post('admin/churches/:churchId/select', [AdminController, 'selectTerritory'])
     router.delete('admin/churches/:churchId', [AdminController, 'deleteChurch'])
     router.get('admin/churches/sync-status', [AdminController, 'churchesSyncStatus'])
 

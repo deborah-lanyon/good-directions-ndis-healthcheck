@@ -115,33 +115,29 @@ test.group('ChurchService', (group) => {
     assert.isFalse(hasChanges)
   })
 
-  test('should get church by user id', async ({ assert }) => {
+  test('should get church by id', async ({ assert }) => {
     const churchService = new ChurchService()
-    const user = await UserFactory.create()
-    const church = await ChurchFactory.merge({ userId: user.id }).create()
+    const church = await ChurchFactory.create()
 
-    const result = await churchService.getChurchByUserId(user.id)
+    const result = await churchService.getChurchById(church.id)
 
     assert.exists(result)
     assert.equal(result!.id, church.id)
-    assert.equal(result!.userId, user.id)
   })
 
-  test('should return null when church not found for user', async ({ assert }) => {
+  test('should return null when church not found by id', async ({ assert }) => {
     const churchService = new ChurchService()
-    const user = await UserFactory.create()
 
-    const result = await churchService.getChurchByUserId(user.id)
+    const result = await churchService.getChurchById(99999)
 
     assert.isNull(result)
   })
 
   test('should throw error when updating profile for non-existent church', async ({ assert }) => {
     const churchService = new ChurchService()
-    const user = await UserFactory.create()
 
     await assert.rejects(
-      () => churchService.updateProfile(user.id, { churchName: 'New Name' }),
+      () => churchService.updateProfile(99999, { churchName: 'New Name' }),
       'Church not found'
     )
   })
