@@ -269,37 +269,23 @@
             </a>
           </div>
 
-          <!-- Organisation Setup Section (hidden for Super Admins in admin view - visible when impersonating a church) -->
+          <!-- Territory Setup Section (hidden for Super Admins in admin view - visible when impersonating) -->
           <div v-if="!shouldHideChurchSetup" class="mt-6 pt-6 border-t border-white/20">
             <p class="px-4 text-sm font-karla font-semibold text-white uppercase tracking-wider mb-2">
-              Organisation Setup
+              Territory Setup
             </p>
             <div class="space-y-1">
               <a
-                href="/church-profile"
+                href="/territory-detail"
                 :class="[
                   'flex items-center gap-3 px-4 py-3 rounded-lg transition-colors',
-                  isActive('/church-profile') ? 'bg-white/10 text-white' : 'text-white/70 hover:bg-white/5 hover:text-white'
+                  isActive('/territory-detail') ? 'bg-white/10 text-white' : 'text-white/70 hover:bg-white/5 hover:text-white'
                 ]"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z" />
                 </svg>
-                <span class="font-karla">Organisation Profile</span>
-              </a>
-
-              <a
-                href="/amenities"
-                :class="[
-                  'flex items-center gap-3 px-4 py-3 rounded-lg transition-colors',
-                  isActive('/amenities') ? 'bg-white/10 text-white' : 'text-white/70 hover:bg-white/5 hover:text-white'
-                ]"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
-                </svg>
-                <span class="font-karla">Local Amenities</span>
+                <span class="font-karla">Territory Detail</span>
               </a>
 
               <a

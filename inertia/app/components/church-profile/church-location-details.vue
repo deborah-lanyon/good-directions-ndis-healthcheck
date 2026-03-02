@@ -3,8 +3,7 @@
     <CardHeader>
       <div class="flex justify-between items-center w-full">
         <div>
-          <CardTitle class="text-2xl">Organisation Profile</CardTitle>
-          <CardDescription>Organisation location details</CardDescription>
+          <CardTitle class="text-2xl">Territory Detail</CardTitle>
         </div>
         <button
           :class="[
@@ -21,54 +20,8 @@
     <CardContent>
       <div class="mt-4">
         <div class="grid grid-cols-[3fr_7fr] gap-1 py-3 border-b border-[#fcfbf8]">
-          <label for="church-name" class="text-sm leading-5 font-medium text-gray-500"
-            >Organisation Name</label
-          >
-          <div class="flex flex-col">
-            <input
-              type="text"
-              name="church-name"
-              id="church-name"
-              v-model="church.churchName"
-              :class="[
-                'text-gray-900 focus:ring-0 focus:outline-none text-sm leading-5 font-normal',
-                errors?.churchName ? 'border-red-500 border' : '',
-                isEditing ? 'border-gray-200 border p-2 rounded-lg' : '',
-              ]"
-              placeholder="Organisation Name"
-              :disabled="!isEditing"
-            />
-            <p v-if="errors?.churchName" class="text-red-500 text-xs mt-1">
-              {{ Array.isArray(errors.churchName) ? errors.churchName[0] : errors.churchName }}
-            </p>
-          </div>
-        </div>
-        <div class="grid grid-cols-[3fr_7fr] gap-1 py-3 border-b border-[#fcfbf8]">
-          <label for="church-website" class="text-sm leading-5 font-medium text-gray-500"
-            >Organisation Website</label
-          >
-          <div class="flex flex-col">
-            <input
-              type="text"
-              name="church-website"
-              id="church-website"
-              v-model="church.url"
-              :class="[
-                'text-gray-900 focus:ring-0 focus:outline-none text-sm leading-5 font-normal',
-                errors?.url ? 'border-red-500 border' : '',
-                isEditing ? 'border-gray-200 border p-2 rounded-lg' : '',
-              ]"
-              placeholder="https://www.example.com"
-              :disabled="!isEditing"
-            />
-            <p v-if="errors?.url" class="text-red-500 text-xs mt-1">
-              {{ Array.isArray(errors.url) ? errors.url[0] : errors.url }}
-            </p>
-          </div>
-        </div>
-        <div class="grid grid-cols-[3fr_7fr] gap-1 py-3 border-b border-[#fcfbf8]">
           <label for="church-address" class="text-sm leading-5 font-medium text-gray-500"
-            >Organisation Address</label
+            >Territory Postcode</label
           >
           <div class="flex flex-col gap-4">
             <div v-if="!isEditing" class="text-gray-900 text-sm leading-5 font-normal">
@@ -177,7 +130,7 @@ import { ref, onMounted, onBeforeUnmount, nextTick, watch, computed, reactive } 
 import type { Church } from '~/app/types'
 import L from 'leaflet'
 import { router } from '@inertiajs/vue3'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/app/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '~/app/components/ui/card'
 
 const props = defineProps<{
   church: Church | null
@@ -462,7 +415,7 @@ const save = async () => {
   }
 
   router.put(
-    '/church-profile',
+    '/territory-detail',
     {
       churchName: church.churchName,
       url: church.url,

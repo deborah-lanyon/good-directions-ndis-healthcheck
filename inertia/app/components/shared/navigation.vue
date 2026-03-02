@@ -25,24 +25,14 @@
         <!-- Navigation for logged-in admins -->
         <template v-if="user">
           <a
-            href="/dashboard"
+            href="/admin/dashboard"
             :class="[
               'font-karla text-xl hidden sm:inline-block',
-              isActive('/dashboard') ? 'text-tertiary' : 'text-white hover:text-tertiary',
+              isActive('/admin/dashboard') ? 'text-tertiary' : 'text-white hover:text-tertiary',
             ]"
             aria-label="Dashboard"
           >
             Dashboard
-          </a>
-          <a
-            href="/admin/churches"
-            :class="[
-              'font-karla text-xl hidden sm:inline-block',
-              isActive('/admin/churches') ? 'text-tertiary' : 'text-white hover:text-tertiary',
-            ]"
-            aria-label="Organisations"
-          >
-            Organisations
           </a>
           <a
             href="/admin/users"
@@ -283,7 +273,7 @@ const stopImpersonating = async () => {
 }
 
 const isSetupActive = () => {
-  return isActive('/church-profile') || isActive('/welcome-pack') || isActive('/amenities')
+  return isActive('/territory-detail') || isActive('/welcome-pack') || isActive('/amenities')
 }
 
 const isTeamActive = () => {

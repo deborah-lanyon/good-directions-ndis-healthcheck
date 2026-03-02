@@ -391,7 +391,7 @@ export default class UsersController {
         }
       }
 
-      return response.redirect('/church-profile')
+      return response.redirect('/territory-detail')
     } catch (error) {
       return response.status(500).json({
         message: 'Failed to update user profile',

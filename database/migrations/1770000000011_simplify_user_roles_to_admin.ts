@@ -4,12 +4,7 @@ export default class extends BaseSchema {
   protected tableName = 'users'
 
   async up() {
-    // Update all existing roles to 'admin'
-    this.defer(async (db) => {
-      await db.rawQuery(`UPDATE ${this.tableName} SET role = 'admin'`)
-    })
-
-    // Change the role column: drop the old enum type, add new one
+    // Drop the old role column and recreate with simplified enum
     this.schema.alterTable(this.tableName, (table) => {
       table.dropColumn('role')
     })
@@ -18,7 +13,7 @@ export default class extends BaseSchema {
       table.enum('role', ['admin']).notNullable().defaultTo('admin')
     })
 
-    // Drop the legacy is_super_admin column
+    // Drop the legacy is_super_admin column if it exists
     this.schema.alterTable(this.tableName, (table) => {
       table.dropColumn('is_super_admin')
     })

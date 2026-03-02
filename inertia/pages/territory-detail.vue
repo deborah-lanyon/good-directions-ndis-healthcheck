@@ -1,8 +1,7 @@
 <template>
-  <SidebarLayout pageTitle="Church Profile" pageSubtitle="Manage your church details and settings">
+  <SidebarLayout pageTitle="Territory Detail" pageSubtitle="Manage your territory settings">
     <div class="w-full space-y-6">
-      <PersonalDetails :user="user" />
-      <AdminVisitorToggle :admin-visitor-enabled="props.adminVisitorEnabled ?? false" />
+      <PersonalDetails :user="page.props.user as User" />
       <ChurchLocationDetails
         :church="props.church"
         :errors="props.errors"
@@ -96,16 +95,14 @@
   </SidebarLayout>
 </template>
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { usePage } from '@inertiajs/vue3'
 import SidebarLayout from '~/app/components/layouts/sidebar-layout.vue'
-import type { User, Church } from '~/app/types'
-import PersonalDetails from '~/app/components/church-profile/personal-details.vue'
-import AdminVisitorToggle from '~/app/components/church-profile/admin-visitor-toggle.vue'
+import type { Church, User } from '~/app/types'
 import ChurchLocationDetails from '~/app/components/church-profile/church-location-details.vue'
+import PersonalDetails from '~/app/components/church-profile/personal-details.vue'
 
 const page = usePage()
-const user = computed(() => page.props.user as User)
 
 const props = defineProps<{
   church: Church | null

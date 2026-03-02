@@ -12,7 +12,7 @@ export default class ChurchProfilesController {
     const church = await resolveChurchForUser({ auth, session })
     const user = auth.user!
     const adminVisitor = church ? await this.visitorService.getAdminVisitor(user.id, church.id) : null
-    return inertia.render('church-profile', { church, syncResult: null, adminVisitorEnabled: !!adminVisitor })
+    return inertia.render('territory-detail', { church, syncResult: null, adminVisitorEnabled: !!adminVisitor })
   }
 
   async update(ctx: HttpContext) {
@@ -32,7 +32,7 @@ export default class ChurchProfilesController {
       const churchService = new ChurchService()
       const result = await churchService.updateProfile(church.userId!, payload)
 
-      return ctx.inertia.render('church-profile', {
+      return ctx.inertia.render('territory-detail', {
         church: result.church,
         syncResult: result.syncResult,
         adminVisitorEnabled: !!adminVisitor,
@@ -48,7 +48,7 @@ export default class ChurchProfilesController {
         }
       }
 
-      return ctx.inertia.render('church-profile', {
+      return ctx.inertia.render('territory-detail', {
         church,
         errors: formattedErrors,
         adminVisitorEnabled: !!adminVisitor,

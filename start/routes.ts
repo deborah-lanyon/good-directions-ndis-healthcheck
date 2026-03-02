@@ -42,10 +42,10 @@ router
     router.get('properties', [PropertiesController, 'index'])
     router.get('property-list', [PropertiesController, 'list'])
     router.post('logout', [UsersController, 'logout'])
-    router.get('church-profile', [ChurchProfilesController, 'index'])
+    router.get('territory-detail', [ChurchProfilesController, 'index'])
 
     router.put('properties/:id', [PropertiesController, 'update'])
-    router.put('church-profile', [ChurchProfilesController, 'update'])
+    router.put('territory-detail', [ChurchProfilesController, 'update'])
     router.get('geocode', [ChurchProfilesController, 'geocode'])
     router.put('users', [UsersController, 'update'])
     router.get('test-email', [PropertiesController, 'testEmail'])

@@ -3,8 +3,7 @@
     <CardHeader>
       <div class="flex justify-between items-center w-full">
         <div>
-          <CardTitle class="text-2xl">Account</CardTitle>
-          <CardDescription>Personal details</CardDescription>
+          <CardTitle class="text-2xl">Operations Manager</CardTitle>
         </div>
         <button
           :class="[

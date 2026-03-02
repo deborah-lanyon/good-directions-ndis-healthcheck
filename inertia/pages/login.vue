@@ -107,8 +107,8 @@ const handleLogin = async () => {
       return
     }
 
-    // All admins go to dashboard
-    router.visit('/dashboard')
+    // All admins go to admin dashboard
+    router.visit('/admin/dashboard')
   } catch (error) {
     console.error('Login error:', error)
     error.value = error instanceof Error ? error.message : 'Login failed. Please try again.'

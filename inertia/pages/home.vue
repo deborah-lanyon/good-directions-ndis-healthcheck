@@ -227,7 +227,7 @@ const props = withDefaults(
         "We help families navigate the details that matter most: continuity of therapies, handover between providers, updated service agreements, and ensuring nothing falls through the cracks during the move.",
       heroParagraph3:
         'Get a free NDIS Healthcheck and take the uncertainty out of your next move.',
-      ctaTitle: 'Request Your NDIS Healthcheck Now',
+      ctaTitle: 'Get Your Free Healthcheck Now',
       ctaButtonText: 'Get Started',
       heroImageUrl: null,
     }),

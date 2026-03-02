@@ -2,8 +2,8 @@ import vine, { SimpleMessagesProvider } from '@vinejs/vine'
 
 export const updateChurchProfileValidator = vine.compile(
   vine.object({
-    churchName: vine.string(),
-    url: vine.string().url(),
+    churchName: vine.string().optional(),
+    url: vine.string().url().optional(),
     address: vine.string(),
     addressLine1: vine.string().optional(),
     addressLine2: vine.string().optional(),
