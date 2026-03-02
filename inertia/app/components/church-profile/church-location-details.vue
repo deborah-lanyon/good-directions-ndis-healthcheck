@@ -31,40 +31,6 @@
               <div class="flex flex-col">
                 <input
                   type="text"
-                  name="church-address"
-                  id="church-address"
-                  v-model="church.address"
-                  :class="[
-                    'text-gray-900 focus:ring-0 focus:outline-none text-sm leading-5 font-normal',
-                    errors?.address ? 'border-red-500 border' : '',
-                    isEditing ? 'border-gray-200 border p-2 rounded-lg' : '',
-                  ]"
-                  placeholder="Address"
-                />
-                <p v-if="errors?.address" class="text-red-500 text-xs mt-1">
-                  {{ Array.isArray(errors.address) ? errors.address[0] : errors.address }}
-                </p>
-              </div>
-              <div class="flex flex-col">
-                <input
-                  type="text"
-                  name="church-suburb"
-                  id="church-suburb"
-                  v-model="church.suburb"
-                  :class="[
-                    'text-gray-900 focus:ring-0 focus:outline-none text-sm leading-5 font-normal',
-                    errors?.suburb ? 'border-red-500 border' : '',
-                    isEditing ? 'border-gray-200 border p-2 rounded-lg' : '',
-                  ]"
-                  placeholder="Suburb"
-                />
-                <p v-if="errors?.suburb" class="text-red-500 text-xs mt-1">
-                  {{ Array.isArray(errors.suburb) ? errors.suburb[0] : errors.suburb }}
-                </p>
-              </div>
-              <div class="flex flex-col">
-                <input
-                  type="text"
                   name="church-postcode"
                   id="church-postcode"
                   v-model="church.postcode"
@@ -389,8 +355,7 @@ const handleGeocodeAddress = async () => {
 }
 
 const getCombinedAddress = () => {
-  const parts = [church.address, church.suburb, church.postcode].filter(Boolean)
-  return parts.join(', ')
+  return church.postcode || ''
 }
 
 const save = async () => {
