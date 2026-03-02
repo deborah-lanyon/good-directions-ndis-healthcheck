@@ -65,7 +65,11 @@ export default class Church extends BaseModel {
   @column()
   declare syncErrorMessage: string | null
 
-  @column()
+  @column({
+    prepare: (value: string[] | null) => (value ? JSON.stringify(value) : null),
+    consume: (value: string | string[] | null) =>
+      typeof value === 'string' ? JSON.parse(value) : value,
+  })
   declare states: string[] | null
 
   @column()

@@ -17,7 +17,11 @@ export default class MailCampaign extends BaseModel {
   @column()
   declare propertyCount: number
 
-  @column()
+  @column({
+    prepare: (value: string[]) => JSON.stringify(value),
+    consume: (value: string | string[]) =>
+      typeof value === 'string' ? JSON.parse(value) : value,
+  })
   declare postcodes: string[]
 
   @column()
