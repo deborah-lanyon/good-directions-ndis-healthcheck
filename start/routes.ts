@@ -273,27 +273,6 @@ router
   })
   .use(middleware.appKey())
 
-// Database diagnostic endpoint (protected by APP_KEY)
-router
-  .get('/api/db-check', async ({ response }) => {
-    try {
-      const db = await import('@adonisjs/lucid/services/db')
-      const tables = await db.default.rawQuery(
-        `SELECT table_name FROM information_schema.tables WHERE table_schema = 'public' ORDER BY table_name`
-      )
-      const schemaRows = await db.default.rawQuery(
-        `SELECT name, batch FROM adonis_schema ORDER BY id`
-      )
-      return response.json({
-        tables: tables.rows.map((r: any) => r.table_name),
-        migrations: schemaRows.rows,
-      })
-    } catch (error) {
-      return response.status(500).json({ error: error.message })
-    }
-  })
-  .use(middleware.appKey())
-
 // Setup demo endpoint (protected by APP_KEY)
 router
   .get('/api/setup-demo', async ({ response }) => {
