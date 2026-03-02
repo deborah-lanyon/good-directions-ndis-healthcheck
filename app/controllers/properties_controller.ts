@@ -17,9 +17,10 @@ export default class PropertiesController {
 
       const isImpersonating = session.get('impersonating_from') !== undefined
       const demoMode = session.get('demo_mode')
+      const hasSelectedTerritory = session.get('selected_church_id') !== undefined
 
-      // Admins not impersonating and not in demo mode see home page
-      if (!isImpersonating && !demoMode) {
+      // Admins with no territory context see home page
+      if (!isImpersonating && !demoMode && !hasSelectedTerritory) {
         return response.redirect('/')
       }
 
