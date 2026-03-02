@@ -201,6 +201,7 @@ export default class AdminController {
         latitude: latitude ?? null,
         longitude: longitude ?? null,
         userId: null,
+        url: '',
       })
 
       // Trigger initial property sync after a delay to avoid API rate limits
