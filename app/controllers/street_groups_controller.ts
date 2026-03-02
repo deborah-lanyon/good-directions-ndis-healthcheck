@@ -15,7 +15,7 @@ export default class StreetGroupsController {
       const church = await resolveChurchForUser({ auth, session })
 
       if (!church) {
-        return response.status(404).json({ message: 'Church profile not found' })
+        return response.status(404).json({ message: 'Territory not found' })
       }
 
       // Load all street groups with their relationships
@@ -60,7 +60,7 @@ export default class StreetGroupsController {
       const church = await resolveChurchForUser({ auth, session })
 
       if (!church) {
-        return response.status(404).json({ message: 'Church profile not found' })
+        return response.status(404).json({ message: 'Territory not found' })
       }
 
       // Load all street groups with their relationships
@@ -98,7 +98,7 @@ export default class StreetGroupsController {
       const church = await resolveChurchForUser({ auth, session })
 
       if (!church) {
-        return response.status(404).json({ message: 'Church profile not found' })
+        return response.status(404).json({ message: 'Territory not found' })
       }
 
       const streetGroup = await this.streetGroupService.getStreetGroupById(params.id)
@@ -134,7 +134,7 @@ export default class StreetGroupsController {
       const church = await resolveChurchForUser({ auth, session })
 
       if (!church) {
-        return response.status(404).json({ message: 'Church profile not found' })
+        return response.status(404).json({ message: 'Territory not found' })
       }
 
       const { visitorIds, ...data } = request.only(['name', 'description', 'visitorIds'])
@@ -161,7 +161,7 @@ export default class StreetGroupsController {
       const church = await resolveChurchForUser({ auth, session })
 
       if (!church) {
-        return response.status(404).json({ message: 'Church profile not found' })
+        return response.status(404).json({ message: 'Territory not found' })
       }
 
       const streetGroups = await this.streetGroupService.getAllStreetGroupsForChurch(church.id)
@@ -181,7 +181,7 @@ export default class StreetGroupsController {
       const church = await resolveChurchForUser({ auth, session })
 
       if (!church) {
-        return response.status(404).json({ message: 'Church profile not found' })
+        return response.status(404).json({ message: 'Territory not found' })
       }
 
       const streetGroup = await this.streetGroupService.getStreetGroupById(params.id)
@@ -211,7 +211,7 @@ export default class StreetGroupsController {
       const church = await resolveChurchForUser({ auth, session })
 
       if (!church) {
-        return response.status(404).json({ message: 'Church profile not found' })
+        return response.status(404).json({ message: 'Territory not found' })
       }
 
       const streetGroup = await this.streetGroupService.getStreetGroupById(params.id)
@@ -249,7 +249,7 @@ export default class StreetGroupsController {
       const church = await resolveChurchForUser({ auth, session })
 
       if (!church) {
-        return response.status(404).json({ message: 'Church profile not found' })
+        return response.status(404).json({ message: 'Territory not found' })
       }
 
       const streetGroup = await this.streetGroupService.getStreetGroupById(params.id)
@@ -281,7 +281,7 @@ export default class StreetGroupsController {
       const church = await resolveChurchForUser({ auth, session })
 
       if (!church) {
-        return response.status(404).json({ message: 'Church profile not found' })
+        return response.status(404).json({ message: 'Territory not found' })
       }
 
       const streetGroup = await this.streetGroupService.getStreetGroupById(params.id)
@@ -319,7 +319,7 @@ export default class StreetGroupsController {
       const church = await resolveChurchForUser({ auth, session })
 
       if (!church) {
-        return response.status(404).json({ message: 'Church profile not found' })
+        return response.status(404).json({ message: 'Territory not found' })
       }
 
       const streetGroup = await this.streetGroupService.getStreetGroupById(params.id)
@@ -361,7 +361,7 @@ export default class StreetGroupsController {
       const church = await resolveChurchForUser({ auth, session })
 
       if (!church) {
-        return response.status(404).json({ message: 'Church profile not found' })
+        return response.status(404).json({ message: 'Territory not found' })
       }
 
       // Authorization check would require loading the assignment and checking ownership
@@ -385,7 +385,7 @@ export default class StreetGroupsController {
       const church = await resolveChurchForUser({ auth, session })
 
       if (!church) {
-        return response.status(404).json({ message: 'Church profile not found' })
+        return response.status(404).json({ message: 'Territory not found' })
       }
 
       const { streetName, streetNumberStart, streetNumberEnd } = request.only([
@@ -415,7 +415,7 @@ export default class StreetGroupsController {
       const church = await resolveChurchForUser({ auth, session })
 
       if (!church) {
-        return response.status(404).json({ message: 'Church profile not found' })
+        return response.status(404).json({ message: 'Territory not found' })
       }
 
       const streets = await this.streetGroupService.getAvailableStreets(church.id)
@@ -436,7 +436,7 @@ export default class StreetGroupsController {
       const church = await resolveChurchForUser({ auth, session })
 
       if (!church) {
-        return response.status(404).json({ message: 'Church profile not found' })
+        return response.status(404).json({ message: 'Territory not found' })
       }
 
       const streetGroup = await this.streetGroupService.getStreetGroupById(params.id)

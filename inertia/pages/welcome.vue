@@ -60,16 +60,16 @@
                 </Card>
               </a>
 
-              <a href="/church-profile" class="block">
+              <a href="/territory-detail" class="block">
                 <Card
                   class="p-6 bg-orange-50 hover:bg-orange-100 transition-colors border-2 border-orange-200"
                 >
                   <div class="flex items-center gap-3 mb-3">
                     <Icon name="settings" class="w-6 h-6 text-orange-600" />
-                    <h3 class="text-lg font-semibold text-gray-900">Organisation Profile</h3>
+                    <h3 class="text-lg font-semibold text-gray-900">Territory Detail</h3>
                   </div>
                   <p class="text-gray-600 text-sm">
-                    Configure your organisation details and welcome pack template
+                    Configure your territory details and welcome pack template
                   </p>
                 </Card>
               </a>

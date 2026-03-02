@@ -104,7 +104,7 @@
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                 <div v-if="visitor.isAdminVisitor" class="text-xs text-gray-400 italic">
-                  Managed via Organisation Profile
+                  Managed via Territory Detail
                 </div>
                 <div v-else class="flex justify-end items-center gap-2">
                   <button

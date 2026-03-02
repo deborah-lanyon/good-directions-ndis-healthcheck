@@ -41,7 +41,7 @@ export default class WelcomePacksController {
 
       if (!church) {
         return response.badRequest({
-          error: 'You must set up your church profile first',
+          error: 'You must set up your territory first',
         })
       }
 
@@ -68,7 +68,7 @@ export default class WelcomePacksController {
 
       if (!church) {
         return response.badRequest({
-          error: 'You must set up your church profile first',
+          error: 'You must set up your territory first',
         })
       }
 
@@ -117,7 +117,7 @@ export default class WelcomePacksController {
 
       if (!church) {
         return response.badRequest({
-          error: 'You must set up your church profile first',
+          error: 'You must set up your territory first',
         })
       }
 
@@ -152,7 +152,7 @@ export default class WelcomePacksController {
 
       if (!church) {
         return response.badRequest({
-          error: 'You must set up your church profile first',
+          error: 'You must set up your territory first',
         })
       }
 
@@ -202,7 +202,7 @@ export default class WelcomePacksController {
 
       if (!church) {
         return response.badRequest({
-          error: 'You must set up your church profile first',
+          error: 'You must set up your territory first',
         })
       }
 
@@ -256,7 +256,7 @@ export default class WelcomePacksController {
 
       if (!church) {
         return response.badRequest({
-          error: 'You must set up your church profile first',
+          error: 'You must set up your territory first',
         })
       }
 
@@ -303,7 +303,7 @@ export default class WelcomePacksController {
 
       if (!church) {
         return response.badRequest({
-          error: 'You must set up your church profile first',
+          error: 'You must set up your territory first',
         })
       }
 
@@ -346,7 +346,7 @@ export default class WelcomePacksController {
 
       if (!church) {
         return response.badRequest({
-          error: 'You must set up your church profile first',
+          error: 'You must set up your territory first',
         })
       }
 
@@ -398,7 +398,7 @@ export default class WelcomePacksController {
 
       if (!church) {
         return response.badRequest({
-          error: 'You must set up your church profile first',
+          error: 'You must set up your territory first',
         })
       }
 
@@ -556,7 +556,7 @@ export default class WelcomePacksController {
 
       if (!church) {
         return response.badRequest({
-          error: 'You must set up your church profile first',
+          error: 'You must set up your territory first',
         })
       }
 

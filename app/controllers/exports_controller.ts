@@ -18,7 +18,7 @@ export default class ExportsController {
       const church = await Church.query().where('user_id', user.id).first()
 
       if (!church) {
-        return response.status(404).json({ message: 'Church profile not found' })
+        return response.status(404).json({ message: 'Territory not found' })
       }
 
       // Verify street group belongs to user's church
@@ -56,7 +56,7 @@ export default class ExportsController {
       const church = await Church.query().where('user_id', user.id).first()
 
       if (!church) {
-        return response.status(404).json({ message: 'Church profile not found' })
+        return response.status(404).json({ message: 'Territory not found' })
       }
 
       // Verify visitor belongs to user's church
@@ -94,7 +94,7 @@ export default class ExportsController {
       const church = await Church.query().where('user_id', user.id).first()
 
       if (!church) {
-        return response.status(404).json({ message: 'Church profile not found' })
+        return response.status(404).json({ message: 'Territory not found' })
       }
 
       const { propertyIds } = request.only(['propertyIds'])

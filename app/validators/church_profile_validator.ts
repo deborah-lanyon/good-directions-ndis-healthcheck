@@ -19,8 +19,8 @@ export const updateChurchProfileValidator = vine.compile(
 )
 
 export const profileErrorMessages = new SimpleMessagesProvider({
-  'churchName': 'Church name must be a string',
-  'churchName.required': 'A church name is required',
+  'churchName': 'Territory name must be a string',
+  'churchName.required': 'A territory name is required',
   'url': 'URL must be a valid URL',
   'url.required': 'A URL is required',
   'address.required': 'An address is required',

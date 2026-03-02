@@ -484,7 +484,7 @@ const stopImpersonating = async () => {
   }
 }
 
-// Hide Organisation Setup only when Super Admin is in their own admin view (not impersonating or in demo mode)
+// Hide Territory Setup only when Super Admin is in their own admin view (not impersonating or in demo mode)
 const shouldHideChurchSetup = computed(() => isSuperAdmin.value && !isImpersonating.value && !demoMode.value && viewMode.value !== 'church')
 
 const userName = computed(() => user?.name || 'User')

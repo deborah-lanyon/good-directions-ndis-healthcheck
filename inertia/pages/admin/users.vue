@@ -132,7 +132,7 @@
                   <td class="px-6 py-4">
                     <div v-if="user.church" class="text-sm text-gray-900">
                       {{ user.church.churchName }}
-                      <span class="text-gray-500">(Organisation)</span>
+                      <span class="text-gray-500">(Territory)</span>
                     </div>
                     <div v-else-if="user.visitor" class="text-sm text-gray-900">
                       {{ user.visitor.name }}

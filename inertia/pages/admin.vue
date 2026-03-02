@@ -9,7 +9,7 @@
           </div>
           <h1 class="text-4xl font-bold text-gray-900 mb-4">Welcome to Good Directions NDIS Healthcheck</h1>
           <p class="text-lg text-gray-600 mb-6">
-            Manage your organisation profile, search for nearby properties, and keep your volunteers in
+            Manage your territory profile, search for nearby properties, and keep your volunteers in
             the loop.
           </p>
           <div class="flex items-center justify-center gap-4">

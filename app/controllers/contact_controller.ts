@@ -38,9 +38,9 @@ export default class ContactController {
       // Format inquiry types for the email
       const inquiryTypeLabels: Record<string, string> = {
         registration_info:
-          'Further information about registering your organisation for the Good Directions NDIS Healthcheck',
+          'Further information about registering your territory for the Good Directions NDIS Healthcheck',
         help_using: 'Help in using the Good Directions NDIS Healthcheck',
-        book_visit: 'Book a visit to your organisation to introduce the Good Directions NDIS Healthcheck',
+        book_visit: 'Book a visit to introduce the Good Directions NDIS Healthcheck to your territory',
         ask_question: 'Ask a Question',
       }
 

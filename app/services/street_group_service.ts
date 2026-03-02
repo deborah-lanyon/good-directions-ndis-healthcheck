@@ -66,7 +66,7 @@ export default class StreetGroupService {
     // Validate church exists
     const church = await Church.find(churchId)
     if (!church) {
-      throw new Error('Church not found')
+      throw new Error('Territory not found')
     }
 
     const streetGroup = await StreetGroup.create({
@@ -318,7 +318,7 @@ export default class StreetGroupService {
   async getAvailableStreets(churchId: number): Promise<string[]> {
     const church = await Church.find(churchId)
     if (!church) {
-      throw new Error('Church not found')
+      throw new Error('Territory not found')
     }
 
     if (!church.postcode) {

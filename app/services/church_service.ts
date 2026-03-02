@@ -67,7 +67,7 @@ export class ChurchService {
   ): Promise<{ church: Church; syncResult?: any }> {
     const church = await this.getChurchByUserId(userId)
     if (!church) {
-      throw new Error('Church not found')
+      throw new Error('Territory not found')
     }
 
     // If address or address parts changed and latitude/longitude not provided, attempt geocoding

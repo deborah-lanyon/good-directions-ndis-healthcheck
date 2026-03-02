@@ -778,7 +778,7 @@ export class PropertyService {
   private async getChurchByUserId(userId: number) {
     const church = await Church.query().where('user_id', userId).first()
     if (!church) {
-      throw new Error('Church profile not found. Please set up your church profile.')
+      throw new Error('Territory not found. Please set up your territory.')
     }
     return church
   }

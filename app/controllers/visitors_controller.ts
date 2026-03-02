@@ -13,7 +13,7 @@ export default class VisitorsController {
       const church = await resolveChurchForUser({ auth, session })
 
       if (!church) {
-        return response.status(404).json({ message: 'Church profile not found' })
+        return response.status(404).json({ message: 'Territory not found' })
       }
 
       const visitors = await this.visitorService.getVisitorsForStreetGroup(params.streetGroupId)
@@ -33,7 +33,7 @@ export default class VisitorsController {
       const church = await resolveChurchForUser({ auth, session })
 
       if (!church) {
-        return response.status(404).json({ message: 'Church profile not found' })
+        return response.status(404).json({ message: 'Territory not found' })
       }
 
       const visitors = await this.visitorService.getVisitorsForChurch(church.id)
@@ -53,7 +53,7 @@ export default class VisitorsController {
       const church = await resolveChurchForUser({ auth, session })
 
       if (!church) {
-        return response.status(404).json({ message: 'Church profile not found' })
+        return response.status(404).json({ message: 'Territory not found' })
       }
 
       const visitor = await this.visitorService.getVisitorById(params.id)
@@ -76,7 +76,7 @@ export default class VisitorsController {
       const church = await resolveChurchForUser({ auth, session })
 
       if (!church) {
-        session.flash('error', 'Church profile not found')
+        session.flash('error', 'Territory not found')
         return response.redirect().back()
       }
 
@@ -113,7 +113,7 @@ export default class VisitorsController {
       const church = await resolveChurchForUser({ auth, session })
 
       if (!church) {
-        session.flash('error', 'Church profile not found')
+        session.flash('error', 'Territory not found')
         return response.redirect().back()
       }
 
@@ -148,7 +148,7 @@ export default class VisitorsController {
       const church = await resolveChurchForUser({ auth, session })
 
       if (!church) {
-        return response.status(404).json({ message: 'Church profile not found' })
+        return response.status(404).json({ message: 'Territory not found' })
       }
 
       const visitor = await this.visitorService.getVisitorById(params.id)
@@ -182,7 +182,7 @@ export default class VisitorsController {
       const church = await resolveChurchForUser({ auth, session })
 
       if (!church) {
-        session.flash('error', 'Church profile not found')
+        session.flash('error', 'Territory not found')
         return response.redirect().back()
       }
 
@@ -217,7 +217,7 @@ export default class VisitorsController {
       const church = await resolveChurchForUser({ auth, session })
 
       if (!church) {
-        session.flash('error', 'Church profile not found')
+        session.flash('error', 'Territory not found')
         return response.redirect().back()
       }
 
@@ -252,7 +252,7 @@ export default class VisitorsController {
       const church = await resolveChurchForUser({ auth, session })
 
       if (!church) {
-        return response.status(404).json({ message: 'Church profile not found' })
+        return response.status(404).json({ message: 'Territory not found' })
       }
 
       const visitors = await this.visitorService.getAllVisitorsForChurch(church.id)
@@ -324,7 +324,7 @@ export default class VisitorsController {
     try {
       const church = await resolveChurchForUser({ auth, session })
       if (!church) {
-        return response.status(404).json({ message: 'Church profile not found' })
+        return response.status(404).json({ message: 'Territory not found' })
       }
 
       const visitor = await this.visitorService.getVisitorById(params.id)
@@ -375,7 +375,7 @@ export default class VisitorsController {
     try {
       const church = await resolveChurchForUser({ auth, session })
       if (!church) {
-        session.flash('error', 'Church profile not found')
+        session.flash('error', 'Territory not found')
         return response.redirect().back()
       }
 

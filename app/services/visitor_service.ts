@@ -52,7 +52,7 @@ export default class VisitorService {
     // Validate church exists
     const church = await Church.find(churchId)
     if (!church) {
-      throw new Error('Church not found')
+      throw new Error('Territory not found')
     }
 
     const visitor = await Visitor.create({

@@ -18,7 +18,7 @@ export default class StreetsController {
 
     if (!church.latitude || !church.longitude) {
       return response.badRequest({
-        error: 'Church location not set. Please add latitude/longitude to your church profile.',
+        error: 'Territory location not set. Please add latitude/longitude to your territory.',
       })
     }
 

@@ -133,7 +133,7 @@ defineProps<{
         <ul class="list-disc list-inside space-y-2 font-karla text-white/90">
           <li>Visit during appropriate hours (typically 10am - 6pm)</li>
           <li>Bring welcome packs with you</li>
-          <li>Be friendly and introduce yourself and your organisation</li>
+          <li>Be friendly and introduce yourself and your territory</li>
           <li>Don't worry if no one is home - you can always try again</li>
           <li>Update the property status as soon as possible after each visit</li>
           <li>Add notes to help remember important details about each visit</li>

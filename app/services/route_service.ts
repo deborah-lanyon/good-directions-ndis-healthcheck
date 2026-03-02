@@ -43,7 +43,7 @@ export default class RouteService {
     const church = await Church.findOrFail(churchId)
 
     if (!church.latitude || !church.longitude) {
-      throw new Error('Church location coordinates are not set. Please update your church profile.')
+      throw new Error('Territory location coordinates are not set. Please update your territory.')
     }
 
     // Fetch properties

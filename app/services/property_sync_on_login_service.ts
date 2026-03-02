@@ -45,7 +45,7 @@ export class PropertySyncOnLoginService {
     if (!church.suburb || !church.postcode) {
       console.log(`[SYNC ON LOGIN] Church ${churchId} missing suburb or postcode, skipping sync`)
       church.syncStatus = 'failed'
-      church.syncErrorMessage = 'Church profile is missing suburb or postcode. Please update your church profile.'
+      church.syncErrorMessage = 'Territory is missing suburb or postcode. Please update your territory.'
       // Don't increment retry count for configuration issues
       await church.save()
       return

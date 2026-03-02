@@ -10,13 +10,13 @@
         <div class="max-w-4xl mx-auto mt-12">
           <!-- Introduction -->
           <p class="text-primary font-karla text-2xl leading-relaxed mb-12 text-center">
-            Good Directions NDIS Healthcheck makes it easy for your organisation to welcome new residents
+            Good Directions NDIS Healthcheck makes it easy for your territory to welcome new residents
             to your neighbourhood. Here's how it works.
           </p>
 
           <!-- Steps -->
           <div class="space-y-8">
-            <!-- Step 1: Register Your Church -->
+            <!-- Step 1: Register Your Territory -->
             <div class="bg-white rounded-2xl p-8 shadow-sm">
               <div class="flex items-start gap-6">
                 <div
@@ -25,9 +25,9 @@
                   1
                 </div>
                 <div>
-                  <h3 class="font-caprasimo text-2xl text-primary mb-3">Register Your Organisation</h3>
+                  <h3 class="font-caprasimo text-2xl text-primary mb-3">Register Your Territory</h3>
                   <p class="text-primary font-karla text-lg leading-relaxed">
-                    Sign up for a free account and set up your organisation profile with your location.
+                    Sign up for a free account and set up your territory profile with your location.
                     Once approved, the portal will automatically track properties in your area
                     that have recently been sold or rented.
                   </p>
@@ -66,7 +66,7 @@
                   <h3 class="font-caprasimo text-2xl text-primary mb-3">Organise Your Team</h3>
                   <p class="text-primary font-karla text-lg leading-relaxed">
                     Create street groups to divide your area into manageable visiting zones.
-                    Add team members from your organisation and assign them to specific street groups.
+                    Add team members from your territory and assign them to specific street groups.
                     Each team member gets their own login to see their assigned properties.
                   </p>
                 </div>
@@ -178,7 +178,7 @@
               Get Started Free
             </a>
             <p class="text-primary/60 font-karla text-sm mt-4">
-              No credit card required. Free for organisations.
+              No credit card required. Free for territorys.
             </p>
           </div>
         </div>

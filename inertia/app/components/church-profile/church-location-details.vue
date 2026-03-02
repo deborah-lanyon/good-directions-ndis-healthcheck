@@ -229,7 +229,7 @@ const updateMapWithCoordinates = (lat: number, lng: number) => {
     marker.setLatLng([lat, lng])
     marker.setPopupContent(
       `<div style="min-width: 200px;">
-        <strong>${props.church?.churchName || 'Organisation Location'}</strong><br/>
+        <strong>${props.church?.churchName || 'Territory Location'}</strong><br/>
         ${addressDisplay ? `<small>${addressDisplay}</small>` : ''}
       </div>`
     )
@@ -238,7 +238,7 @@ const updateMapWithCoordinates = (lat: number, lng: number) => {
       .addTo(map)
       .bindPopup(
         `<div style="min-width: 200px;">
-          <strong>${props.church?.churchName || 'Organisation Location'}</strong><br/>
+          <strong>${props.church?.churchName || 'Territory Location'}</strong><br/>
           ${addressDisplay ? `<small>${addressDisplay}</small>` : ''}
         </div>`
       )
@@ -511,7 +511,7 @@ watch(
           .addTo(map)
           .bindPopup(
             `<div style="min-width: 200px;">
-              <strong>${props.church?.churchName || 'Organisation Location'}</strong><br/>
+              <strong>${props.church?.churchName || 'Territory Location'}</strong><br/>
               ${addressDisplay ? `<small>${addressDisplay}</small>` : ''}
             </div>`
           )

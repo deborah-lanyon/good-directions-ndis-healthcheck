@@ -105,30 +105,30 @@ export default class SiteSettings extends BaseModel {
     howToUseTitle: 'How To Use',
     howToUseIntro:
       'Getting started with the Good Directions NDIS Healthcheck is easy. Follow these simple steps to begin welcoming new residents in your community.',
-    howToUseStep1Title: 'Register Your Organisation',
+    howToUseStep1Title: 'Register Your Territory',
     howToUseStep1Content:
-      "Sign up for an account and provide your organisation details. Once approved, you'll have access to all the portal features.",
+      "Sign up for an account and provide your territory details. Once approved, you'll have access to all the portal features.",
     howToUseStep2Title: 'Set Up Your Profile',
     howToUseStep2Content:
-      'Complete your organisation profile with your location, contact information, and customize your welcome pack template.',
+      'Complete your territory profile with your location, contact information, and customize your welcome pack template.',
     howToUseStep3Title: 'Find New Properties',
     howToUseStep3Content:
-      'Use the property dashboard to discover new residents in your area. The system automatically identifies recently sold properties near your organisation.',
+      'Use the property dashboard to discover new residents in your area. The system automatically identifies recently sold properties near your territory.',
     howToUseStep4Title: 'Welcome Your Neighbours',
     howToUseStep4Content:
       'Generate personalized welcome packs and reach out to new residents with helpful information about your community.',
     // About Us defaults
     aboutUsTitle: 'About Us',
     aboutUsIntro:
-      'The Good Directions NDIS Healthcheck was created to help organisations connect with new residents in their local communities.',
+      'The Good Directions NDIS Healthcheck was created to help territories connect with new residents in their local communities.',
     aboutUsMission:
-      'Our mission is to empower organisations to be a welcoming presence for families moving into new neighbourhoods, providing them with valuable local information and a friendly connection.',
+      'Our mission is to empower territories to be a welcoming presence for families moving into new neighbourhoods, providing them with valuable local information and a friendly connection.',
     aboutUsVision:
-      'We envision communities where every new resident feels welcomed and supported, with local organisations serving as a bridge to community resources and connections.',
+      'We envision communities where every new resident feels welcomed and supported, with local territories serving as a bridge to community resources and connections.',
     aboutUsContact:
-      'For questions or support, please contact us through the registration form or reach out to your local organisation administrator.',
+      'For questions or support, please contact us through the registration form or reach out to your local territory administrator.',
     aboutUsParagraph1:
-      'The Good Directions NDIS Healthcheck was created to help organisations connect with new residents in their local communities.',
+      'The Good Directions NDIS Healthcheck was created to help territories connect with new residents in their local communities.',
     aboutUsParagraph2: '',
     aboutUsParagraph3: '',
   }

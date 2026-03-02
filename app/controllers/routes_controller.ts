@@ -39,7 +39,7 @@ export default class RoutesController {
 
       if (!church) {
         return response.badRequest({
-          error: 'You must set up your church profile before planning routes',
+          error: 'You must set up your territory before planning routes',
         })
       }
 
@@ -79,7 +79,7 @@ export default class RoutesController {
 
       if (!church) {
         return response.badRequest({
-          error: 'You must set up your church profile before planning routes',
+          error: 'You must set up your territory before planning routes',
         })
       }
 

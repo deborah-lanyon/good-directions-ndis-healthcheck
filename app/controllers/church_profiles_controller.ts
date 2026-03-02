@@ -20,7 +20,7 @@ export default class ChurchProfilesController {
 
     if (!church) {
       return ctx.response.status(404).json({
-        error: 'Church not found',
+        error: 'Territory not found',
       })
     }
 

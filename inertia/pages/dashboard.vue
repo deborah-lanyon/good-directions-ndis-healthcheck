@@ -154,8 +154,8 @@
               <span class="font-karla font-bold text-white text-sm">1</span>
             </div>
             <div>
-              <p class="font-karla font-medium text-gray-800">Complete your organisation profile</p>
-              <p class="font-karla text-sm text-gray-500">Add your organisation details, location, and contact information.</p>
+              <p class="font-karla font-medium text-gray-800">Complete your territory profile</p>
+              <p class="font-karla text-sm text-gray-500">Add your territory details, location, and contact information.</p>
             </div>
           </div>
 

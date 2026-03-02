@@ -95,7 +95,7 @@
                     class="mt-1 w-5 h-5 text-primary border-gray-300 rounded focus:ring-primary cursor-pointer"
                   />
                   <span class="text-primary font-karla">
-                    Further information about registering your organisation for Good Directions
+                    Further information about registering your territory for Good Directions
                     NDIS Healthcheck
                   </span>
                 </label>
@@ -122,7 +122,7 @@
                     class="mt-1 w-5 h-5 text-primary border-gray-300 rounded focus:ring-primary cursor-pointer"
                   />
                   <span class="text-primary font-karla">
-                    Book a visit to your organisation to introduce Good Directions NDIS Healthcheck
+                    Book a visit to introduce Good Directions NDIS Healthcheck to your territory
                   </span>
                 </label>
 

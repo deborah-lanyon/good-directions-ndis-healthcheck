@@ -1,11 +1,11 @@
 <template>
-  <AdminSidebarLayout page-title="All Organisation Profiles">
+  <AdminSidebarLayout page-title="All Territories">
       <div class="flex justify-end items-center gap-3 mb-6">
         <button
           @click="showCreateChurchDialog = true"
           class="px-4 py-2 bg-tertiary hover:bg-[#e59a00] text-white font-medium rounded-lg transition-colors"
         >
-          + Create Organisation
+          + Create Territory
         </button>
         <DemoModeToggle />
       </div>
@@ -16,7 +16,7 @@
           <CardContent class="pt-4 md:pt-6 pb-4 md:pb-6">
             <div class="text-center">
               <div class="text-2xl md:text-3xl font-bold text-gray-900">{{ churches.length }}</div>
-              <div class="text-xs md:text-sm text-gray-600 mt-1">Total Organisations</div>
+              <div class="text-xs md:text-sm text-gray-600 mt-1">Total Territories</div>
             </div>
           </CardContent>
         </Card>
@@ -78,7 +78,7 @@
           <input
             v-model="searchQuery"
             type="text"
-            placeholder="Search by organisation name, suburb, or email..."
+            placeholder="Search by territory name, suburb, or email..."
             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
         </div>
@@ -141,7 +141,7 @@
         >
           <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
             <div class="text-sm font-medium text-blue-900">
-              {{ selectedChurches.length }} organisation(s) selected
+              {{ selectedChurches.length }} territory(ies) selected
             </div>
             <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto">
               <button
@@ -176,7 +176,7 @@
           class="mb-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2"
         >
           <div class="text-xs md:text-sm text-gray-600">
-            Showing {{ filteredChurches.length }} of {{ churches.length }} church(es)
+            Showing {{ filteredChurches.length }} of {{ churches.length }} territory(ies)
           </div>
           <button
             v-if="filteredChurches.length > 0"
@@ -191,7 +191,7 @@
 
         <!-- Churches List -->
         <div v-if="filteredChurches.length === 0" class="text-center py-12">
-          <p class="text-gray-600">No organisations found matching your criteria.</p>
+          <p class="text-gray-600">No territories found matching your criteria.</p>
         </div>
 
         <div v-else class="space-y-3">
@@ -498,7 +498,7 @@
     >
       <div class="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6">
         <div class="flex justify-between items-center mb-6">
-          <h3 class="text-2xl font-bold text-gray-900">Create New Organisation Account</h3>
+          <h3 class="text-2xl font-bold text-gray-900">Create New Territory</h3>
           <button
             @click="showCreateChurchDialog = false"
             class="text-gray-400 hover:text-gray-600 text-2xl"
@@ -508,7 +508,7 @@
         </div>
 
         <p v-if="!newChurch.assignToSelf" class="text-sm text-gray-600 mb-6 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-          This will create an organisation account with a temporary user. The account can be assigned to a
+          This will create a territory with a temporary user. The territory can be assigned to a
           new user at a later time.
         </p>
 
@@ -521,13 +521,13 @@
               class="h-4 w-4 rounded border-gray-300 text-tertiary focus:ring-tertiary"
             />
             <label for="assignToSelf" class="text-sm text-gray-700">
-              Manage this organisation myself
+              Manage this territory myself
               <span class="text-gray-500">(assign to my account instead of creating a temporary user)</span>
             </label>
           </div>
 
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">Organisation Name *</label>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Territory Name *</label>
             <input
               v-model="newChurch.churchName"
               type="text"
@@ -586,7 +586,7 @@
               type="submit"
               class="flex-1 px-4 py-2 bg-tertiary hover:bg-[#e59a00] text-white font-medium rounded-lg transition-colors"
             >
-              Create Organisation
+              Create Territory
             </button>
             <button
               type="button"
@@ -607,7 +607,7 @@
     >
       <div class="bg-white rounded-lg max-w-md w-full p-6">
         <div class="flex justify-between items-center mb-6">
-          <h3 class="text-2xl font-bold text-gray-900">Assign Organisation to User</h3>
+          <h3 class="text-2xl font-bold text-gray-900">Assign Territory to User</h3>
           <button
             @click="showAssignUserDialog = false"
             class="text-gray-400 hover:text-gray-600 text-2xl"
@@ -640,7 +640,7 @@
               :disabled="!assignUserEmail"
               class="flex-1 px-4 py-2 bg-tertiary hover:bg-[#e59a00] text-white font-medium rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Assign Organisation
+              Assign Territory
             </button>
             <button
               type="button"

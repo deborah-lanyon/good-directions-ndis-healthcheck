@@ -43,7 +43,7 @@
           <CardContent class="pt-4 md:pt-6 pb-4 md:pb-6">
             <div class="text-center">
               <div class="text-2xl md:text-3xl font-bold text-gray-900">{{ analyticsData?.totalChurches ?? 0 }}</div>
-              <div class="text-xs md:text-sm text-gray-600 mt-1">Church Accounts</div>
+              <div class="text-xs md:text-sm text-gray-600 mt-1">Territories</div>
             </div>
           </CardContent>
         </Card>
@@ -143,16 +143,16 @@
         </Card>
       </div>
 
-      <!-- Church Analytics Table -->
+      <!-- Territory Analytics Table -->
       <Card>
         <CardContent class="pt-6 pb-6">
-          <h3 class="font-karla font-semibold text-lg text-gray-800 mb-4">Church Account Statistics</h3>
+          <h3 class="font-karla font-semibold text-lg text-gray-800 mb-4">Territory Statistics</h3>
           <div v-if="analyticsData && analyticsData.churchAnalytics.length > 0" class="overflow-x-auto">
             <table class="min-w-full divide-y divide-gray-200">
               <thead>
                 <tr>
                   <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Church
+                    Territory
                   </th>
                   <th class="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Total

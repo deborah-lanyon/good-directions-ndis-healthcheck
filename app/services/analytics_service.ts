@@ -259,7 +259,7 @@ export class AnalyticsService {
   async getChurchByUserId(userId: number): Promise<Church> {
     const church = await Church.query().where('user_id', userId).first()
     if (!church) {
-      throw new Error('Church not found for user')
+      throw new Error('Territory not found for user')
     }
     return church
   }
