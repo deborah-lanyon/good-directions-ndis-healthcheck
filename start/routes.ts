@@ -78,7 +78,7 @@ router
 
     // Admin pages
     router.get('admin/dashboard', [AdminController, 'dashboard'])
-    router.get('admin/churches', [AdminController, 'churches'])
+    router.get('admin/territories', [AdminController, 'churches'])
     router.get('admin/users', [AdminController, 'users'])
     router.get('admin/site-settings', [AdminController, 'siteSettings'])
     router.get('admin/analytics', [AdminController, 'analytics'])
@@ -154,10 +154,10 @@ router
     router.post('export/property-list', [ExportsController, 'exportPropertyList'])
 
     // Admin territory actions
-    router.post('admin/churches', [AdminController, 'createChurch'])
-    router.post('admin/churches/:churchId/select', [AdminController, 'selectTerritory'])
-    router.delete('admin/churches/:churchId', [AdminController, 'deleteChurch'])
-    router.get('admin/churches/sync-status', [AdminController, 'churchesSyncStatus'])
+    router.post('admin/territories', [AdminController, 'createChurch'])
+    router.post('admin/territories/:churchId/select', [AdminController, 'selectTerritory'])
+    router.delete('admin/territories/:churchId', [AdminController, 'deleteChurch'])
+    router.get('admin/territories/sync-status', [AdminController, 'churchesSyncStatus'])
 
     // Admin user management
     router.post('admin/users', [AdminController, 'createUser'])

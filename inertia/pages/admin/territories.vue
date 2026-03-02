@@ -365,7 +365,7 @@ const hasSyncingChurch = computed(() =>
 
 const pollSyncStatus = async () => {
   try {
-    const response = await fetch('/api/admin/churches/sync-status', {
+    const response = await fetch('/api/admin/territories/sync-status', {
       credentials: 'same-origin',
     })
     if (!response.ok) return
@@ -476,7 +476,7 @@ const selectTerritory = async (churchId: number) => {
       .find((row) => row.startsWith('XSRF-TOKEN='))
       ?.split('=')[1]
 
-    const response = await fetch(`/api/admin/churches/${churchId}/select`, {
+    const response = await fetch(`/api/admin/territories/${churchId}/select`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -515,7 +515,7 @@ const performDeleteChurch = async (churchId: number) => {
       .find((row) => row.startsWith('XSRF-TOKEN='))
       ?.split('=')[1]
 
-    const response = await fetch(`/api/admin/churches/${churchId}`, {
+    const response = await fetch(`/api/admin/territories/${churchId}`, {
       method: 'DELETE',
       headers: {
         'Accept': 'application/json',
@@ -559,7 +559,7 @@ const createChurch = async () => {
       .find((row) => row.startsWith('XSRF-TOKEN='))
       ?.split('=')[1]
 
-    const response = await fetch('/api/admin/churches', {
+    const response = await fetch('/api/admin/territories', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

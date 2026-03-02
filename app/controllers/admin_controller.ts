@@ -100,12 +100,12 @@ export default class AdminController {
         })
       )
 
-      return inertia.render('admin/churches', {
+      return inertia.render('admin/territories', {
         churches: churchesData,
       })
     } catch (error) {
       console.error('Error loading churches:', error)
-      return inertia.render('admin/churches', {
+      return inertia.render('admin/territories', {
         churches: [],
       })
     }

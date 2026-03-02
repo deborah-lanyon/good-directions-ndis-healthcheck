@@ -121,11 +121,6 @@ const emit = defineEmits<{
 const church = reactive({
   churchName: props.church?.churchName || '',
   url: props.church?.url || '',
-  address: props.church?.address || '',
-  addressLine1: props.church?.addressLine1 || '',
-  addressLine2: props.church?.addressLine2 || '',
-  country: props.church?.country || '',
-  suburb: props.church?.suburb || '',
   postcode: props.church?.postcode || '',
   latitude: props.church?.latitude || null,
   longitude: props.church?.longitude || null,
@@ -141,11 +136,6 @@ watch(
     if (newChurch) {
       church.churchName = newChurch.churchName || ''
       church.url = newChurch.url || ''
-      church.address = newChurch.address || ''
-      church.addressLine1 = newChurch.addressLine1 || ''
-      church.addressLine2 = newChurch.addressLine2 || ''
-      church.country = newChurch.country || ''
-      church.suburb = newChurch.suburb || ''
       church.postcode = newChurch.postcode || ''
       church.latitude = newChurch.latitude || null
       church.longitude = newChurch.longitude || null
@@ -364,10 +354,6 @@ const save = async () => {
 
   // Check if location fields are changing
   const locationFieldsChanged =
-    (church.address?.trim() || '') !== (props.church?.address || '') ||
-    (church.addressLine1?.trim() || '') !== (props.church?.addressLine1 || '') ||
-    (church.addressLine2?.trim() || '') !== (props.church?.addressLine2 || '') ||
-    (church.suburb?.trim() || '') !== (props.church?.suburb || '') ||
     latitude !== props.church?.latitude ||
     longitude !== props.church?.longitude ||
     (church.radius ?? null) !== (props.church?.radius ?? null) ||
@@ -384,13 +370,8 @@ const save = async () => {
     {
       churchName: church.churchName,
       url: church.url,
-      address: church.address?.trim() || '',
-      addressLine1: church.addressLine1?.trim() || '',
-      addressLine2: church.addressLine2?.trim() || '',
-      country: church.country?.trim() || '',
       latitude: latitude,
       longitude: longitude,
-      suburb: church.suburb?.trim() || '',
       postcode: church.postcode?.trim() || '',
       radius: church.radius,
       mapBounds: church.mapBounds,
