@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>New Healthcheck Registration</title>
+    <!--[if !mso]><!-->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Karla:ital,wght@0,200..800;1,200..800&display=swap"
+      rel="stylesheet"
+    />
+    <!--<![endif]-->
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Caprasimo&family=Karla:ital,wght@0,200..800;1,200..800&display=swap');
+      @media only screen and (min-width: 600px) {
+        .heading { font-size: 30px !important; }
+        .subheading { font-size: 20px !important; }
+      }
+    </style>
+  </head>
+  <body style="margin: 0; padding: 0; background-color: #f1ede0; font-family: 'Karla', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.5;">
+    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #f1ede0; border-collapse: collapse;">
+      <tr>
+        <td align="center" style="padding: 0;">
+          <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="max-width: 600px; border-collapse: collapse;">
+            <tr>
+              <td align="center" style="padding: 60px 32px 0 32px;">
+                <p class="heading" style="margin: 0; font-family: 'Karla', Arial, sans-serif; font-size: 20px; font-weight: 600; color: #6d3b90; text-align: center; max-width: 465px; line-height: 1.5;">
+                  New NDIS Healthcheck Registration
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td align="center" style="padding: 24px 32px 0 32px;">
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse; background-color: #ffffff; border-radius: 8px; max-width: 480px; width: 100%;">
+                  <tr>
+                    <td style="padding: 24px;">
+                      <p style="margin: 0 0 12px 0; font-family: 'Karla', Arial, sans-serif; font-size: 16px; font-weight: 600; color: #333;">
+                        {{ respondent.name }}
+                      </p>
+                      <p style="margin: 0 0 8px 0; font-family: 'Karla', Arial, sans-serif; font-size: 14px; color: #666;">
+                        Email: {{ respondent.email }}
+                      </p>
+                      @if(respondent.phone)
+                      <p style="margin: 0 0 8px 0; font-family: 'Karla', Arial, sans-serif; font-size: 14px; color: #666;">
+                        Phone: {{ respondent.phone }}
+                      </p>
+                      @end
+                      @if(respondent.trackingCode)
+                      <p style="margin: 0 0 8px 0; font-family: 'Karla', Arial, sans-serif; font-size: 14px; color: #666;">
+                        Tracking Code: {{ respondent.trackingCode }}
+                      </p>
+                      @end
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td align="center" style="padding: 32px 32px 0 32px;">
+                <a
+                  href="{{ baseUrl }}/respondents"
+                  style="display: inline-block; padding: 12px 32px; background-color: #6d3b90; color: #ffffff; text-decoration: none; border-radius: 24px; font-family: 'Karla', Arial, sans-serif; font-size: 16px; font-weight: 600;"
+                >
+                  View Respondents
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding-top: 80px;">
+                <img
+                  src="https://res.cloudinary.com/redeem/image/upload/v1762483434/dev/wave-combined_o5uxnh.png"
+                  alt=""
+                  width="600"
+                  style="display: block; border: 0; width: 100%; height: auto;"
+                />
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

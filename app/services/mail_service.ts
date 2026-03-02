@@ -1,6 +1,7 @@
 import mail from '@adonisjs/mail/services/main'
 import User from '#models/user'
 import Visitor from '#models/visitor'
+import Respondent from '#models/respondent'
 import env from '#start/env'
 
 export class MailService {
@@ -305,6 +306,49 @@ export class MailService {
       console.log(`Sent new street notification to visitor ${visitor.name} (${visitor.email})`)
     } catch (error) {
       console.error(`Error sending new street notification to ${visitor.email}:`, error)
+    }
+  }
+
+  async sendRespondentConfirmation(respondent: Respondent): Promise<void> {
+    const from = this.getFromAddress()
+
+    try {
+      await mail.send((message) => {
+        message
+          .to(respondent.email)
+          .from(from.email, from.name)
+          .subject('Thank you for your NDIS Healthcheck registration')
+          .htmlView('mail/respondent_confirmation', { respondent })
+      })
+      console.log(`[RESPONDENT EMAIL] Sent confirmation to ${respondent.email}`)
+    } catch (error) {
+      console.error('[RESPONDENT EMAIL ERROR] Error sending respondent confirmation:', error)
+    }
+  }
+
+  async sendRespondentAdminNotification(respondent: Respondent): Promise<void> {
+    const adminEmails = this.getAdminEmails()
+    if (adminEmails.length === 0) return
+
+    const from = this.getFromAddress()
+    const baseUrl = env.get('APP_URL', 'http://localhost:3333')
+
+    try {
+      await mail.send((message) => {
+        const msg = message
+          .from(from.email, from.name)
+          .subject(`New Healthcheck Registration - ${respondent.name}`)
+          .htmlView('mail/respondent_admin_notification', {
+            respondent,
+            baseUrl,
+          })
+        for (const email of adminEmails) {
+          msg.to(email)
+        }
+      })
+      console.log(`[RESPONDENT ADMIN EMAIL] Sent admin notification for ${respondent.name}`)
+    } catch (error) {
+      console.error('[RESPONDENT ADMIN EMAIL ERROR] Error sending admin notification:', error)
     }
   }
 }

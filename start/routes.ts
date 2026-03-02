@@ -24,6 +24,7 @@ const StreetsController = () => import('#controllers/streets_controller')
 const HomeController = () => import('#controllers/home_controller')
 const ContactController = () => import('#controllers/contact_controller')
 const AnalyticsController = () => import('#controllers/analytics_controller')
+const RespondentController = () => import('#controllers/respondent_controller')
 
 router.get('/', [HomeController, 'index'])
 router.get('/home', [HomeController, 'index'])
@@ -35,6 +36,10 @@ router.on('/register').renderInertia('register')
 router.on('/thank-you').renderInertia('thank-you')
 router.on('/forgot-password').renderInertia('forgot-password')
 router.get('/reset-password', [UsersController, 'resetRequest'])
+
+// Public healthcheck registration
+router.get('/r/:code', [RespondentController, 'register'])
+router.get('/healthcheck-register', [RespondentController, 'register'])
 
 router
   .group(() => {
@@ -188,6 +193,10 @@ router
 
     // Diagnostic: test Zyla API for a specific suburb
     router.get('admin/test-zyla/:suburb', [AdminController, 'testZylaApi'])
+
+    // Respondents
+    router.get('respondents', [RespondentController, 'index'])
+    router.put('respondents/:id', [RespondentController, 'update'])
   })
   .prefix('/api')
   .use(middleware.auth())
@@ -204,6 +213,7 @@ router
     router.get('admin/reject-user/:token', [UsersController, 'rejectUser'])
     router.post('admin/reject-user', [UsersController, 'confirmRejectUser'])
     router.post('contact', [ContactController, 'submit'])
+    router.post('healthcheck-register', [RespondentController, 'store'])
   })
   .prefix('/api')
 
