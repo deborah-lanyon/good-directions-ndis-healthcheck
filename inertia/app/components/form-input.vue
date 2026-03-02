@@ -12,7 +12,7 @@
         @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
         v-bind="$attrs"
         :class="[
-          'w-full rounded-md border-[5px] border-white p-3 text-2xl leading-[30px] font-normal focus:ring-0 focus:outline-none',
+          'w-full rounded-md border-2 border-white p-3 text-2xl leading-[30px] font-normal focus:ring-0 focus:outline-none',
           showPasswordToggle ? 'pr-12' : '',
           styles[theme].input,
         ]"

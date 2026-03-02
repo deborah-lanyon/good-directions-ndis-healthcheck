@@ -79,16 +79,6 @@
             Home
           </a>
           <a
-            href="/how-it-works"
-            :class="[
-              'font-karla text-xl hidden sm:inline-block',
-              isActive('/how-it-works') ? 'text-tertiary' : 'text-white hover:text-tertiary',
-            ]"
-            aria-label="How It Works"
-          >
-            How It Works
-          </a>
-          <a
             href="/about-us"
             :class="[
               'font-karla text-xl hidden sm:inline-block',

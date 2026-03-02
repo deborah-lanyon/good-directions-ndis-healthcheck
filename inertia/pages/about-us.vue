@@ -26,6 +26,12 @@
           >
             {{ content.paragraph3 }}
           </p>
+          <p
+            v-if="content.paragraph4"
+            class="text-primary font-karla text-2xl leading-relaxed text-center"
+          >
+            {{ content.paragraph4 }}
+          </p>
         </div>
       </Container>
     </main>
@@ -45,6 +51,7 @@ interface AboutUsContent {
   paragraph1: string
   paragraph2: string
   paragraph3: string
+  paragraph4: string
 }
 
 const props = withDefaults(
@@ -55,9 +62,13 @@ const props = withDefaults(
     content: () => ({
       title: 'About Us',
       paragraph1:
-        'The Good Directions NDIS Healthcheck was created to help churches connect with new residents in their local communities.',
-      paragraph2: '',
-      paragraph3: '',
+        'Good Directions is an established registered NDIS Service Provider set up to allow participants to develop and maintain 100% person centred supports.',
+      paragraph2:
+        'Our vision is to apply our model of Good Directions Participant-owned Disability Service Provider and continually find new ways for participants to own and manage more of their personal resources. We do this through a \'shared management\' approach that enables people to live their lives in a way that they choose, with the right support.',
+      paragraph3:
+        'Good Directions Participant-Owned Disability Service model has earned very high accolades. Recent Quality Assurance Audits (QAA) have awarded Good Directions with four best practice areas, and described Good Directions as \'taking choice and control to the next level\'.',
+      paragraph4:
+        'If you have high support needs \u2013 and you or your family are interested in true choice and control \u2013 Good Directions will provide you with a level of support that is unmatched in the sector and that will exceed your expectations.',
     }),
   }
 )

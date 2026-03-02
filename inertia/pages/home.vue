@@ -4,28 +4,29 @@
       <Navigation />
     </header>
     <main class="flex-1">
-      <!-- Section 1: Hero -->
-      <Container class="mt-8 pb-8">
-        <Title :title="siteSettings.heroTitle" styleClass="text-primary" />
-        <div class="max-w-3xl mx-auto mt-8 text-center">
-          <p class="text-primary font-karla text-2xl leading-relaxed">
-            Get a free NDIS Healthcheck to ensure continuity of care when you relocate.
-          </p>
+      <!-- Section 1: Hero with illustration behind -->
+      <section class="relative overflow-hidden">
+        <div class="absolute bottom-0 left-0 right-0 pointer-events-none">
+          <Hero />
+          <div class="absolute inset-0 bg-[#f1ede0]/85"></div>
         </div>
-        <div class="flex justify-center mt-10">
-          <a
-            href="#register"
-            class="px-12 py-4 rounded-full font-caprasimo text-3xl leading-[150%] bg-tertiary text-primary hover:brightness-105 transition"
-          >
-            Get Your Free Healthcheck
-          </a>
-        </div>
-      </Container>
-
-      <!-- Hero illustration -->
-      <div class="-mt-16">
-        <Hero />
-      </div>
+        <Container class="relative z-10 pt-24 pb-32">
+          <Title :title="siteSettings.heroTitle" styleClass="text-primary" />
+          <div class="max-w-3xl mx-auto mt-8 text-center">
+            <p class="text-primary font-karla text-2xl leading-relaxed">
+              Get a free NDIS Healthcheck to ensure continuity of care when you relocate.
+            </p>
+          </div>
+          <div class="flex justify-center mt-10">
+            <a
+              href="#register"
+              class="px-12 py-4 rounded-full font-caprasimo text-3xl leading-[150%] bg-tertiary text-primary hover:brightness-105 transition"
+            >
+              Get Your Free Healthcheck
+            </a>
+          </div>
+        </Container>
+      </section>
 
       <!-- Section 2: Pain Points -->
       <section class="bg-white py-20">
