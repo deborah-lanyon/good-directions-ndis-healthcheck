@@ -208,7 +208,55 @@ export default class AdminController {
       })
     } catch (error) {
       console.error('Error creating territory:', error)
-      return response.internalServerError({ error: 'Failed to create territory' })
+      const message = error instanceof Error ? error.message : 'Unknown error'
+      return response.internalServerError({ error: `Failed to create territory: ${message}` })
+    }
+  }
+
+  /**
+   * Update a territory (super admin only)
+   */
+  async updateChurch({ request, response, auth, params }: HttpContext) {
+    const user = auth.user
+    if (!user?.isSuperAdminRole()) {
+      return response.forbidden('Access denied. Super admin privileges required.')
+    }
+
+    try {
+      const { churchId } = params
+      const church = await Church.findOrFail(churchId)
+      const data = request.only(['churchName', 'states'])
+
+      if (data.churchName !== undefined) {
+        if (!data.churchName) {
+          return response.badRequest({ error: 'Territory name cannot be empty' })
+        }
+        church.churchName = data.churchName
+      }
+
+      if (data.states !== undefined) {
+        if (!Array.isArray(data.states) || data.states.length === 0) {
+          return response.badRequest({ error: 'At least one state must be selected' })
+        }
+        const { PostcodeService } = await import('#services/postcode_service')
+        const validStates = PostcodeService.AUSTRALIAN_STATES
+        const invalidStates = data.states.filter((s: string) => !validStates.includes(s))
+        if (invalidStates.length > 0) {
+          return response.badRequest({ error: `Invalid state(s): ${invalidStates.join(', ')}` })
+        }
+        church.states = data.states
+      }
+
+      await church.save()
+
+      return response.ok({
+        message: 'Territory updated successfully',
+        church: church.serialize(),
+      })
+    } catch (error) {
+      console.error('Error updating territory:', error)
+      const message = error instanceof Error ? error.message : 'Unknown error'
+      return response.internalServerError({ error: `Failed to update territory: ${message}` })
     }
   }
 

@@ -165,6 +165,7 @@ router
 
     // Admin territory actions
     router.post('admin/territories', [AdminController, 'createChurch'])
+    router.put('admin/territories/:churchId', [AdminController, 'updateChurch'])
     router.post('admin/territories/:churchId/select', [AdminController, 'selectTerritory'])
     router.delete('admin/territories/:churchId', [AdminController, 'deleteChurch'])
     router.get('admin/territories/sync-status', [AdminController, 'churchesSyncStatus'])

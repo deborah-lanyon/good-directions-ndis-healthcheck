@@ -164,6 +164,21 @@
                     <span class="hidden md:inline">Select</span>
                   </button>
                   <button
+                    @click="openEditDialog(church)"
+                    class="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs bg-blue-50 text-blue-700 hover:bg-blue-100 rounded-md transition-colors"
+                    title="Edit territory"
+                  >
+                    <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                      />
+                    </svg>
+                    <span class="hidden md:inline">Edit</span>
+                  </button>
+                  <button
                     @click="deleteChurch(church.id, church.churchName)"
                     class="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs bg-red-50 text-red-700 hover:bg-red-100 rounded-md transition-colors"
                     title="Delete territory"
@@ -264,6 +279,74 @@
         </form>
       </div>
     </div>
+
+    <!-- Edit Church Dialog -->
+    <div
+      v-if="showEditChurchDialog"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+    >
+      <div class="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6">
+        <div class="flex justify-between items-center mb-6">
+          <h3 class="text-2xl font-bold text-gray-900">Edit Territory</h3>
+          <button
+            @click="showEditChurchDialog = false"
+            class="text-gray-400 hover:text-gray-600 text-2xl"
+          >
+            ×
+          </button>
+        </div>
+
+        <form @submit.prevent="updateChurch" class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Territory Name *</label>
+            <input
+              v-model="editChurch.churchName"
+              type="text"
+              required
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              placeholder="e.g. NSW Operations"
+            />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">States * ({{ editChurch.states.length }} selected)</label>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              <label
+                v-for="state in australianStates"
+                :key="state"
+                class="flex items-center gap-2 px-3 py-2 border rounded-lg cursor-pointer transition-colors"
+                :class="editChurch.states.includes(state) ? 'border-primary bg-primary/5 text-primary' : 'border-gray-300 hover:bg-gray-50'"
+              >
+                <input
+                  type="checkbox"
+                  :value="state"
+                  v-model="editChurch.states"
+                  class="w-4 h-4 text-primary rounded border-gray-300"
+                />
+                <span class="text-sm font-medium">{{ state }}</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="flex gap-3 pt-4">
+            <button
+              type="submit"
+              :disabled="!editChurch.churchName || editChurch.states.length === 0"
+              class="flex-1 px-4 py-2 bg-tertiary hover:bg-[#e59a00] text-white font-medium rounded-lg transition-colors disabled:opacity-50"
+            >
+              Save Changes
+            </button>
+            <button
+              type="button"
+              @click="showEditChurchDialog = false"
+              class="flex-1 px-4 py-2 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
   </AdminSidebarLayout>
 </template>
 
@@ -324,6 +407,14 @@ const viewMode = ref<'list' | 'map'>('list')
 // Create territory dialog
 const showCreateChurchDialog = ref(false)
 const newChurch = ref({
+  churchName: '',
+  states: [] as string[],
+})
+
+// Edit territory dialog
+const showEditChurchDialog = ref(false)
+const editChurch = ref({
+  id: 0,
   churchName: '',
   states: [] as string[],
 })
@@ -494,6 +585,55 @@ const createChurch = async () => {
   } catch (error) {
     console.error('Error creating territory:', error)
     showNotification('error', 'Error', 'An error occurred while creating the territory')
+  }
+}
+
+// Edit territory functions
+const openEditDialog = (church: Church) => {
+  editChurch.value = {
+    id: church.id,
+    churchName: church.churchName,
+    states: church.states ? [...church.states] : [],
+  }
+  showEditChurchDialog.value = true
+}
+
+const updateChurch = async () => {
+  try {
+    const csrfToken = document.cookie
+      .split('; ')
+      .find((row) => row.startsWith('XSRF-TOKEN='))
+      ?.split('=')[1]
+
+    const response = await fetch(`/api/admin/territories/${editChurch.value.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-XSRF-TOKEN': decodeURIComponent(csrfToken || ''),
+      },
+      credentials: 'same-origin',
+      body: JSON.stringify({
+        churchName: editChurch.value.churchName,
+        states: editChurch.value.states,
+      }),
+    })
+
+    if (response.ok) {
+      showNotification('success', 'Success', 'Territory updated successfully!', () => {
+        showEditChurchDialog.value = false
+        window.location.reload()
+      })
+    } else {
+      const data = await response.json()
+      showNotification(
+        'error',
+        'Update Failed',
+        `Failed to update territory: ${data.error || 'Unknown error'}`
+      )
+    }
+  } catch (error) {
+    console.error('Error updating territory:', error)
+    showNotification('error', 'Error', 'An error occurred while updating the territory')
   }
 }
 
