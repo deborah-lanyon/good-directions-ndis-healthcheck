@@ -1,144 +1,93 @@
-import PdfService from '#services/pdf_service'
+import PDFDocument from 'pdfkit'
 import type Property from '#models/property'
 
-interface LabelData {
-  address: string
-  trackingCode: string | null
-}
+// Avery L7160: 63.5mm x 38.1mm, 3 columns x 7 rows = 21 per A4 sheet
+// All measurements in PDF points (1mm = 2.835pt)
+const MM = 2.835
+
+const LABEL_WIDTH = 63.5 * MM
+const LABEL_HEIGHT = 38.1 * MM
+const COLS = 3
+const ROWS = 7
+const LABELS_PER_PAGE = COLS * ROWS
+
+// Page margins (Avery L7160 spec)
+const MARGIN_TOP = 15.1 * MM
+const MARGIN_LEFT = 7.2 * MM
+
+// Internal label padding
+const PAD_X = 4 * MM
+const PAD_Y = 3 * MM
 
 export class LabelPdfService {
-  private pdfService: PdfService
-
-  constructor() {
-    this.pdfService = new PdfService()
-  }
-
-  /**
-   * Generate address label PDF for Avery L7160 (63.5mm x 38.1mm, 3 columns x 7 rows = 21 per sheet)
-   */
   async generateLabels(properties: Property[]): Promise<Buffer> {
-    const labels: LabelData[] = properties.map((p) => ({
-      address: p.address,
-      trackingCode: p.trackingCode,
-    }))
+    return new Promise((resolve, reject) => {
+      const doc = new PDFDocument({
+        size: 'A4',
+        margins: { top: 0, bottom: 0, left: 0, right: 0 },
+        autoFirstPage: false,
+      })
 
-    const html = this.buildLabelHtml(labels)
-    return this.pdfService.generatePdfFromHtml(html)
-  }
+      const chunks: Buffer[] = []
+      doc.on('data', (chunk: Buffer) => chunks.push(chunk))
+      doc.on('end', () => resolve(Buffer.concat(chunks)))
+      doc.on('error', reject)
 
-  private buildLabelHtml(labels: LabelData[]): string {
-    // Avery L7160: 21 labels per A4 sheet (3 columns x 7 rows)
-    // Label dimensions: 63.5mm x 38.1mm
-    // Page margins: ~5mm top/bottom, ~7mm left/right
-    const labelsPerPage = 21
-    const pages: string[] = []
+      const labels = properties.map((p) => ({
+        address: p.address,
+        trackingCode: p.trackingCode,
+      }))
 
-    for (let i = 0; i < labels.length; i += labelsPerPage) {
-      const pageLabels = labels.slice(i, i + labelsPerPage)
-      const cells = pageLabels
-        .map((label) => {
+      for (let i = 0; i < labels.length; i += LABELS_PER_PAGE) {
+        doc.addPage()
+        const pageLabels = labels.slice(i, i + LABELS_PER_PAGE)
+
+        pageLabels.forEach((label, idx) => {
+          const col = idx % COLS
+          const row = Math.floor(idx / COLS)
+
+          const x = MARGIN_LEFT + col * LABEL_WIDTH
+          const y = MARGIN_TOP + row * LABEL_HEIGHT
+
+          // Address text
           const addressLines = this.formatAddress(label.address)
-          return `
-            <div class="label">
-              <div class="label-content">
-                <div class="address">${addressLines}</div>
-                ${label.trackingCode ? `<div class="tracking-code">${label.trackingCode}</div>` : ''}
-              </div>
-            </div>`
+          doc
+            .font('Helvetica')
+            .fontSize(9)
+            .text(addressLines, x + PAD_X, y + PAD_Y, {
+              width: LABEL_WIDTH - PAD_X * 2,
+              height: LABEL_HEIGHT - PAD_Y * 2 - 10,
+              lineGap: 1.5,
+            })
+
+          // Tracking code (bottom-right, small grey text)
+          if (label.trackingCode) {
+            doc
+              .font('Courier')
+              .fontSize(6)
+              .fillColor('#999999')
+              .text(
+                label.trackingCode,
+                x + PAD_X,
+                y + LABEL_HEIGHT - PAD_Y - 7,
+                {
+                  width: LABEL_WIDTH - PAD_X * 2,
+                  align: 'right',
+                }
+              )
+              .fillColor('#000000')
+          }
         })
-        .join('\n')
+      }
 
-      // Pad with empty cells to fill the grid
-      const emptyCount = labelsPerPage - pageLabels.length
-      const emptyCells = Array(emptyCount)
-        .fill('<div class="label"></div>')
-        .join('\n')
-
-      pages.push(`
-        <div class="page">
-          <div class="grid">
-            ${cells}
-            ${emptyCells}
-          </div>
-        </div>`)
-    }
-
-    return `<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <style>
-    @page {
-      size: A4;
-      margin: 0;
-    }
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: 10px;
-      color: #000;
-    }
-    .page {
-      width: 210mm;
-      height: 297mm;
-      padding: 15.1mm 7.2mm 15.1mm 7.2mm;
-      page-break-after: always;
-    }
-    .page:last-child {
-      page-break-after: avoid;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, 63.5mm);
-      grid-template-rows: repeat(7, 38.1mm);
-      gap: 0;
-      width: 100%;
-      height: 100%;
-    }
-    .label {
-      width: 63.5mm;
-      height: 38.1mm;
-      padding: 3mm 4mm;
-      overflow: hidden;
-      position: relative;
-    }
-    .label-content {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    .address {
-      font-size: 9px;
-      line-height: 1.4;
-      word-wrap: break-word;
-    }
-    .tracking-code {
-      position: absolute;
-      bottom: 3mm;
-      right: 4mm;
-      font-size: 7px;
-      color: #999;
-      font-family: monospace;
-    }
-  </style>
-</head>
-<body>
-  ${pages.join('\n')}
-</body>
-</html>`
+      doc.end()
+    })
   }
 
   private formatAddress(address: string): string {
-    // Split long addresses into lines for better label readability
-    // Common Australian address format: "Unit/Number Street, Suburb STATE Postcode"
+    // Split on commas and state abbreviations for multi-line labels
     return address
-      .replace(/,\s*/g, '<br>')
-      .replace(/\s+(NSW|VIC|QLD|SA|WA|TAS|NT|ACT)\s+/gi, '<br>$1 ')
+      .replace(/,\s*/g, '\n')
+      .replace(/\s+(NSW|VIC|QLD|SA|WA|TAS|NT|ACT)\s+/gi, '\n$1 ')
   }
 }
