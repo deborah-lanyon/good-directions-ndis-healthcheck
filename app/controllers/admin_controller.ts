@@ -4,6 +4,8 @@ import Property from '#models/property'
 import WelcomePackTemplate from '#models/welcome_pack_template'
 import User from '#models/user'
 import type { UserRole } from '#models/user'
+import MailCampaign from '#models/mail_campaign'
+import Respondent from '#models/respondent'
 import { UserService } from '#services/user_service'
 import { SiteSettingsService } from '#services/site_settings_service'
 import { AnalyticsService } from '#services/analytics_service'
@@ -45,7 +47,66 @@ export default class AdminController {
     if (!user?.isSuperAdminRole()) {
       return response.forbidden('Access denied. Super admin privileges required.')
     }
-    return inertia.render('admin/dashboard', {})
+
+    // Fetch all non-demo territories with their campaign data
+    const churches = await Church.query()
+      .where((q) => {
+        q.where('is_demo', false).orWhereNull('is_demo')
+      })
+      .orderBy('church_name', 'asc')
+
+    const campaigns = await MailCampaign.query().preload('church')
+    const respondentCounts = await Respondent.query()
+      .select('church_id')
+      .count('* as total')
+      .groupBy('church_id')
+
+    const respondentMap = new Map<number, number>()
+    for (const row of respondentCounts) {
+      respondentMap.set(row.churchId!, Number(row.$extras.total))
+    }
+
+    // Build per-territory summaries
+    const territories = churches.map((church) => {
+      const churchCampaigns = campaigns.filter((c) => c.churchId === church.id)
+      const posted = churchCampaigns.filter((c) => c.postedAt !== null)
+      const packsSent = posted.reduce((sum, c) => sum + c.propertyCount, 0)
+      const responses = respondentMap.get(church.id) || 0
+
+      return {
+        id: church.id,
+        name: church.churchName,
+        states: church.states || [],
+        totalCampaigns: churchCampaigns.length,
+        postedCampaigns: posted.length,
+        packsSent,
+        responses,
+        conversionRate: packsSent > 0 ? ((responses / packsSent) * 100).toFixed(1) : '0.0',
+      }
+    })
+
+    // Platform-wide totals
+    const totalTerritories = churches.length
+    const totalCampaigns = campaigns.length
+    const totalPosted = campaigns.filter((c) => c.postedAt !== null).length
+    const totalPacksSent = campaigns
+      .filter((c) => c.postedAt !== null)
+      .reduce((sum, c) => sum + c.propertyCount, 0)
+    const totalResponses = Array.from(respondentMap.values()).reduce((a, b) => a + b, 0)
+    const overallConversion =
+      totalPacksSent > 0 ? ((totalResponses / totalPacksSent) * 100).toFixed(1) : '0.0'
+
+    return inertia.render('admin/dashboard', {
+      stats: {
+        totalTerritories,
+        totalCampaigns,
+        totalPosted,
+        totalPacksSent,
+        totalResponses,
+        overallConversion,
+      },
+      territories,
+    })
   }
 
   /**
