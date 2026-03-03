@@ -44,6 +44,8 @@ export default class MailCampaign extends BaseModel {
 
   @manyToMany(() => Property, {
     pivotTable: 'campaign_properties',
+    pivotForeignKey: 'campaign_id',
+    pivotRelatedForeignKey: 'property_id',
     pivotColumns: ['label_generated', 'posted'],
     pivotTimestamps: true,
   })

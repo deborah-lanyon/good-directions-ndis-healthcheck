@@ -8,40 +8,32 @@ export default class MailCampaignController {
    * Render campaigns page
    * GET /campaigns
    */
-  async index({ inertia, auth, session, response }: HttpContext) {
-    try {
-      const church = await resolveChurchForUser({ auth, session })
+  async index({ inertia, auth, session }: HttpContext) {
+    const church = await resolveChurchForUser({ auth, session })
 
-      let campaigns: any[] = []
-      let stats = {
-        totalCampaigns: 0,
-        postedCampaigns: 0,
-        totalPacksSent: 0,
-        totalResponses: 0,
-        conversionRate: '0.0',
-      }
-
-      if (church) {
-        const service = new MailCampaignService()
-        ;[campaigns, stats] = await Promise.all([
-          service.getCampaignsForChurch(church.id),
-          service.getCampaignStats(church.id),
-        ])
-      }
-
-      return inertia.render('campaigns', {
-        campaigns,
-        stats,
-        churchId: church?.id || null,
-        territoryStates: church?.states || [],
-      })
-    } catch (error) {
-      console.error('[CAMPAIGNS INDEX ERROR]', error)
-      return response.status(500).json({
-        error: error instanceof Error ? error.message : String(error),
-        stack: error instanceof Error ? error.stack : undefined,
-      })
+    let campaigns: any[] = []
+    let stats = {
+      totalCampaigns: 0,
+      postedCampaigns: 0,
+      totalPacksSent: 0,
+      totalResponses: 0,
+      conversionRate: '0.0',
     }
+
+    if (church) {
+      const service = new MailCampaignService()
+      ;[campaigns, stats] = await Promise.all([
+        service.getCampaignsForChurch(church.id),
+        service.getCampaignStats(church.id),
+      ])
+    }
+
+    return inertia.render('campaigns', {
+      campaigns,
+      stats,
+      churchId: church?.id || null,
+      territoryStates: church?.states || [],
+    })
   }
 
   /**
