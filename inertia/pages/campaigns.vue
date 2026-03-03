@@ -74,7 +74,7 @@
             <div class="flex items-center gap-2">
               <!-- Sync Status Badge -->
               <span
-                v-if="campaign.syncStatus === 'syncing' || campaign.syncStatus === 'pending'"
+                v-if="campaign.syncStatus === 'syncing'"
                 class="px-2.5 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-700 flex items-center gap-1"
               >
                 <svg class="w-3 h-3 animate-spin" fill="none" viewBox="0 0 24 24">
@@ -82,6 +82,12 @@
                   <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
                 Syncing...
+              </span>
+              <span
+                v-else-if="campaign.syncStatus === 'pending'"
+                class="px-2.5 py-1 text-xs font-medium rounded-full bg-gray-100 text-gray-600"
+              >
+                Not synced
               </span>
               <span
                 v-else-if="campaign.syncStatus === 'failed'"
@@ -396,9 +402,9 @@ const createCampaign = async () => {
     if (response.ok) {
       const data = await response.json()
       showCreateDialog.value = false
-      showNotification('success', 'Campaign Created', 'Property sync is in progress. Labels will be available once sync completes.')
+      showNotification('success', 'Campaign Created', 'Click "Sync Properties" to fetch properties for this campaign.')
 
-      // Add the new campaign to the list with syncing status
+      // Add the new campaign to the list
       campaignList.value.unshift({
         id: data.campaign.id,
         name: data.campaign.name,
@@ -410,9 +416,6 @@ const createCampaign = async () => {
         responseCount: 0,
         createdAt: new Date().toISOString(),
       })
-
-      // Start polling for this campaign
-      startSyncPolling()
     } else {
       const data = await response.json()
       showNotification('error', 'Creation Failed', data.error || 'Failed to create campaign')

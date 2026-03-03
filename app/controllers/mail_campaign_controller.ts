@@ -66,7 +66,7 @@ export default class MailCampaignController {
       const service = new MailCampaignService()
       const campaign = await service.createCampaign(church.id, name, postcodes)
       return response.created({
-        message: 'Campaign created. Property sync in progress.',
+        message: 'Campaign created successfully.',
         campaign: {
           id: campaign.id,
           name: campaign.name,
