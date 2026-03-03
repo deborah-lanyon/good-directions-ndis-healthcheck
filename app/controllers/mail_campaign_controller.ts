@@ -1,10 +1,8 @@
 import type { HttpContext } from '@adonisjs/core/http'
-import env from '#start/env'
 import { MailCampaignService } from '#services/mail_campaign_service'
 import { LabelPdfService } from '#services/label_pdf_service'
 import { resolveChurchForUser } from '#helpers/demo_church_resolver'
 import Respondent from '#models/respondent'
-import Church from '#models/church'
 
 export default class MailCampaignController {
   /**
@@ -178,14 +176,9 @@ export default class MailCampaignController {
     try {
       const campaignService = new MailCampaignService()
       const campaign = await campaignService.getCampaignWithProperties(params.id)
-      const church = await Church.find(campaign.churchId)
-      const baseUrl = env.get('APP_URL', 'http://localhost:3333')
 
       const labelService = new LabelPdfService()
-      const pdfBuffer = await labelService.generateLabels(campaign.properties, {
-        territoryName: church?.churchName,
-        baseUrl,
-      })
+      const pdfBuffer = await labelService.generateLabels(campaign.properties)
 
       response.header('Content-Type', 'application/pdf')
       response.header(

@@ -1,5 +1,4 @@
 import PDFDocument from 'pdfkit'
-import QRCode from 'qrcode'
 import type Property from '#models/property'
 
 // Custom layout: 2 columns x 5 rows = 10 per A4 sheet
@@ -26,28 +25,8 @@ const LABEL_HEIGHT = (PAGE_HEIGHT - MARGIN_TOP * 2) / ROWS // ~54mm
 const PAD_X = 6 * MM
 const PAD_Y = 5 * MM
 
-// QR code size
-const QR_SIZE = 30 * MM
-
 export class LabelPdfService {
-  async generateLabels(
-    properties: Property[],
-    options: { territoryName?: string; baseUrl?: string } = {}
-  ): Promise<Buffer> {
-    // Pre-generate all QR codes as PNG buffers
-    const qrBuffers = new Map<string, Buffer>()
-    for (const p of properties) {
-      if (p.trackingCode && options.baseUrl) {
-        const url = `${options.baseUrl}/r/${p.trackingCode}`
-        const pngBuffer = await QRCode.toBuffer(url, {
-          width: 200,
-          margin: 0,
-          errorCorrectionLevel: 'M',
-        })
-        qrBuffers.set(p.trackingCode, pngBuffer)
-      }
-    }
-
+  async generateLabels(properties: Property[]): Promise<Buffer> {
     return new Promise((resolve, reject) => {
       const doc = new PDFDocument({
         size: 'A4',
@@ -76,16 +55,12 @@ export class LabelPdfService {
           const x = MARGIN_LEFT + col * LABEL_WIDTH
           const y = MARGIN_TOP + row * LABEL_HEIGHT
 
-          // Calculate text area width (leave room for QR code if present)
-          const hasQr = label.trackingCode && qrBuffers.has(label.trackingCode)
-          const textWidth = hasQr
-            ? LABEL_WIDTH - PAD_X * 2 - QR_SIZE - 3 * MM
-            : LABEL_WIDTH - PAD_X * 2
+          const textWidth = LABEL_WIDTH - PAD_X * 2
 
           // "The Occupant" header
           doc
             .font('Helvetica-Bold')
-            .fontSize(12)
+            .fontSize(14)
             .fillColor('#000000')
             .text('The Occupant', x + PAD_X, y + PAD_Y, {
               width: textWidth,
@@ -95,14 +70,14 @@ export class LabelPdfService {
           const addressLines = this.formatAddress(label.address)
           doc
             .font('Helvetica')
-            .fontSize(12)
-            .text(addressLines, x + PAD_X, y + PAD_Y + 18, {
+            .fontSize(14)
+            .text(addressLines, x + PAD_X, y + PAD_Y + 20, {
               width: textWidth,
-              height: LABEL_HEIGHT - PAD_Y * 2 - 28,
-              lineGap: 2,
+              height: LABEL_HEIGHT - PAD_Y * 2 - 30,
+              lineGap: 2.5,
             })
 
-          // Tracking code (bottom-left, small grey text)
+          // Tracking code (bottom-right, small grey text)
           if (label.trackingCode) {
             doc
               .font('Courier')
@@ -114,18 +89,10 @@ export class LabelPdfService {
                 y + LABEL_HEIGHT - PAD_Y - 9,
                 {
                   width: textWidth,
-                  align: 'left',
+                  align: 'right',
                 }
               )
               .fillColor('#000000')
-          }
-
-          // QR code (right side of label, vertically centred)
-          if (hasQr) {
-            const qrBuf = qrBuffers.get(label.trackingCode!)!
-            const qrX = x + LABEL_WIDTH - PAD_X - QR_SIZE
-            const qrY = y + (LABEL_HEIGHT - QR_SIZE) / 2
-            doc.image(qrBuf, qrX, qrY, { width: QR_SIZE, height: QR_SIZE })
           }
         })
       }
