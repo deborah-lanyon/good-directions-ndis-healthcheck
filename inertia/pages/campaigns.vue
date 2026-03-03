@@ -118,6 +118,13 @@
               View Properties
             </a>
             <a
+              v-if="campaign.responseCount > 0"
+              :href="`/campaigns/${campaign.id}/respondents`"
+              class="px-3 py-1.5 text-xs bg-green-50 text-green-700 hover:bg-green-100 rounded-md font-medium transition-colors"
+            >
+              View Respondents ({{ campaign.responseCount }})
+            </a>
+            <a
               v-if="campaign.syncStatus === 'completed'"
               :href="`/api/campaigns/${campaign.id}/labels`"
               target="_blank"

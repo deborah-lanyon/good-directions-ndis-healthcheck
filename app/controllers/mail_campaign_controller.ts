@@ -2,6 +2,7 @@ import type { HttpContext } from '@adonisjs/core/http'
 import { MailCampaignService } from '#services/mail_campaign_service'
 import { LabelPdfService } from '#services/label_pdf_service'
 import { resolveChurchForUser } from '#helpers/demo_church_resolver'
+import Respondent from '#models/respondent'
 
 export default class MailCampaignController {
   /**
@@ -108,6 +109,47 @@ export default class MailCampaignController {
         dateListed: p.dateListed?.toISO() || null,
         createdAt: p.createdAt?.toISO() || null,
       })),
+    })
+  }
+
+  /**
+   * Show respondents for a campaign
+   * GET /campaigns/:id/respondents
+   */
+  async respondents({ params, inertia }: HttpContext) {
+    const service = new MailCampaignService()
+    const campaign = await service.getCampaignWithProperties(params.id)
+
+    const propertyIds = campaign.properties.map((p) => p.id)
+
+    let respondentList: any[] = []
+    if (propertyIds.length > 0) {
+      const results = await Respondent.query()
+        .whereIn('property_id', propertyIds)
+        .preload('property')
+        .orderBy('created_at', 'desc')
+
+      respondentList = results.map((r) => ({
+        id: r.id,
+        name: r.name,
+        email: r.email,
+        phone: r.phone,
+        trackingCode: r.trackingCode,
+        status: r.status,
+        propertyAddress: r.property?.address || null,
+        notes: r.notes,
+        createdAt: r.createdAt?.toISO() || null,
+      }))
+    }
+
+    return inertia.render('campaign-respondents', {
+      campaign: {
+        id: campaign.id,
+        name: campaign.name,
+        postcodes: campaign.postcodes || [],
+        propertyCount: campaign.propertyCount,
+      },
+      respondents: respondentList,
     })
   }
 
