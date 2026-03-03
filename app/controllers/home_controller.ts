@@ -1,8 +1,6 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import { SiteSettingsService } from '#services/site_settings_service'
-import Property from '#models/property'
-import Visitor from '#models/visitor'
-import StreetGroup from '#models/street_group'
+import { MailCampaignService } from '#services/mail_campaign_service'
 import { resolveChurchForUser } from '#helpers/demo_church_resolver'
 
 export default class HomeController {
@@ -63,64 +61,27 @@ export default class HomeController {
   async hub({ inertia, auth, session }: HttpContext) {
     const church = await resolveChurchForUser({ auth, session })
 
-    const churchId = church?.id
-
-    // Get stats for the dashboard
+    let campaigns: any[] = []
     let stats = {
-      propertiesSold: 0,
-      propertiesRented: 0,
-      visitedProperties: 0,
-      teamMembers: 0,
-      streetGroups: 0,
+      totalCampaigns: 0,
+      postedCampaigns: 0,
+      totalPacksSent: 0,
+      totalResponses: 0,
+      conversionRate: '0.0',
     }
 
-    if (churchId) {
-      // Count sold properties (welcomeable)
-      const soldPropertiesCount = await Property.query()
-        .where('church_id', churchId)
-        .where('listing_type', 'sold')
-        .count('* as total')
-
-      // Count rented properties (delisted rentals - welcomeable)
-      const rentedPropertiesCount = await Property.query()
-        .where('church_id', churchId)
-        .where('listing_type', 'rent')
-        .whereNotNull('date_delisted')
-        .count('* as total')
-
-      // Count visited properties - only welcomeable: sold OR delisted rentals
-      const visitedPropertiesCount = await Property.query()
-        .where('church_id', churchId)
-        .whereNotNull('date_of_visit')
-        .where((q) => {
-          q.where('listing_type', 'sold').orWhere((sub) => {
-            sub.where('listing_type', 'rent').whereNotNull('date_delisted')
-          })
-        })
-        .count('* as total')
-
-      // Count team members (visitors)
-      const teamMembersCount = await Visitor.query()
-        .where('church_id', churchId)
-        .count('* as total')
-
-      // Count street groups
-      const streetGroupsCount = await StreetGroup.query()
-        .where('church_id', churchId)
-        .count('* as total')
-
-      stats = {
-        propertiesSold: Number(soldPropertiesCount[0].$extras.total) || 0,
-        propertiesRented: Number(rentedPropertiesCount[0].$extras.total) || 0,
-        visitedProperties: Number(visitedPropertiesCount[0].$extras.total) || 0,
-        teamMembers: Number(teamMembersCount[0].$extras.total) || 0,
-        streetGroups: Number(streetGroupsCount[0].$extras.total) || 0,
-      }
+    if (church) {
+      const campaignService = new MailCampaignService()
+      ;[campaigns, stats] = await Promise.all([
+        campaignService.getCampaignsForChurch(church.id),
+        campaignService.getCampaignStats(church.id),
+      ])
     }
 
     return inertia.render('dashboard', {
       churchName: church?.churchName || '',
       stats,
+      campaigns: campaigns.slice(0, 5),
     })
   }
 }
