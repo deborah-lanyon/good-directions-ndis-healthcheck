@@ -62,10 +62,10 @@
         <div class="sm:w-48">
           <Select v-model="churchFilter" @update:modelValue="applyFilters">
             <SelectTrigger class="w-full">
-              <SelectValue placeholder="All Churches" />
+              <SelectValue placeholder="All Territories" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All Churches</SelectItem>
+              <SelectItem value="all">All Territories</SelectItem>
               <SelectItem v-for="church in churches" :key="church.id" :value="String(church.id)">
                 {{ church.churchName }}
               </SelectItem>
