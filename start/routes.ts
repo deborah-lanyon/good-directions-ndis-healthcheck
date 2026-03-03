@@ -84,6 +84,7 @@ router
 
     // Mail Campaigns & Respondents pages
     router.get('campaigns', [MailCampaignController, 'index'])
+    router.get('campaigns/:id/properties', [MailCampaignController, 'properties'])
     router.get('respondents', [RespondentController, 'page'])
 
     // Admin pages

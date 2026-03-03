@@ -82,6 +82,36 @@ export default class MailCampaignController {
   }
 
   /**
+   * Show properties for a campaign
+   * GET /campaigns/:id/properties
+   */
+  async properties({ params, inertia }: HttpContext) {
+    const service = new MailCampaignService()
+    const campaign = await service.getCampaignWithProperties(params.id)
+
+    return inertia.render('campaign-properties', {
+      campaign: {
+        id: campaign.id,
+        name: campaign.name,
+        postcodes: campaign.postcodes || [],
+        propertyCount: campaign.propertyCount,
+        syncStatus: campaign.syncStatus,
+        postedAt: campaign.postedAt?.toISO() || null,
+      },
+      properties: campaign.properties.map((p) => ({
+        id: p.id,
+        address: p.address,
+        postcode: p.postcode,
+        listingType: p.listingType,
+        trackingCode: p.trackingCode,
+        dateSold: p.dateSold?.toISO() || null,
+        dateListed: p.dateListed?.toISO() || null,
+        createdAt: p.createdAt?.toISO() || null,
+      })),
+    })
+  }
+
+  /**
    * Get sync status for a campaign
    * GET /api/campaigns/:id/sync-status
    */

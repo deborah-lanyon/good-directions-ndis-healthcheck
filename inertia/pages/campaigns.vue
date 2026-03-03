@@ -105,6 +105,13 @@
 
           <div class="flex items-center gap-2 mt-4 pt-4 border-t border-gray-100">
             <a
+              v-if="campaign.syncStatus === 'completed' && campaign.propertyCount > 0"
+              :href="`/campaigns/${campaign.id}/properties`"
+              class="px-3 py-1.5 text-xs bg-primary/10 text-primary hover:bg-primary/20 rounded-md font-medium transition-colors"
+            >
+              View Properties
+            </a>
+            <a
               v-if="campaign.syncStatus === 'completed'"
               :href="`/api/campaigns/${campaign.id}/labels`"
               target="_blank"
