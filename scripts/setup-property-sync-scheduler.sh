@@ -12,9 +12,9 @@ echo "Creating scheduler job to run daily at 2:00 AM Australia/Sydney..."
 gcloud scheduler jobs create run daily-property-sync-trigger \
   --schedule="0 2 * * *" \
   --time-zone="Australia/Sydney" \
-  --location=europe-west1 \
+  --location=australia-southeast1 \
   --job=daily-property-sync \
-  --region=europe-west1
+  --region=australia-southeast1
 
 if [ $? -eq 0 ]; then
     echo "✓ Cloud Scheduler created successfully"
@@ -31,10 +31,10 @@ echo ""
 echo "Daily property sync will run at 2:00 AM Australia/Sydney timezone"
 echo ""
 echo "To test the sync manually, run:"
-echo "  gcloud run jobs execute daily-property-sync --region=europe-west1 --wait"
+echo "  gcloud run jobs execute daily-property-sync --region=australia-southeast1 --wait"
 echo ""
 echo "To view scheduler jobs:"
-echo "  gcloud scheduler jobs list --location=europe-west1"
+echo "  gcloud scheduler jobs list --location=australia-southeast1"
 echo ""
 echo "To view job execution history:"
-echo "  https://console.cloud.google.com/run/jobs/europe-west1/daily-property-sync?project=cmw-portal"
+echo "  https://console.cloud.google.com/run/jobs/australia-southeast1/daily-property-sync?project=gd-ndis-healthcheck"

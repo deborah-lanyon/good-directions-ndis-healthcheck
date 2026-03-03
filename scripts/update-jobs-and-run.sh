@@ -22,14 +22,14 @@ fi
 # Step 2: Verify latest image exists
 echo ""
 echo "Step 2: Verifying 'latest' image exists..."
-gcloud container images list-tags gcr.io/cmw-portal/production --limit=3
+gcloud container images list-tags gcr.io/gd-ndis-healthcheck/production --limit=3
 echo ""
 
 # Step 3: Update migration-runner job
 echo "Step 3: Updating migration-runner job to use 'latest' image..."
 gcloud run jobs update migration-runner \
-  --image=gcr.io/cmw-portal/production:latest \
-  --region=europe-west1
+  --image=gcr.io/gd-ndis-healthcheck/production:latest \
+  --region=australia-southeast1
 
 if [ $? -eq 0 ]; then
     echo "✓ migration-runner job updated successfully"
@@ -42,8 +42,8 @@ echo ""
 # Step 4: Update seed-amenity-types job
 echo "Step 4: Updating seed-amenity-types job to use 'latest' image..."
 gcloud run jobs update seed-amenity-types \
-  --image=gcr.io/cmw-portal/production:latest \
-  --region=europe-west1
+  --image=gcr.io/gd-ndis-healthcheck/production:latest \
+  --region=australia-southeast1
 
 if [ $? -eq 0 ]; then
     echo "✓ seed-amenity-types job updated successfully"
@@ -56,7 +56,7 @@ echo ""
 # Step 5: Execute migration-runner job
 echo "Step 5: Executing migration-runner job..."
 echo "This will run all pending migrations including subcategory column addition..."
-gcloud run jobs execute migration-runner --region=europe-west1 --wait
+gcloud run jobs execute migration-runner --region=australia-southeast1 --wait
 
 if [ $? -eq 0 ]; then
     echo "✓ Migrations completed successfully"
@@ -69,7 +69,7 @@ echo ""
 # Step 6: Execute seed-amenity-types job
 echo "Step 6: Executing seed-amenity-types job..."
 echo "This will populate the database with 36 subcategories across 9 categories..."
-gcloud run jobs execute seed-amenity-types --region=europe-west1 --wait
+gcloud run jobs execute seed-amenity-types --region=australia-southeast1 --wait
 
 if [ $? -eq 0 ]; then
     echo "✓ Seeder completed successfully"

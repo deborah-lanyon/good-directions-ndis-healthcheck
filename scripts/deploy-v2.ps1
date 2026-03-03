@@ -6,9 +6,9 @@ Write-Host "=========================================" -ForegroundColor Cyan
 Write-Host ""
 
 # Configuration
-$PROJECT_ID = "cmw-portal"
+$PROJECT_ID = "gd-ndis-healthcheck"
 $REGION = "australia-southeast1"
-$SERVICE_NAME = "welcomers-portal-v2"
+$SERVICE_NAME = "production"
 
 # Step 0: Add gcloud to PATH if needed
 $gcloudPath = "$env:LOCALAPPDATA\Google\Cloud SDK\google-cloud-sdk\bin"

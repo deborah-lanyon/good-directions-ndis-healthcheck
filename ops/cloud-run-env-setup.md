@@ -45,7 +45,7 @@ These should be created as secrets in Google Cloud Secret Manager and referenced
 ### Option 1: Via Google Cloud Console (Easiest)
 
 1. **Go to Cloud Run service**:
-   - https://console.cloud.google.com/run?project=cmw-portal
+   - https://console.cloud.google.com/run?project=gd-ndis-healthcheck
 
 2. **Edit the service**:
    - Click on your service name
@@ -56,7 +56,7 @@ These should be created as secrets in Google Cloud Secret Manager and referenced
    - Add all non-sensitive variables from above
 
 4. **Add Secrets**:
-   - First create secrets in Secret Manager: https://console.cloud.google.com/security/secret-manager?project=cmw-portal
+   - First create secrets in Secret Manager: https://console.cloud.google.com/security/secret-manager?project=gd-ndis-healthcheck
    - Then reference them as "Reference a secret" in the Variables tab
 
 ### Option 2: Via gcloud CLI (If you have it installed)
@@ -64,7 +64,7 @@ These should be created as secrets in Google Cloud Secret Manager and referenced
 ```bash
 # Set the service name (replace with your actual service name)
 SERVICE_NAME="your-service-name"
-REGION="europe-west1"
+REGION="australia-southeast1"
 
 # Update environment variables
 gcloud run services update $SERVICE_NAME \
@@ -83,12 +83,12 @@ gcloud run services update $SERVICE_NAME \
 
 ### Option 1: Deploy via Cloud Build Trigger (Recommended)
 
-1. **Navigate to Cloud Build Triggers**: https://console.cloud.google.com/cloud-build/triggers?project=cmw-portal
+1. **Navigate to Cloud Build Triggers**: https://console.cloud.google.com/cloud-build/triggers?project=gd-ndis-healthcheck
 2. **Find the existing deployment trigger** (should already be configured from ops/cd.yaml)
 3. **Click "RUN" button**
 4. **Select branch**: `main` (contains all latest fixes)
 5. **Click "RUN TRIGGER"**
-6. **Monitor progress**: https://console.cloud.google.com/cloud-build/builds?project=cmw-portal
+6. **Monitor progress**: https://console.cloud.google.com/cloud-build/builds?project=gd-ndis-healthcheck
 7. **Expected steps**:
    - Build Docker image
    - Push to Artifact Registry
@@ -101,13 +101,13 @@ gcloud run services update $SERVICE_NAME \
 
 ```bash
 # Trigger the Cloud Build
-gcloud builds submit --config=ops/cd.yaml --project=cmw-portal
+gcloud builds submit --config=ops/cd.yaml --project=gd-ndis-healthcheck
 
 # Or deploy directly to Cloud Run
 gcloud run deploy <service-name> \
   --source . \
-  --region europe-west1 \
-  --project cmw-portal \
+  --region australia-southeast1 \
+  --project gd-ndis-healthcheck \
   --allow-unauthenticated
 ```
 
@@ -129,7 +129,7 @@ After deployment completes, test the following:
    - Verify emails are sent from deborah@gooddirections.com.au
    - Should not timeout or hang
 6. **Review Logs**:
-   - Check Cloud Run logs: https://console.cloud.google.com/logs/query?project=cmw-portal
+   - Check Cloud Run logs: https://console.cloud.google.com/logs/query?project=gd-ndis-healthcheck
    - Look for any errors or warnings
 7. **Test Property Sync**:
    - Trigger `GET /api/properties/sync` with `Authorization: Bearer <APP_KEY>` header
@@ -138,7 +138,7 @@ After deployment completes, test the following:
 
 Cloud Run maintains revision history for instant rollback:
 
-1. **Navigate to Revisions**: https://console.cloud.google.com/run/detail/europe-west1/<service-name>/revisions?project=cmw-portal
+1. **Navigate to Revisions**: https://console.cloud.google.com/run/detail/australia-southeast1/<service-name>/revisions?project=gd-ndis-healthcheck
 2. **Find the previous working revision**
 3. **Click "MANAGE TRAFFIC"**
 4. **Set 100% traffic to the previous revision**
@@ -150,11 +150,11 @@ The old revision is preserved and can be restored instantly without rebuild.
 
 ```bash
 # Check environment variables are set
-gcloud run services describe <service-name> --region=europe-west1 --project=cmw-portal --format="value(spec.template.spec.containers[0].env)"
+gcloud run services describe <service-name> --region=australia-southeast1 --project=gd-ndis-healthcheck --format="value(spec.template.spec.containers[0].env)"
 
 # View recent logs
-gcloud run services logs read <service-name> --region=europe-west1 --project=cmw-portal --limit=50
+gcloud run services logs read <service-name> --region=australia-southeast1 --project=gd-ndis-healthcheck --limit=50
 
 # Check current revision
-gcloud run revisions list --service=<service-name> --region=europe-west1 --project=cmw-portal
+gcloud run revisions list --service=<service-name> --region=australia-southeast1 --project=gd-ndis-healthcheck
 ```

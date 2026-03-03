@@ -7,20 +7,20 @@ echo "Updating Cloud Run jobs to use 'latest' image..."
 
 # Update both jobs
 gcloud run jobs update migration-runner \
-  --image=gcr.io/cmw-portal/production:latest \
-  --region=europe-west1
+  --image=gcr.io/gd-ndis-healthcheck/production:latest \
+  --region=australia-southeast1
 
 gcloud run jobs update seed-amenity-types \
-  --image=gcr.io/cmw-portal/production:latest \
-  --region=europe-west1
+  --image=gcr.io/gd-ndis-healthcheck/production:latest \
+  --region=australia-southeast1
 
 echo ""
 echo "Executing migration-runner job..."
-gcloud run jobs execute migration-runner --region=europe-west1 --wait
+gcloud run jobs execute migration-runner --region=australia-southeast1 --wait
 
 echo ""
 echo "Executing seed-amenity-types job..."
-gcloud run jobs execute seed-amenity-types --region=europe-west1 --wait
+gcloud run jobs execute seed-amenity-types --region=australia-southeast1 --wait
 
 echo ""
 echo "Done! Check your production site for subcategories."
