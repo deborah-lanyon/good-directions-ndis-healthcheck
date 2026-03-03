@@ -127,11 +127,11 @@
               Mark as Posted
             </button>
             <button
-              v-if="campaign.syncStatus === 'failed'"
+              v-if="campaign.syncStatus === 'pending' || campaign.syncStatus === 'failed'"
               @click="retrySync(campaign.id)"
               class="px-3 py-1.5 text-xs bg-blue-50 text-blue-700 hover:bg-blue-100 rounded-md font-medium transition-colors"
             >
-              Retry Sync
+              {{ campaign.syncStatus === 'failed' ? 'Retry Sync' : 'Sync Properties' }}
             </button>
             <button
               @click="deleteCampaign(campaign.id)"

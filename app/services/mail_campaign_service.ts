@@ -41,11 +41,6 @@ export class MailCampaignService {
       syncStatus: 'pending',
     })
 
-    // Trigger async sync (non-blocking)
-    this.triggerSync(campaign.id).catch((error) => {
-      console.error(`[CAMPAIGN] Failed to trigger sync for campaign ${campaign.id}:`, error)
-    })
-
     return campaign
   }
 
